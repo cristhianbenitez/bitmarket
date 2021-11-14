@@ -1,4 +1,3 @@
-import React from 'react';
 import { SearchIcon, StyledForm, StyledInput } from './SearchInput.styles';
 
 export const SearchInput = () => {
