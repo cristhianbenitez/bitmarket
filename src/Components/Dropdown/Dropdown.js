@@ -4,8 +4,7 @@ import {
   DropDownContainer,
   DropDownHeader,
   DropDownList,
-  ListItem,
-  ListOption
+  ListItem
 } from './Dropdown.styles';
 
 export const Dropdown = ({ title, items = [] }) => {

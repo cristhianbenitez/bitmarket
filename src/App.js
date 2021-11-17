@@ -6,7 +6,7 @@ import {
   StyledButton,
   ThemeButton
 } from './App.styles';
-import { Dropdown, SearchInput } from './Components';
+import { Dropdown, SearchInput, SubNavbar } from './Components';
 import Coins from './Coins';
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <ThemeButton />
         </Container>
       </NavContainer>
+      <SubNavbar />
       <Home />
       <Portfolio />
     </Wrapper>
