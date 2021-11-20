@@ -13,9 +13,10 @@ import {
   StyledButton,
   ThemeButton
 } from './App.styles';
-import { Dropdown, SearchInput } from './Components';
-import { SubNavbar } from './Components/SubNavbar/SubNavbar';
+import { Dropdown, SearchInput, SubNavbar } from './Components';
 import axios from 'axios';
+
+
 class App extends Component {
   state = {
     supportedCoins: []
