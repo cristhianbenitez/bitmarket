@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 export class Portfolio extends Component {
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <h1>Portfolio</h1>
+      </div>
+    );
   }
 }

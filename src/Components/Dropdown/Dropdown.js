@@ -7,14 +7,13 @@ import {
   ListItem
 } from './Dropdown.styles';
 
-export const Dropdown = ({ title, items = [] }) => {
+export const Dropdown = ({ items = [] }) => {
   const [open, setOpen] = useState(false);
-  const [selection, setSelection] = useState(title);
-
+  const [selection, setSelection] = useState('USD');
   const toggle = () => setOpen(!open);
 
   const handleOnClick = (item) => {
-    setSelection(item.value);
+    setSelection(item);
     toggle(!open);
   };
   return (
@@ -33,9 +32,9 @@ export const Dropdown = ({ title, items = [] }) => {
       </DropDownHeader>
       {open && (
         <DropDownList>
-          {items.map((item) => (
-            <ListItem key={item.id} onClick={() => handleOnClick(item)}>
-              <span>{item.value}</span>
+          {items.map((item, index) => (
+            <ListItem key={index} onClick={() => handleOnClick(item)}>
+              <span>{item}</span>
             </ListItem>
           ))}
         </DropDownList>
