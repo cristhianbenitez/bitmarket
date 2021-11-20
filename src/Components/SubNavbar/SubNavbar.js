@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import coinGecko from '../../Api/coinGecko';
 import {
   BitcoinIcon,
@@ -11,7 +11,8 @@ import {
   BitcoinPercentage,
   EthereumPercentage,
   SubnavText,
-  Wrapper
+  Wrapper,
+  LoadingText
 } from './SubNavbar.styles';
 import numeral from 'numeral';
 
@@ -50,7 +51,7 @@ export class SubNavbar extends React.Component {
     return (
       <Subnav>
         {this.state.isLoading ? (
-          <p>Loading...</p>
+          <LoadingText>Loading...</LoadingText>
         ) : (
           <Wrapper>
             <SubnavItem>
@@ -71,16 +72,20 @@ export class SubNavbar extends React.Component {
             </SubnavItem>
             <SubnavItem>
               <BitcoinIcon />
-              {ethereumMarketCapPercentage}%
+              {bitcoinMarketCapPercentage}%
               <PercentageBar>
-                <BitcoinPercentage percentage="25%" />
+                <BitcoinPercentage
+                  percentage={`${bitcoinMarketCapPercentage}%`}
+                />
               </PercentageBar>
             </SubnavItem>
             <SubnavItem>
               <EthereumIcon />
-              {bitcoinMarketCapPercentage}%
+              {ethereumMarketCapPercentage}%
               <PercentageBar>
-                <EthereumPercentage percentage="25%" />
+                <EthereumPercentage
+                  percentage={`${ethereumMarketCapPercentage}%`}
+                />
               </PercentageBar>
             </SubnavItem>
           </Wrapper>

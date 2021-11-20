@@ -6,50 +6,15 @@ import {
   Route,
   Navigate
 } from 'react-router-dom';
-import {
-  Wrapper,
-  Container,
-  Navbar,
-  StyledButton,
-  ThemeButton
-} from './App.styles';
-import { Dropdown, SearchInput, SubNavbar } from './Components';
-import axios from 'axios';
-
+import { Wrapper } from './App.styles';
+import { SubNavbar, Navbar } from './Components';
 
 class App extends Component {
-  state = {
-    supportedCoins: []
-  };
-  getSupportedCurrencies = async () => {
-    try {
-      const { data } = await axios.get(
-        'https://api.coingecko.com/api/v3/simple/supported_vs_currencies'
-      );
-      const upperCaseArr = data.map((el) => el.toUpperCase());
-      this.setState({ supportedCoins: upperCaseArr });
-    } catch (err) {
-      console.log('err');
-    }
-  };
-  componentDidMount() {
-    this.getSupportedCurrencies();
-  }
   render() {
     return (
       <Wrapper>
         <Router>
-          <Navbar>
-            <Container>
-              <StyledButton to="/">Coins</StyledButton>
-              <StyledButton to="/portfolio">Portfolio</StyledButton>
-            </Container>
-            <Container>
-              <SearchInput />
-              <Dropdown items={this.state.supportedCoins} />
-              <ThemeButton />
-            </Container>
-          </Navbar>
+          <Navbar />
           <SubNavbar />
           <Routes>
             <Route path="/portfolio" element={<Portfolio />}></Route>

@@ -8,4 +8,7 @@ body {
   background-color: #1F2128;
   color: #FFFFFF;
 }
+a {
+  text-decoration: none;
+}
 `;

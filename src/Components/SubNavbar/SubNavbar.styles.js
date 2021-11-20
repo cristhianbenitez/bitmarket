@@ -74,3 +74,9 @@ export const EthereumIcon = styled.img.attrs({
 })`
   padding: 0 0.5em;
 `;
+
+export const LoadingText = styled.p`
+  font-size: 0.7rem;
+  padding: 0;
+  margin: 0;
+`;
