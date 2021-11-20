@@ -29,7 +29,6 @@ class Navbar extends Component {
     this.getSupportedCurrencies();
   }
   render() {
-    console.log(this.props);
     return (
       <Wrapper>
         <Container>
