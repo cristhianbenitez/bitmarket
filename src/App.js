@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Home, Portfolio } from './Pages';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Coins, Portfolio } from './Pages';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom';
 import {
   Wrapper,
   Container,
@@ -47,7 +52,8 @@ class App extends Component {
           <SubNavbar />
           <Routes>
             <Route path="/portfolio" element={<Portfolio />}></Route>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/coins" element={<Coins />}></Route>
+            <Route path="/" element={<Navigate replace to="/coins" />} />
           </Routes>
         </Router>
       </Wrapper>
