@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Currency from '../../Assets/CurrencyIcon.svg';
-
+import ArrowUp from '../../Assets/ArrowUp.png';
+import ArrowDown from '../../Assets/ArrowDown.png';
 export const DropDownContainer = styled.div`
   width: 100px;
   background: #2c2f36;
@@ -48,4 +49,20 @@ export const ListItem = styled.li`
 `;
 export const CurrencyIcon = styled.img.attrs({
   src: `${Currency}`
+})``;
+
+export const SelectionContainer = styled.div`
+  display: flex;
+`;
+export const ArrowsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5em;
+`;
+export const ArrowUpIcon = styled.img.attrs({
+  src: `${ArrowUp}`
+})``;
+export const ArrowDownIcon = styled.img.attrs({
+  src: `${ArrowDown}`
 })``;
