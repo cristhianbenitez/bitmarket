@@ -10,11 +10,17 @@ import { Wrapper } from './App.styles';
 import { SubNavbar, Navbar } from './Components';
 
 class App extends Component {
+  state = {
+    currency: 'USD'
+  };
+  changeCurrency = (newCurr) => {
+    this.setState({ ...this.state, currency: newCurr });
+  };
   render() {
     return (
       <Wrapper>
         <Router>
-          <Navbar />
+          <Navbar changeCurrency={this.changeCurrency} />
           <SubNavbar />
           <Routes>
             <Route path="/portfolio" element={<Portfolio />}></Route>

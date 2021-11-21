@@ -51,7 +51,10 @@ class Navbar extends Component {
         </Container>
         <Container>
           <SearchInput />
-          <Dropdown items={this.state.supportedCoins} />
+          <Dropdown
+            items={this.state.supportedCoins}
+            changeCurrency={this.props.changeCurrency}
+          />
           <ThemeButton />
         </Container>
       </Wrapper>

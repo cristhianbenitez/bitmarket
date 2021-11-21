@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 import coinGecko from '../../Api/coinGecko';
-import {
-  Container,
-  Subtitle,
-  ChartsContainer,
-  LineChart,
-  BarChart,
-  ChartWrapper
-} from './Coins.styles';
-
+import { Container, Subtitle, ChartsContainer } from './Coins.styles';
+import { Charts } from '../../Components';
 export class Coins extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +9,7 @@ export class Coins extends Component {
   }
   state = {
     isLoading: false,
-    marketCap: [],
+    coinPrice: [],
     volume24h: []
   };
 
@@ -24,13 +17,20 @@ export class Coins extends Component {
 
   getChartData = async () => {
     this.setState({ ...this.state, isLoading: true });
-    const res = await coinGecko.get('/coins/bitcoin/market_chart', {
-      params: { vs_currency: 'usd', days: '30' }
-    });
+    const [volume24h, coinPrice] = await Promise.all([
+      coinGecko.get('/coins/bitcoin/market_chart', {
+        params: { vs_currency: 'usd', days: '30', interval: 'daily' }
+      }),
+      coinGecko.get('/coins/bitcoin/market_chart', {
+        params: { vs_currency: 'usd', days: '1', interval: 'hourly' }
+      })
+    ]);
+
     this.setState({
       ...this.state,
       isLoading: false,
-      volume24h: this.formatData(res.data.total_volumes)
+      volume24h: this.formatData(volume24h.data.total_volumes),
+      coinPrice: this.formatData(coinPrice.data.prices)
     });
   };
 
@@ -38,69 +38,26 @@ export class Coins extends Component {
     this.getChartData();
   };
   render() {
-    const data = {
-      labels: this.state.volume24h.map((coin) => {
-        console.log(coin);
-        let date = new Date(coin.x);
-        let time = date.getUTCHours();
-        return time;
-      }),
-
-      datasets: [
-        {
-          label: 'Bitcoin Price',
-          data: this.state.volume24h.map((coin) => coin.y),
-          fill: false,
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(0, 255, 95)',
-          tension: 0.5,
-          pointRadius: 0
-        }
-      ]
+    const latestData = {
+      latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
+      latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
     };
-
-    const options = {
-      elements: {
-        point: {
-          radius: 1
-        }
-      },
-      lineHeightAnnotation: {
-        always: true,
-        hover: false,
-        lineWeight: 1.5
-      },
-      plugins: {
-        legend: false
-      },
-      animation: {
-        duration: 2000
-      },
-      maintainAspectRatio: false,
-      responsive: true,
-      scales: {
-        y: {
-          display: false
-        },
-        x: {
-          beginAtZero: true
-        }
-      }
-    };
-    console.log(this.state.volume24h);
-    console.log(new Date(this.state.volume24h.t));
     return (
       <Container>
-        <h1>Coins</h1>
         <Subtitle>Your overview</Subtitle>
         <ChartsContainer>
-          <ChartWrapper>
-            <LineChart data={data} options={options} />
-          </ChartWrapper>
-          <ChartWrapper>
-            <BarChart data={data} options={options} />
-          </ChartWrapper>
+          <Charts
+            ChartData={this.state.coinPrice}
+            latestData={latestData}
+            lineChart
+          />
+          <Charts
+            ChartData={this.state.volume24h}
+            latestData={latestData}
+            barChart
+          />
         </ChartsContainer>
+        <Subtitle>Your overview</Subtitle>
       </Container>
     );
   }
