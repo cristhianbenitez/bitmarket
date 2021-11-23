@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ThemeIcon from '../../Assets/ThemeIcon.svg';
 
 export const Wrapper = styled.nav`
-  padding: 1em 3em;
+  padding: 1em 4em;
   display: flex;
   justify-content: space-between;
   background-color: #191b1f;

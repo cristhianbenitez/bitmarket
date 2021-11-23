@@ -4,3 +4,4 @@ export { SearchInput } from './SearchInput/SearchInput';
 export { SubNavbar } from './SubNavbar/SubNavbar';
 export { WrappedNavbar as Navbar } from './Navbar/Navbar';
 export { Charts } from './Charts/Charts';
+export { CoinsList } from './CoinsList/CoinsList';

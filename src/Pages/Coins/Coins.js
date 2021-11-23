@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import coinGecko from '../../Api/coinGecko';
-import { Container, Subtitle, ChartsContainer } from './Coins.styles';
-import { Charts } from '../../Components';
+import {
+  Container,
+  Subtitle,
+  ChartsContainer,
+  CoinListContainer
+} from './Coins.styles';
+import { Charts, CoinsList } from '../../Components';
 export class Coins extends Component {
   constructor(props) {
     super(props);
@@ -42,6 +47,7 @@ export class Coins extends Component {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
       latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
     };
+
     return (
       <Container>
         <Subtitle>Your overview</Subtitle>
@@ -49,15 +55,20 @@ export class Coins extends Component {
           <Charts
             ChartData={this.state.coinPrice}
             latestData={latestData}
+            currency={this.props.currency}
             lineChart
           />
           <Charts
             ChartData={this.state.volume24h}
             latestData={latestData}
+            currency={this.props.currency}
             barChart
           />
         </ChartsContainer>
         <Subtitle>Your overview</Subtitle>
+        <CoinListContainer>
+          <CoinsList />
+        </CoinListContainer>
       </Container>
     );
   }

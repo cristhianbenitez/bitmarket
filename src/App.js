@@ -16,15 +16,19 @@ class App extends Component {
   changeCurrency = (newCurr) => {
     this.setState({ ...this.state, currency: newCurr });
   };
+
   render() {
     return (
-      <Wrapper>
+      <Wrapper onScroll={this.handleScroll}>
         <Router>
           <Navbar changeCurrency={this.changeCurrency} />
           <SubNavbar />
           <Routes>
             <Route path="/portfolio" element={<Portfolio />}></Route>
-            <Route path="/coins" element={<Coins />}></Route>
+            <Route
+              path="/coins"
+              element={<Coins currency={this.state.currency} />}
+            ></Route>
             <Route path="/" element={<Navigate replace to="/coins" />} />
           </Routes>
         </Router>

@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 export const ChartsWrapper = styled.div`
   margin: 0 auto;
-  width: 40%;
-  max-width: 600px;
+  width: 100%;
   height: 250px;
   background: #191b1f;
   border-radius: 8px;

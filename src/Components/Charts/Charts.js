@@ -7,9 +7,10 @@ import {
   CoinInfoDate
 } from './Charts.styles';
 import { Bar, Line } from 'react-chartjs-2';
-import { barChartOptions } from './ChartsOptions';
-import { addZero } from '../../Utils';
-import numeral from 'numeral';
+import { chartOptions } from './ChartsOptions';
+import { addZero, formattedNumber, todayDate } from '../../Utils';
+// import getSymbolFromCurrency from 'currency-symbol-map';
+
 export class Charts extends Component {
   render() {
     const barChartData = {
@@ -26,9 +27,7 @@ export class Charts extends Component {
           backgroundColor: '#2172E5',
           borderColor: '#2172E5',
           borderRadius: '2',
-          tension: 0.5,
-          pointRadius: 0,
-          barThickness: 10,
+          barThickness: 14,
           maxBarThickness: 18
         }
       ]
@@ -48,7 +47,7 @@ export class Charts extends Component {
 
         datasets: [
           {
-            label: 'Bitcoin Price',
+            label: 'Price',
             data: this.props.ChartData.map((coin) => coin.y),
             fill: true,
             borderColor: '#00FF5F',
@@ -61,14 +60,14 @@ export class Charts extends Component {
         ]
       };
     };
-    const latestCoinPrice = numeral(
-      this.props.latestData?.latestCoinPrice?.y
-    ).format('$10,000.00');
-
-    const latestVolume24h = numeral(this.props.latestData?.latestVolume24h?.y)
-      .format('($0.000a)')
-      .toUpperCase();
-    const todayDate = new Date().toString().split(' ').splice(1, 3).join(' ');
+    const latestCoinPrice = formattedNumber(
+      this.props.latestData?.latestCoinPrice?.y,
+      '$10,000.00'
+    );
+    const latestVolume24h = formattedNumber(
+      this.props.latestData?.latestVolume24h?.y,
+      '($0.000a)'
+    );
 
     return (
       <ChartsWrapper>
@@ -82,9 +81,9 @@ export class Charts extends Component {
           <CoinInfoDate>{todayDate} </CoinInfoDate>
         </CoinInfo>
         {this.props.lineChart ? (
-          <Line data={lineChartData} options={barChartOptions} />
+          <Line data={lineChartData} options={chartOptions} />
         ) : this.props.barChart ? (
-          <Bar data={barChartData} options={barChartOptions} />
+          <Bar data={barChartData} options={chartOptions} />
         ) : null}
       </ChartsWrapper>
     );

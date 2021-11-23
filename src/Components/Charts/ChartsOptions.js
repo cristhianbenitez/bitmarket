@@ -7,22 +7,23 @@ const tooltip = {
     title: (props) => {
       const day = props[0].label;
       const lineChartLabel = props[0].dataset.label;
-      if (lineChartLabel === 'Bitcoin Price')
+      if (lineChartLabel === 'Price')
         return `${lineChartLabel} at ${props[0].label}:00`;
       else return `24h Volume on the ${getOrdinalNum(day)}`;
     },
     label: (context) => {
+      console.log(context);
       return `$${context.formattedValue}`;
     }
   }
 };
-export const barChartOptions = {
+export const chartOptions = {
   layout: {
     padding: {
-      top: 85,
-      right: 10,
-      bottom: 10,
-      left: 10
+      top: 90,
+      right: 40,
+      bottom: 0,
+      left: 40
     }
   },
 
@@ -44,9 +45,8 @@ export const barChartOptions = {
     x: {
       ticks: {
         font: {
-          size: 10
+          size: 12
         },
-        autoSkip: true,
         maxRotation: 0,
         minRotation: 0
       }
