@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Coins, Portfolio } from './Pages';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Wrapper } from './App.styles';
 import { SubNavbar, Navbar } from './Components';
 
@@ -26,10 +21,10 @@ class App extends Component {
           <Routes>
             <Route path="/portfolio" element={<Portfolio />}></Route>
             <Route
-              path="/coins"
+              path="/"
               element={<Coins currency={this.state.currency} />}
-            ></Route>
-            <Route path="/" element={<Navigate replace to="/coins" />} />
+            />
+            <Route path="/coin/:id" element={<h1>Coins Summary Page</h1>} />
           </Routes>
         </Router>
       </Wrapper>

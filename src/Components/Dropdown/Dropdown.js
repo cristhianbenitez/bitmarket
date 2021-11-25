@@ -34,6 +34,7 @@ export class Dropdown extends React.Component {
     localStorage.setItem('selection', item);
     this.toggle();
   };
+
   render() {
     return (
       <DropDownContainer>
@@ -47,7 +48,7 @@ export class Dropdown extends React.Component {
             this.toggle();
           }}
         >
-          <CurrencyIcon />{' '}
+          <CurrencyIcon />
           <SelectionContainer>
             {this.state.selection}
             <ArrowsContainer>

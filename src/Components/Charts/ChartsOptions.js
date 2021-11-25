@@ -12,7 +12,6 @@ const tooltip = {
       else return `24h Volume on the ${getOrdinalNum(day)}`;
     },
     label: (context) => {
-      console.log(context);
       return `$${context.formattedValue}`;
     }
   }

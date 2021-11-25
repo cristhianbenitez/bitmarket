@@ -9,7 +9,7 @@ import {
 import { Bar, Line } from 'react-chartjs-2';
 import { chartOptions } from './ChartsOptions';
 import { addZero, formattedNumber, todayDate } from '../../Utils';
-// import getSymbolFromCurrency from 'currency-symbol-map';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 export class Charts extends Component {
   render() {
@@ -60,13 +60,14 @@ export class Charts extends Component {
         ]
       };
     };
+    const currencySymbol = getSymbolFromCurrency(this.props.currency);
     const latestCoinPrice = formattedNumber(
       this.props.latestData?.latestCoinPrice?.y,
-      '$10,000.00'
+      `10,000.00`
     );
     const latestVolume24h = formattedNumber(
       this.props.latestData?.latestVolume24h?.y,
-      '($0.000a)'
+      '(0.000a)'
     );
 
     return (
@@ -76,6 +77,7 @@ export class Charts extends Component {
             {this.props.lineChart ? localStorage.selection : 'Volume 24h'}
           </CoinInfoTitle>
           <CoinInfoValue>
+            {currencySymbol}
             {this.props.lineChart ? latestCoinPrice : latestVolume24h}
           </CoinInfoValue>
           <CoinInfoDate>{todayDate} </CoinInfoDate>

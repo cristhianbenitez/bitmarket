@@ -12,14 +12,14 @@ import {
   GreenArrowUp,
   NameContainer,
   RedArrowDown,
-  CoinIcon
+  CoinIcon,
+  StyledLink
 } from './CoinsListItem.styles';
 import {
   calculatePercentage,
   convertToPositive,
   formattedNumber
 } from '../../Utils';
-
 export class CoinsListItem extends Component {
   render() {
     return this.props.coinItemData.map((coinInfo, index) => {
@@ -69,11 +69,13 @@ export class CoinsListItem extends Component {
         <TableRow key={index}>
           <TableData>{index + 1}</TableData>
           <TableData>
-            <NameContainer>
-              <CoinIcon src={`${image}`} alt={`${name}-icon`} />
-              {name}
-              {`(${symbol.toUpperCase()})`}
-            </NameContainer>
+            <StyledLink to={`coin/${name.split(' ').join('').toLowerCase()}`}>
+              <NameContainer>
+                <CoinIcon src={`${image}`} alt={`${name}-icon`} />
+                {name}
+                {`(${symbol.toUpperCase()})`}
+              </NameContainer>
+            </StyledLink>
           </TableData>
           <TableData>${current_price}</TableData>
           <PriceChangePercentage price={price_change_percentage_1h_in_currency}>

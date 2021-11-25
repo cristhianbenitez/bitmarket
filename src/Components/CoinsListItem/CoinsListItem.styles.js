@@ -1,15 +1,14 @@
 import styled from 'styled-components';
 import RedArrow from '../../Assets/RedArrow.png';
 import ArrowUp from '../../Assets/ArrowUp.png';
+import { Link } from 'react-router-dom';
+
 export const TableData = styled.td`
   padding: 1.25em 1em;
   text-align: start;
 `;
 export const TableRow = styled.tr`
   border-bottom: 1px solid #707070;
-  display: table-row;
-  outline: 0;
-  vertical-align: middle;
   &:last-child {
     border-bottom: none;
   }
@@ -78,4 +77,17 @@ export const CoinIcon = styled.img`
 export const NameContainer = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
+`;
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: #ffff;
+  }
 `;
