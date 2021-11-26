@@ -13,16 +13,24 @@ import getSymbolFromCurrency from 'currency-symbol-map';
 
 export class Charts extends Component {
   render() {
-    const barChartData = {
-      labels: this.props.ChartData.map((coin) => {
+    const chartDataTimes = (time) => {
+      return this.props.chartData.map((coin) => {
         const date = new Date(coin.x);
-        const day = date.getDate();
-        return day;
-      }),
+
+        return time === 'day'
+          ? date.getDate()
+          : time === 'hour'
+          ? addZero(date.getHours())
+          : null;
+      });
+    };
+    const arrOfData = this.props.chartData.map((coin) => coin.y);
+    const barChartData = {
+      labels: chartDataTimes('day'),
 
       datasets: [
         {
-          data: this.props.ChartData.map((coin) => coin.y),
+          data: arrOfData,
           fill: false,
           backgroundColor: '#2172E5',
           borderColor: '#2172E5',
@@ -32,6 +40,7 @@ export class Charts extends Component {
         }
       ]
     };
+
     const lineChartData = (canvas) => {
       const ctx = canvas.getContext('2d');
       const gradient = ctx.createLinearGradient(0, 0, 0, 250);
@@ -39,16 +48,12 @@ export class Charts extends Component {
       gradient.addColorStop(1, 'rgba(0,255,95,0)');
 
       return {
-        labels: this.props.ChartData.map((coin) => {
-          let date = new Date(coin.x);
-          let time = date.getHours();
-          return addZero(time);
-        }),
+        labels: chartDataTimes('hour'),
 
         datasets: [
           {
             label: 'Price',
-            data: this.props.ChartData.map((coin) => coin.y),
+            data: arrOfData,
             fill: true,
             borderColor: '#00FF5F',
             backgroundColor: gradient,

@@ -18,18 +18,17 @@ export class Dropdown extends React.Component {
   };
   toggle = () =>
     this.setState((prevState) => ({
-      ...this.prevState,
       isOpen: !prevState.isOpen
     }));
 
   componentDidMount = () => {
-    const CurrentSelection = localStorage.getItem('selection');
-    this.setState({ ...this.state, selection: CurrentSelection });
+    const CurrentSelection = localStorage.getItem('selection') || 'USD';
+    this.setState({ selection: CurrentSelection });
     this.props.changeCurrency(CurrentSelection);
   };
 
   handleOnClick = (item) => {
-    this.setState({ ...this.state, selection: item });
+    this.setState({ selection: item });
     this.props.changeCurrency(item);
     localStorage.setItem('selection', item);
     this.toggle();

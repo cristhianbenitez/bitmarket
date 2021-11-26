@@ -8,17 +8,13 @@ import {
 } from './Coins.styles';
 import { Charts, CoinsList } from '../../Components';
 export class Coins extends Component {
-  constructor(props) {
-    super(props);
-    this.chartRef = React.createRef();
-  }
   state = {
     isLoading: false,
     coinPrice: [],
     volume24h: []
   };
 
-  formatData = (data) => data.map((el) => ({ x: el[0], y: el[1].toFixed(2) }));
+  formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
 
   getChartData = async () => {
     this.setState({ ...this.state, isLoading: true });
@@ -43,6 +39,7 @@ export class Coins extends Component {
     this.getChartData();
   };
   render() {
+    console.log(this.state);
     const latestData = {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
       latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
@@ -53,13 +50,13 @@ export class Coins extends Component {
         <Subtitle>Your overview</Subtitle>
         <ChartsContainer>
           <Charts
-            ChartData={this.state.coinPrice}
+            chartData={this.state.coinPrice}
             latestData={latestData}
             currency={this.props.currency}
             lineChart
           />
           <Charts
-            ChartData={this.state.volume24h}
+            chartData={this.state.volume24h}
             latestData={latestData}
             currency={this.props.currency}
             barChart
