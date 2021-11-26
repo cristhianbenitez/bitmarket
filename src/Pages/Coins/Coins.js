@@ -1,44 +1,72 @@
 import React, { Component } from 'react';
-
-const MarketChartAPI =
-  'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7';
-
-const data = {
-  labels: ['1', '2', '3', '4', '5', '6'],
-  datasets: [
-    {
-      label: 'Crypto Market Chart',
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(0, 255, 95)',
-      yAxisID: 'y-axis-1',
-      tension: 0.5,
-      pointRadius: 0
-    }
-  ]
-};
-
-const options = {
-  plugins: {
-    legend: false
-  },
-  scales: {
-    y: {
-      display: false,
-      beginAtZero: true
-    },
-    x: {
-      beginAtZero: true
-    }
-  }
-};
+import coinGecko from '../../Api/coinGecko';
+import {
+  Container,
+  Subtitle,
+  ChartsContainer,
+  CoinListContainer
+} from './Coins.styles';
+import { Charts, CoinsList } from '../../Components';
 export class Coins extends Component {
+  state = {
+    isLoading: false,
+    coinPrice: [],
+    volume24h: []
+  };
+
+  formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
+
+  getChartData = async () => {
+    this.setState({ ...this.state, isLoading: true });
+    const [volume24h, coinPrice] = await Promise.all([
+      coinGecko.get('/coins/bitcoin/market_chart', {
+        params: { vs_currency: 'usd', days: '30', interval: 'daily' }
+      }),
+      coinGecko.get('/coins/bitcoin/market_chart', {
+        params: { vs_currency: 'usd', days: '1', interval: 'hourly' }
+      })
+    ]);
+
+    this.setState({
+      ...this.state,
+      isLoading: false,
+      volume24h: this.formatData(volume24h.data.total_volumes),
+      coinPrice: this.formatData(coinPrice.data.prices)
+    });
+  };
+
+  componentDidMount = () => {
+    this.getChartData();
+  };
   render() {
+    console.log(this.state);
+    const latestData = {
+      latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
+      latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
+    };
+
     return (
-      <div>
-        <h1>Coins</h1>
-      </div>
+      <Container>
+        <Subtitle>Your overview</Subtitle>
+        <ChartsContainer>
+          <Charts
+            chartData={this.state.coinPrice}
+            latestData={latestData}
+            currency={this.props.currency}
+            lineChart
+          />
+          <Charts
+            chartData={this.state.volume24h}
+            latestData={latestData}
+            currency={this.props.currency}
+            barChart
+          />
+        </ChartsContainer>
+        <Subtitle>Your overview</Subtitle>
+        <CoinListContainer>
+          <CoinsList />
+        </CoinListContainer>
+      </Container>
     );
   }
 }

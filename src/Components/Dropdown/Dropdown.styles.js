@@ -21,8 +21,9 @@ export const DropDownList = styled.ul`
   list-style: none;
   position: absolute;
   padding: 0;
+  margin-top: 0.5em;
   background: #191b1f;
-  right: 92.5px;
+  right: 147.5px;
   width: 100px;
   border-radius: 6px;
   height: 300px;

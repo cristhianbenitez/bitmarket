@@ -14,7 +14,7 @@ import {
   Wrapper,
   LoadingText
 } from './SubNavbar.styles';
-import numeral from 'numeral';
+import { formattedNumber } from '../../Utils';
 
 export class SubNavbar extends React.Component {
   state = {
@@ -36,12 +36,14 @@ export class SubNavbar extends React.Component {
 
   render() {
     /* ( ?. ) -->  Optional Chaining , by doing question mark and a dot. It checks if it exists or not */
-    const totalMarketCap = numeral(this.state.globalData?.total_market_cap?.usd)
-      .format('($ 0.00a)')
-      .toUpperCase();
-    const totalVolume = numeral(this.state.globalData?.total_volume?.usd)
-      .format('($ 0.00a)')
-      .toUpperCase();
+    const totalMarketCap = formattedNumber(
+      this.state.globalData?.total_market_cap?.usd,
+      '($ 0.00a)'
+    );
+    const totalVolume = formattedNumber(
+      this.state.globalData?.total_volume?.usd,
+      '($ 0.00a)'
+    );
     const ethereumMarketCapPercentage = Math.floor(
       this.state.globalData?.market_cap_percentage?.eth
     );

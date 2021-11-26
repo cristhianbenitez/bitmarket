@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import ThemeIcon from '../../Assets/ThemeIcon.svg';
 
 export const Wrapper = styled.nav`
-  padding: 0.5em 1.5em;
+  padding: 1em 4em;
   display: flex;
   justify-content: space-between;
   background-color: #191b1f;
@@ -11,12 +11,13 @@ export const Wrapper = styled.nav`
 
 export const Container = styled.div`
   display: flex;
+  justify-content: center;
 `;
 
 export const StyledButton = styled.div`
   font-size: 1.35rem;
   line-height: 30px;
-  padding: 0.5em 2em;
+  padding: 0.4em 2em;
   margin-right: 0.5em;
   border-radius: 6px;
   text-decoration: none;

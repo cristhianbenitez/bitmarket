@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   CurrencyIcon,
   DropDownContainer,
@@ -11,50 +11,63 @@ import {
   ArrowsContainer
 } from './Dropdown.styles';
 
-export const Dropdown = ({ items = [] }) => {
-  const [open, setOpen] = useState(false);
-  const [selection, setSelection] = useState('USD');
-  const toggle = () => setOpen(!open);
-
-  useEffect(() => {
-    const CurrentSelection = localStorage.getItem('selection');
-    setSelection(CurrentSelection);
-  }, []);
-
-  const handleOnClick = (item) => {
-    setSelection(item);
-    localStorage.setItem('selection', item);
-    toggle(!open);
+export class Dropdown extends React.Component {
+  state = {
+    isOpen: false,
+    selection: 'USD'
   };
-  return (
-    <DropDownContainer>
-      <DropDownHeader
-        tabIndex={0}
-        role="button"
-        onKeyPress={() => {
-          toggle(!open);
-        }}
-        onClick={() => {
-          toggle(!open);
-        }}
-      >
-        <CurrencyIcon />{' '}
-        <SelectionContainer>
-          {selection}
-          <ArrowsContainer>
-            {open ? <ArrowUpIcon /> : <ArrowDownIcon />}
-          </ArrowsContainer>
-        </SelectionContainer>
-      </DropDownHeader>
-      {open && (
-        <DropDownList>
-          {items.map((item, index) => (
-            <ListItem key={index} onClick={() => handleOnClick(item)}>
-              <span>{item}</span>
-            </ListItem>
-          ))}
-        </DropDownList>
-      )}
-    </DropDownContainer>
-  );
+  toggle = () =>
+    this.setState((prevState) => ({
+      isOpen: !prevState.isOpen
+    }));
+
+  componentDidMount = () => {
+    const CurrentSelection = localStorage.getItem('selection') || 'USD';
+    this.setState({ selection: CurrentSelection });
+    this.props.changeCurrency(CurrentSelection);
+  };
+
+  handleOnClick = (item) => {
+    this.setState({ selection: item });
+    this.props.changeCurrency(item);
+    localStorage.setItem('selection', item);
+    this.toggle();
+  };
+
+  render() {
+    return (
+      <DropDownContainer>
+        <DropDownHeader
+          tabIndex={0}
+          role="button"
+          onKeyPress={() => {
+            this.toggle();
+          }}
+          onClick={() => {
+            this.toggle();
+          }}
+        >
+          <CurrencyIcon />
+          <SelectionContainer>
+            {this.state.selection}
+            <ArrowsContainer>
+              {this.state.isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
+            </ArrowsContainer>
+          </SelectionContainer>
+        </DropDownHeader>
+        {this.state.isOpen && (
+          <DropDownList>
+            {this.props.items.map((item, index) => (
+              <ListItem key={index} onClick={() => this.handleOnClick(item)}>
+                <span>{item}</span>
+              </ListItem>
+            ))}
+          </DropDownList>
+        )}
+      </DropDownContainer>
+    );
+  }
+}
+Dropdown.defaultProps = {
+  items: []
 };
