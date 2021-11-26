@@ -9,7 +9,7 @@ import {
 import { Dropdown } from '../Dropdown/Dropdown';
 import { SearchInput } from '../SearchInput/SearchInput';
 import coinGecko from '../../Api/coinGecko.js';
-import { withRouter } from '../../Helpers/WithRouter.js';
+import { withRouter } from '../../Helpers';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {

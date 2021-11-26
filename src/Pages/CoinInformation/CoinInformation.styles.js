@@ -12,3 +12,8 @@ export const Subtitle = styled.h3`
   text-align: start;
   margin-top: 3em;
 `;
+
+export const TopContentContainer = styled.div``;
+export const CoinInfo = styled.div``;
+export const CoinImageContainer = styled.div``;
+export const CoinWebsiteLink = styled.div``;
