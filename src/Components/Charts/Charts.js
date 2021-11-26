@@ -1,20 +1,16 @@
 import React, { Component } from 'react';
-import {
-  ChartsWrapper,
-  CoinInfo,
-  CoinInfoTitle,
-  CoinInfoValue,
-  CoinInfoDate
-} from './Charts.styles';
+import { ChartsWrapper } from './Charts.styles';
 import { Bar, Line } from 'react-chartjs-2';
-import { chartOptions } from './ChartsOptions';
-import { addZero, formattedNumber, todayDate } from '../../Utils';
-import getSymbolFromCurrency from 'currency-symbol-map';
+import { chartOptions, smallChartOption } from './ChartsOptions';
+import { addZero } from '../../Utils';
+
+import { ChartsLegend } from '../ChartsLegend/ChartsLegend';
 
 export class Charts extends Component {
   render() {
-    const chartDataTimes = (time) => {
-      return this.props.chartData.map((coin) => {
+    const chartDataTimes = (time) =>
+      Array.isArray(this.props.chartData) &&
+      this.props.chartData.map((coin) => {
         const date = new Date(coin.x);
 
         return time === 'day'
@@ -23,8 +19,10 @@ export class Charts extends Component {
           ? addZero(date.getHours())
           : null;
       });
-    };
-    const arrOfData = this.props.chartData.map((coin) => coin.y);
+
+    const arrOfData =
+      this.props.chartData && this.props.chartData.map((coin) => coin.y);
+
     const barChartData = {
       labels: chartDataTimes('day'),
 
@@ -65,38 +63,46 @@ export class Charts extends Component {
         ]
       };
     };
-    const currencySymbol = getSymbolFromCurrency(this.props.currency);
-    const latestCoinPrice = formattedNumber(
-      this.props.latestData?.latestCoinPrice?.y,
-      `10,000.00`
-    );
-    const latestVolume24h = formattedNumber(
-      this.props.latestData?.latestVolume24h?.y,
-      '(0.000a)'
-    );
+    const smallLineChartData = {
+      labels: new Array(this.props.smallChartData?.length).fill(''),
+      datasets: [
+        {
+          label: '',
+          data: this.props.smallChartData,
+          fill: false,
+          borderColor: this.props.weeklyChanges > 0 ? '#00FF5F' : '#FE1040',
+          tension: 0.5,
+          pointBackgroundColor: 'transparent',
+          pointBorderColor: 'transparent'
+        }
+      ]
+    };
 
+    const renderChart = () => {
+      if (this.props.lineChart)
+        return <Line data={lineChartData} options={chartOptions} />;
+      if (this.props.barChart)
+        return <Bar data={barChartData} options={chartOptions} />;
+      if (this.props.smallLineChart)
+        return <Line data={smallLineChartData} options={smallChartOption} />;
+      return 'Missing Information';
+    };
     return (
       <ChartsWrapper>
-        <CoinInfo>
-          <CoinInfoTitle>
-            {this.props.lineChart ? localStorage.selection : 'Volume 24h'}
-          </CoinInfoTitle>
-          <CoinInfoValue>
-            {currencySymbol}
-            {this.props.lineChart ? latestCoinPrice : latestVolume24h}
-          </CoinInfoValue>
-          <CoinInfoDate>{todayDate} </CoinInfoDate>
-        </CoinInfo>
-        {this.props.lineChart ? (
-          <Line data={lineChartData} options={chartOptions} />
-        ) : this.props.barChart ? (
-          <Bar data={barChartData} options={chartOptions} />
+        {!this.props.smallLineChart ? (
+          <ChartsLegend
+            latestData={this.props.latestData}
+            currency={this.props.currency}
+            lineChart={this.props.lineChart}
+          />
         ) : null}
+        {renderChart()}
       </ChartsWrapper>
     );
   }
 }
 Charts.defaultProps = {
-  barChart: true,
-  lineChart: false
+  barChart: false,
+  lineChart: false,
+  smallLineChart: false
 };

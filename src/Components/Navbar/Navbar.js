@@ -34,7 +34,7 @@ class Navbar extends Component {
         <Container>
           <Link to="/">
             <StyledButton
-              currentPage={this.props.location.pathname.slice(1) === 'coins'}
+              currentPage={this.props.location.pathname.slice(1) === ''}
             >
               Coins
             </StyledButton>

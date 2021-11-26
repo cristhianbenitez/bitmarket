@@ -3,8 +3,9 @@ import coinGecko from '../../Api/coinGecko';
 import {
   Container,
   Subtitle,
-  ChartsContainer,
-  CoinListContainer
+  ChartContainer,
+  CoinListContainer,
+  ChartWrapper
 } from './Coins.styles';
 import { Charts, CoinsList } from '../../Components';
 export class Coins extends Component {
@@ -39,29 +40,31 @@ export class Coins extends Component {
     this.getChartData();
   };
   render() {
-    console.log(this.state);
     const latestData = {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
       latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
     };
-
     return (
       <Container>
         <Subtitle>Your overview</Subtitle>
-        <ChartsContainer>
-          <Charts
-            chartData={this.state.coinPrice}
-            latestData={latestData}
-            currency={this.props.currency}
-            lineChart
-          />
-          <Charts
-            chartData={this.state.volume24h}
-            latestData={latestData}
-            currency={this.props.currency}
-            barChart
-          />
-        </ChartsContainer>
+        <ChartWrapper>
+          <ChartContainer>
+            <Charts
+              chartData={this.state.coinPrice}
+              latestData={latestData}
+              currency={this.props.currency}
+              lineChart
+            />
+          </ChartContainer>
+          <ChartContainer>
+            <Charts
+              chartData={this.state.volume24h}
+              latestData={latestData}
+              currency={this.props.currency}
+              barChart
+            />
+          </ChartContainer>
+        </ChartWrapper>
         <Subtitle>Your overview</Subtitle>
         <CoinListContainer>
           <CoinsList />

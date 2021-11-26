@@ -19,7 +19,7 @@ const tooltip = {
 export const chartOptions = {
   layout: {
     padding: {
-      top: 90,
+      top: 100,
       right: 40,
       bottom: 0,
       left: 40
@@ -49,6 +49,26 @@ export const chartOptions = {
         maxRotation: 0,
         minRotation: 0
       }
+    }
+  }
+};
+export const smallChartOption = {
+  plugins: {
+    legend: {
+      display: false
+    }
+  },
+  animation: {
+    duration: 2000
+  },
+  maintainAspectRatio: false,
+  responsive: true,
+  scales: {
+    y: {
+      display: false
+    },
+    x: {
+      display: false
     }
   }
 };

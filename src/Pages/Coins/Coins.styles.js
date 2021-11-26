@@ -11,12 +11,20 @@ export const Subtitle = styled.h3`
   text-align: start;
   margin-top: 2em;
 `;
-export const ChartsContainer = styled.div`
+export const ChartContainer = styled.div`
   margin-top: 2em;
+  width: 45%;
+  background: #191b1f;
+  border-radius: 8px;
+  padding: 1em;
+  height: 250px;
+`;
+export const ChartWrapper = styled.div`
+  width: 100%;
   display: flex;
-  max-width: 100%;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
 `;
 export const CoinListContainer = styled.div`
   margin-top: 1.25em;

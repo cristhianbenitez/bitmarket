@@ -91,3 +91,9 @@ export const StyledLink = styled(Link)`
     color: #ffff;
   }
 `;
+export const SmallChartContainer = styled.div`
+  width: 125px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+`;
