@@ -27,7 +27,7 @@ export const todayDate = new Date()
   .splice(1, 3)
   .join(' ');
 
-export const convertToPositive = (num) => {
+export const displayPositiveNumber = (num) => {
   const posNum = num < 0 ? num * -1 : num;
   return posNum.toFixed(1);
 };

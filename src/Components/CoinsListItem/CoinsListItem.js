@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
-import {
-  TableData,
-  PercentageBar,
-  PercentageBarFill,
-  PercentageBarContainer,
-  ValuesContainer,
-  Value,
-  TableRow,
-  BulletCircle,
-  PriceChangePercentage,
-  GreenArrowUp,
-  NameContainer,
-  RedArrowDown,
-  CoinIcon,
-  StyledLink,
-  SmallChartContainer
-} from './CoinsListItem.styles';
+import { Charts } from '..';
 import {
   calculatePercentage,
-  convertToPositive,
+  displayPositiveNumber,
   formattedNumber
 } from '../../Utils';
-import { Charts } from '..';
+import {
+  BulletCircle,
+  CoinIcon,
+  GreenArrowUp,
+  NameContainer,
+  PercentageBar,
+  PercentageBarContainer,
+  PercentageBarFill,
+  PriceChangePercentage,
+  RedArrowDown,
+  SmallChartContainer,
+  StyledLink,
+  TableData,
+  TableRow,
+  Value,
+  ValuesContainer
+} from './CoinsListItem.styles';
 export class CoinsListItem extends Component {
   render() {
     return this.props.coinItemData.map((coinInfo, index) => {
@@ -41,7 +41,8 @@ export class CoinsListItem extends Component {
       } = coinInfo;
       const renderRedOrGreenArrow = (price) =>
         price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
-
+      console.log('====================================');
+      console.log('====================================');
       const percBarColors = {
         left: [
           '#FFB528',
@@ -83,15 +84,15 @@ export class CoinsListItem extends Component {
           <TableData>${current_price}</TableData>
           <PriceChangePercentage price={hourlyChanges}>
             {renderRedOrGreenArrow(hourlyChanges)}
-            {convertToPositive(hourlyChanges)}%
+            {displayPositiveNumber(hourlyChanges)}%
           </PriceChangePercentage>
           <PriceChangePercentage price={dailyChanges}>
             {renderRedOrGreenArrow(dailyChanges)}
-            {convertToPositive(dailyChanges)}%
+            {displayPositiveNumber(dailyChanges)}%
           </PriceChangePercentage>
           <PriceChangePercentage price={weeklyChanges}>
             {renderRedOrGreenArrow(weeklyChanges)}
-            {convertToPositive(weeklyChanges)}%
+            {displayPositiveNumber(weeklyChanges)}%
           </PriceChangePercentage>
           <TableData>
             <PercentageBarContainer>
