@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-
-import {
-  Container,
-  Wrapper,
-  StyledButton,
-  ThemeButton
-} from './Navbar.styles.js';
-import { Dropdown } from '../Dropdown/Dropdown';
-import { SearchInput } from '../SearchInput/SearchInput';
+import { Link } from 'react-router-dom';
 import coinGecko from '../../Api/coinGecko.js';
 import { withRouter } from '../../Helpers';
-import { Link } from 'react-router-dom';
+import { Dropdown } from '../Dropdown/Dropdown';
+import { SearchInput } from '../SearchInput/SearchInput';
+import {
+  Container,
+  StyledButton,
+  ThemeButton,
+  Wrapper
+} from './Navbar.styles.js';
 
 class Navbar extends Component {
   state = {
@@ -22,7 +21,7 @@ class Navbar extends Component {
       const upperCaseArr = data.map((el) => el.toUpperCase());
       this.setState({ supportedCoins: upperCaseArr });
     } catch (err) {
-      console.log('err');
+      ('err');
     }
   };
   componentDidMount() {

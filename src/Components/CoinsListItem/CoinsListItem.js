@@ -41,8 +41,8 @@ export class CoinsListItem extends Component {
       } = coinInfo;
       const renderRedOrGreenArrow = (price) =>
         price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
-      console.log('====================================');
-      console.log('====================================');
+      ('====================================');
+      ('====================================');
       const percBarColors = {
         left: [
           '#FFB528',

@@ -1,20 +1,20 @@
 import React from 'react';
 import coinGecko from '../../Api/coinGecko';
+import { formattedNumber } from '../../Utils';
 import {
   BitcoinIcon,
+  BitcoinPercentage,
   BulletCircle,
   EthereumIcon,
-  TotalVolumePercentage,
+  EthereumPercentage,
+  LoadingText,
   PercentageBar,
   Subnav,
   SubnavItem,
-  BitcoinPercentage,
-  EthereumPercentage,
   SubnavText,
-  Wrapper,
-  LoadingText
+  TotalVolumePercentage,
+  Wrapper
 } from './SubNavbar.styles';
-import { formattedNumber } from '../../Utils';
 
 export class SubNavbar extends React.Component {
   state = {
@@ -27,7 +27,7 @@ export class SubNavbar extends React.Component {
       const res = await coinGecko.get('/global');
       this.setState({ globalData: res.data.data, isLoading: false });
     } catch (err) {
-      console.log('err');
+      ('err');
     }
   };
   componentDidMount = () => {
