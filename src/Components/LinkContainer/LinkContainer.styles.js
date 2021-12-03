@@ -4,7 +4,7 @@ import TabsIconImage from '../../Assets/TabsIcon.png';
 
 export const CoinLinkContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: ${(props) => (props.extraIcon ? 'space-around' : 'start')};
   align-items: center;
   background: #191b1f;
   height: 100%;
@@ -18,7 +18,9 @@ export const IconContainer = styled.div`
 `;
 export const ChainIcon = styled.img.attrs({
   src: `${LinkIcon}`
-})``;
+})`
+  margin: ${(props) => (props.extraIcon ? '0' : '0 2em')}; ;
+`;
 export const TabsIcon = styled.img.attrs({
   src: `${TabsIconImage}`
 })``;

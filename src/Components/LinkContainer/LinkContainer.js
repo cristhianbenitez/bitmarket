@@ -13,9 +13,9 @@ export const LinkContainer = ({ urlLink, extraIcon = false }) => {
     return checkLastString?.replace(/^https?\:\/\//i, '');
   };
   return (
-    <CoinLinkContainer>
+    <CoinLinkContainer extraIcon={extraIcon}>
       <IconContainer>
-        <ChainIcon />
+        <ChainIcon extraIcon={extraIcon} />
       </IconContainer>
       <SiteLink href={urlLink}>{cleanUrlString(urlLink)}</SiteLink>
       {extraIcon ? (

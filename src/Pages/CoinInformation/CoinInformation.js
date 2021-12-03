@@ -4,6 +4,7 @@ import {
   AllTimeInfo,
   CoinInfo,
   DescriptionInfo,
+  IntervalDropdown,
   MarketDataInfo
 } from '../../Components/';
 import { LinkContainer } from '../../Components/LinkContainer/LinkContainer';
@@ -118,6 +119,7 @@ class CoinInformation extends Component {
                 />
               </RightLink>
             </CoinLinksContainer>
+            <IntervalDropdown />
           </BottomPageContent>
         </Container>
         <Background />

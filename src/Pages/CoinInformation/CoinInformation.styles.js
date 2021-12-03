@@ -39,6 +39,10 @@ export const TopPageContent = styled.div`
   width: 100%;
 `;
 export const BottomPageContent = styled.div`
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+
   margin-top: 2em;
   width: 100%;
 `;
