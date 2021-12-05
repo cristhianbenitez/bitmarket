@@ -7,6 +7,7 @@ import {
   IntervalDropdown,
   MarketDataInfo
 } from '../../Components/';
+import CurrencyConverter from '../../Components/CurrencyConverter/CurrencyConverter';
 import { LinkContainer } from '../../Components/LinkContainer/LinkContainer';
 import { withRouter } from '../../Helpers';
 import {
@@ -120,6 +121,10 @@ class CoinInformation extends Component {
               </RightLink>
             </CoinLinksContainer>
             <IntervalDropdown />
+            <CurrencyConverter
+              coinSymbol={symbol?.toUpperCase()}
+              coinPrice={market_data?.current_price?.usd}
+            />
           </BottomPageContent>
         </Container>
         <Background />
