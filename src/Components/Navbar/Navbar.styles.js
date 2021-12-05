@@ -1,5 +1,5 @@
+import ThemeIcon from 'Assets/ThemeIcon.svg';
 import styled from 'styled-components';
-import ThemeIcon from '../../Assets/ThemeIcon.svg';
 
 export const Wrapper = styled.nav`
   padding: 1em 4em;

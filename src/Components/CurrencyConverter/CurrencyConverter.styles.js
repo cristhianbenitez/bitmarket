@@ -1,6 +1,6 @@
+import Icon from 'Assets/SwapIcon.png';
 import NumberFormat from 'react-number-format';
 import styled from 'styled-components';
-import Icon from '../../Assets/SwapIcon.png';
 export const Container = styled.div`
   display: flex;
   align-items: center;

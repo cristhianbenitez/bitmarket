@@ -1,13 +1,13 @@
+import coinGecko from 'Api/coinGecko';
+import { CoinsListItem } from 'Components';
 import React, { Component } from 'react';
-import coinGecko from '../../Api/coinGecko';
 import {
   Table,
-  TableRowHead,
-  TableHead,
   TableBody,
-  TableHeading
+  TableHead,
+  TableHeading,
+  TableRowHead
 } from './CoinsList.styles';
-import { CoinsListItem } from '../CoinsListItem/CoinsListItem';
 export class CoinsList extends Component {
   state = {
     isLoading: false,

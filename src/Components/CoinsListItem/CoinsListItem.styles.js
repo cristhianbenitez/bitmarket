@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import RedArrow from '../../Assets/RedArrow.png';
-import ArrowUp from '../../Assets/ArrowUp.png';
+import ArrowUp from 'Assets/ArrowUp.png';
+import RedArrow from 'Assets/RedArrow.png';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 export const TableData = styled.td`
   padding: 1.25em 1em;

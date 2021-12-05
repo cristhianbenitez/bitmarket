@@ -1,4 +1,4 @@
-import { displayPositiveNumber } from '../../Utils';
+import { displayPositiveNumber } from 'Utils';
 import {
   AllTimeContainer,
   AllTimeInfoText,
@@ -15,8 +15,8 @@ import {
 export const AllTimeInfo = (props) => {
   const renderRedOrGreenArrow = (price) =>
     price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
-  var athDate = new Date(props.athDate).toGMTString();
-  var atlDate = new Date(props.atlDate).toGMTString();
+  const athDate = new Date(props.athDate).toGMTString();
+  const atlDate = new Date(props.atlDate).toGMTString();
 
   const priceChangePercentage =
     (props?.priceChange / props?.currentPrice) * 100;

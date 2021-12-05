@@ -15,7 +15,8 @@ import {
 export class IntervalDropdown extends React.Component {
   state = {
     isOpen: false,
-    selection: '7 Days'
+    selection: '',
+    text: '7 Days'
   };
 
   toggle = () =>
@@ -24,7 +25,11 @@ export class IntervalDropdown extends React.Component {
     }));
 
   handleOnClick = (e) => {
-    this.setState({ selection: e.target.outerText });
+    console.log(e.target.value);
+    this.setState({
+      text: e.currentTarget.textContent,
+      selection: e.target.value
+    });
     this.toggle;
   };
 
@@ -45,7 +50,7 @@ export class IntervalDropdown extends React.Component {
           }}
         >
           <DropDownHeader>
-            <SelectionContainer>{this.state.selection}</SelectionContainer>
+            <SelectionContainer>{this.state.text}</SelectionContainer>
           </DropDownHeader>
           <ArrowsContainer>
             {this.state.isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}

@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import coinGecko from '../../Api/coinGecko';
+import coinGecko from 'Api/coinGecko';
 import {
   AllTimeInfo,
   CoinInfo,
   DescriptionInfo,
   IntervalDropdown,
   MarketDataInfo
-} from '../../Components/';
-import CurrencyConverter from '../../Components/CurrencyConverter/CurrencyConverter';
-import { LinkContainer } from '../../Components/LinkContainer/LinkContainer';
-import { withRouter } from '../../Helpers';
+} from 'Components/';
+import CurrencyConverter from 'Components/CurrencyConverter/CurrencyConverter';
+import { LinkContainer } from 'Components/LinkContainer/LinkContainer';
+import { withRouter } from 'Helpers';
+import React, { Component } from 'react';
 import {
   Background,
   BottomPageContent,

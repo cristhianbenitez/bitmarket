@@ -1,5 +1,5 @@
+import BackgroundImage from 'Assets/BackgroundImage.png';
 import styled from 'styled-components';
-import BackgroundImage from '../../Assets/BackgroundImage.png';
 
 const StyledDiv = styled.div`
   // General Div

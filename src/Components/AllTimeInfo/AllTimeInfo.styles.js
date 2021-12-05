@@ -1,6 +1,6 @@
+import ArrowUp from 'Assets/ArrowUp.png';
+import ArrowDown from 'Assets/RedArrow.png';
 import styled from 'styled-components';
-import ArrowUp from '../../Assets/ArrowUp.png';
-import ArrowDown from '../../Assets/RedArrow.png';
 
 const CenterItem = `
   display: flex;

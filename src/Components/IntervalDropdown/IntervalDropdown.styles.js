@@ -1,6 +1,6 @@
+import ArrowDown from 'Assets/ArrowDown.png';
+import ArrowUp from 'Assets/ArrowUp.png';
 import styled from 'styled-components';
-import ArrowDown from '../../Assets/ArrowDown.png';
-import ArrowUp from '../../Assets/ArrowUp.png';
 
 export const IntervalDropdownWrapper = styled.div`
   display: flex;

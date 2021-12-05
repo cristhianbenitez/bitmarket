@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Subtitle } from '../Portfolio/Portfolio.styles';
+import { Container, Subtitle } from './Portfolio.styles';
 
 export class Portfolio extends Component {
   render() {

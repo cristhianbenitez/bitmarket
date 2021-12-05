@@ -1,7 +1,7 @@
+import ArrowDown from 'Assets/ArrowDown.png';
+import ArrowUp from 'Assets/ArrowUp.png';
+import Currency from 'Assets/CurrencyIcon.svg';
 import styled from 'styled-components';
-import Currency from '../../Assets/CurrencyIcon.svg';
-import ArrowUp from '../../Assets/ArrowUp.png';
-import ArrowDown from '../../Assets/ArrowDown.png';
 export const DropDownContainer = styled.div`
   width: 100px;
   background: #2c2f36;

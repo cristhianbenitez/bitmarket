@@ -1,4 +1,4 @@
-import { getOrdinalNum } from '../../Utils';
+import { getOrdinalNum } from 'Utils';
 
 const tooltip = {
   displayColors: false,

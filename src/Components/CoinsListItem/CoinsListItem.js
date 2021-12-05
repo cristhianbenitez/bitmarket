@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Charts } from '..';
 import {
   calculatePercentage,
   displayPositiveNumber,
   formattedNumber
-} from '../../Utils';
+} from 'Utils';
+import { Charts } from '..';
 import {
   BulletCircle,
   CoinIcon,

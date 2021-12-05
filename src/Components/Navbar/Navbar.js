@@ -1,9 +1,8 @@
+import coinGecko from 'Api/coinGecko.js';
+import { Dropdown, SearchInput } from 'Components';
+import { withRouter } from 'Helpers';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import coinGecko from '../../Api/coinGecko.js';
-import { withRouter } from '../../Helpers';
-import { Dropdown } from '../Dropdown/Dropdown';
-import { SearchInput } from '../SearchInput/SearchInput';
 import {
   Container,
   StyledButton,

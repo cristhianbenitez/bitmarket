@@ -1,4 +1,4 @@
-import { LinkContainer } from '../LinkContainer/LinkContainer';
+import { LinkContainer } from 'Components';
 import {
   BottomContent,
   CoinImage,

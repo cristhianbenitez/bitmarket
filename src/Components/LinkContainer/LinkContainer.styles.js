@@ -1,6 +1,6 @@
+import LinkIcon from 'Assets/LinkIcon.png';
+import TabsIconImage from 'Assets/TabsIcon.png';
 import styled from 'styled-components';
-import LinkIcon from '../../Assets/LinkIcon.png';
-import TabsIconImage from '../../Assets/TabsIcon.png';
 
 export const CoinLinkContainer = styled.div`
   display: flex;

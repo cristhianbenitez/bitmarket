@@ -1,4 +1,4 @@
-import { formattedNumber } from '../../Utils';
+import { formattedNumber } from 'Utils';
 import {
   MarketDataItem,
   MarketDataList,

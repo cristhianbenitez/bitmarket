@@ -17,7 +17,6 @@ class CurrencyConverter extends Component {
 
   handleFirstValueOnChange = (value) => {
     this.setState({ ...this.state, firstValue: value });
-    21;
   };
   handleSecondValueOnChange = (value) => {
     this.setState({ ...this.state, secondValue: value });

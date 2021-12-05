@@ -1,5 +1,5 @@
+import Icon from 'Assets/Search-Icon.svg';
 import styled from 'styled-components';
-import Icon from '../../Assets/Search-Icon.svg';
 
 export const StyledForm = styled.form`
   background-color: #2c2f36;
