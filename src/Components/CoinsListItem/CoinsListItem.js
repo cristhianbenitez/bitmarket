@@ -4,7 +4,7 @@ import {
   displayPositiveNumber,
   formattedNumber
 } from 'Utils';
-import { Charts } from '..';
+import { Charts } from 'Components';
 import {
   BulletCircle,
   CoinIcon,
@@ -39,10 +39,10 @@ export class CoinsListItem extends Component {
         price_change_percentage_7d_in_currency: weeklyChanges,
         sparkline_in_7d: pricesOfLastSevenDays
       } = coinInfo;
+
       const renderRedOrGreenArrow = (price) =>
         price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
-      ('====================================');
-      ('====================================');
+
       const percBarColors = {
         left: [
           '#FFB528',
@@ -69,6 +69,7 @@ export class CoinsListItem extends Component {
           '#728D86'
         ]
       };
+
       return (
         <TableRow key={index}>
           <TableData>{index + 1}</TableData>

@@ -13,3 +13,4 @@ export { MarketDataInfo } from './MarketDataInfo/MarketDataInfo';
 export { WrappedNavbar as Navbar } from './Navbar/Navbar';
 export { SearchInput } from './SearchInput/SearchInput';
 export { SubNavbar } from './SubNavbar/SubNavbar';
+export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';

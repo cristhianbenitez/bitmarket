@@ -2,7 +2,6 @@ import BackgroundImage from 'Assets/BackgroundImage.png';
 import styled from 'styled-components';
 
 const StyledDiv = styled.div`
-  // General Div
   display: flex;
   flex-direction: column;
   border-radius: 12px;
@@ -16,18 +15,22 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export const CoinLinksContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 1.5em;
 `;
+
 export const LeftLink = styled.div`
   width: 32.5%;
 `;
+
 export const MiddleLink = styled.div`
   width: 32.5%;
 `;
+
 export const RightLink = styled.div`
   width: 32.5%;
 `;
@@ -38,11 +41,11 @@ export const TopPageContent = styled.div`
   justify-content: space-between;
   width: 100%;
 `;
+
 export const BottomPageContent = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-
   margin-top: 2em;
   width: 100%;
 `;
@@ -52,9 +55,11 @@ export const LeftContent = styled(StyledDiv)`
   background: unset;
   width: 20%;
 `;
+
 export const MiddleContent = styled(StyledDiv)`
   width: 30%;
 `;
+
 export const RightContent = styled(StyledDiv)`
   width: 40%;
 `;

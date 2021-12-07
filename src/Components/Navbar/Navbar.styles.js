@@ -24,8 +24,11 @@ export const StyledButton = styled.div`
   color: #fff;
   background: ${(props) => props.currentPage && '#2c2f36'};
 `;
+
 export const CoinsButton = styled.div``;
+
 export const PortfolioButton = styled.div``;
+
 export const ThemeButton = styled.img.attrs({
   src: `${ThemeIcon}`
 })`

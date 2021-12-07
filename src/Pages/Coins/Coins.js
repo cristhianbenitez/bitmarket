@@ -1,6 +1,7 @@
-import coinGecko from 'Api/coinGecko';
-import { Charts, CoinsList } from 'Components';
 import React, { Component } from 'react';
+
+import { Charts, CoinsList } from 'Components';
+import coinGecko from 'Api/coinGecko';
 import {
   ChartContainer,
   ChartWrapper,

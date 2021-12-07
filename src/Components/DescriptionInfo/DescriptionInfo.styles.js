@@ -13,6 +13,7 @@ export const Description = styled.p`
     }
   }
 `;
+
 export const DescriptionInfoContainer = styled.div`
   background: #191b1f;
   border-radius: 12px;

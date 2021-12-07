@@ -7,6 +7,7 @@ export const StyledForm = styled.form`
   margin-right: 1.5em;
   display: flex;
 `;
+
 export const StyledInput = styled.input`
   background: transparent;
   color: #fff;
@@ -17,6 +18,7 @@ export const StyledInput = styled.input`
     color: #fff;
   }
 `;
+
 export const SearchIcon = styled.img.attrs({
   src: `${Icon}`
 })`

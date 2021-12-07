@@ -1,5 +1,6 @@
-import getSymbolFromCurrency from 'currency-symbol-map';
 import React, { Component } from 'react';
+import getSymbolFromCurrency from 'currency-symbol-map';
+
 import {
   Container,
   Currency,
@@ -7,7 +8,7 @@ import {
   SwapIcon,
   ValueInput
 } from './CurrencyConverter.styles';
-class CurrencyConverter extends Component {
+export class CurrencyConverter extends Component {
   state = {
     firstCurrency: localStorage.selection,
     secondCurrency: this.props.coinSymbol,
@@ -67,5 +68,3 @@ class CurrencyConverter extends Component {
     );
   }
 }
-
-export default CurrencyConverter;

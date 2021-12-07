@@ -1,15 +1,7 @@
-import coinGecko from 'Api/coinGecko';
-import {
-  AllTimeInfo,
-  CoinInfo,
-  DescriptionInfo,
-  IntervalDropdown,
-  MarketDataInfo
-} from 'Components/';
-import CurrencyConverter from 'Components/CurrencyConverter/CurrencyConverter';
-import { LinkContainer } from 'Components/LinkContainer/LinkContainer';
-import { withRouter } from 'Helpers';
 import React, { Component } from 'react';
+import coinGecko from 'Api/coinGecko';
+import { withRouter } from 'Helpers';
+
 import {
   Background,
   BottomPageContent,
@@ -24,6 +16,15 @@ import {
   Subtitle,
   TopPageContent
 } from './CoinInformation.styles';
+import {
+  AllTimeInfo,
+  CoinInfo,
+  DescriptionInfo,
+  IntervalDropdown,
+  MarketDataInfo,
+  LinkContainer,
+  CurrencyConverter
+} from 'Components';
 
 class CoinInformation extends Component {
   state = {

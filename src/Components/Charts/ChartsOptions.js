@@ -16,6 +16,7 @@ const tooltip = {
     }
   }
 };
+
 export const chartOptions = {
   layout: {
     padding: {
@@ -52,6 +53,7 @@ export const chartOptions = {
     }
   }
 };
+
 export const smallChartOption = {
   plugins: {
     legend: {

@@ -1,4 +1,5 @@
 import { LinkContainer } from 'Components';
+
 import {
   BottomContent,
   CoinImage,

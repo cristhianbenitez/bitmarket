@@ -12,4 +12,5 @@ export const CoinInfoTitle = styled.p`
 export const CoinInfoValue = styled.p`
   font-size: 1.75rem;
 `;
+
 export const CoinInfoDate = styled.p``;

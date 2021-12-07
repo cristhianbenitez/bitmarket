@@ -14,17 +14,21 @@ export const TableRow = styled.tr`
   }
 `;
 export const TableBody = styled.tbody``;
+
 export const ValuesContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
+
 export const Value = styled.span`
   display: flex;
   align-items: center;
   color: ${(props) => props.colors};
 `;
+
 export const PercentageBarContainer = styled.div``;
+
 export const PercentageBar = styled.div`
   width: 95%;
   height: 9px;
@@ -33,6 +37,7 @@ export const PercentageBar = styled.div`
   z-index: 1;
   margin-left: 0.5em;
 `;
+
 export const PercentageBarFill = styled.div`
   background: #ffb528;
   z-index: 2;
@@ -41,6 +46,7 @@ export const PercentageBarFill = styled.div`
   background: ${(props) => props.colors};
   width: ${(props) => `${props.percentage.percentageA}%`};
 `;
+
 export const BulletCircle = styled.div`
   width: 7px;
   height: 7px;
@@ -53,6 +59,7 @@ export const BulletCircle = styled.div`
 export const PriceChangePercentage = styled.td`
   color: ${(props) => (props.price > 0 ? '#00FC2A' : '#FE1040')};
 `;
+
 export const RedArrowDown = styled.img.attrs({
   src: `${RedArrow}`
 })`
@@ -60,6 +67,7 @@ export const RedArrowDown = styled.img.attrs({
   top: 50%;
   transform: translateY(-50%);
 `;
+
 export const GreenArrowUp = styled.img.attrs({
   src: `${ArrowUp}`
 })`
@@ -74,6 +82,7 @@ export const CoinIcon = styled.img`
   margin-right: 1em;
   border-radius: 100%;
 `;
+
 export const NameContainer = styled.div`
   display: flex;
   align-items: center;
@@ -91,6 +100,7 @@ export const StyledLink = styled(Link)`
     color: #ffff;
   }
 `;
+
 export const SmallChartContainer = styled.div`
   width: 125px;
   height: 50px;

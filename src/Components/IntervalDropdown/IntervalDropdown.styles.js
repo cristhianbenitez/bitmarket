@@ -17,6 +17,7 @@ export const DropDownContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 export const DropDownHeader = styled.div`
   cursor: pointer;
   padding-right: 2em;
@@ -57,24 +58,29 @@ export const ListItem = styled.li`
     background: #2c2f36;
   }
 `;
+
 export const SelectButton = styled.div`
   padding: 1em 2em;
   background-color: #06d554;
   border-radius: 0 12px 12px 0;
   cursor: pointer;
 `;
+
 export const SelectionContainer = styled.div`
   display: flex;
 `;
+
 export const ArrowsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 0.5em;
 `;
+
 export const ArrowUpIcon = styled.img.attrs({
   src: `${ArrowUp}`
 })``;
+
 export const ArrowDownIcon = styled.img.attrs({
   src: `${ArrowDown}`
 })``;

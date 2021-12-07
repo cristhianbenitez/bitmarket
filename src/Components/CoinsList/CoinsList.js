@@ -1,6 +1,7 @@
+import React, { Component } from 'react';
+
 import coinGecko from 'Api/coinGecko';
 import { CoinsListItem } from 'Components';
-import React, { Component } from 'react';
 import {
   Table,
   TableBody,
