@@ -1,4 +1,4 @@
-import ThemeIcon from 'Assets/ThemeIcon.svg';
+import ThemeIcon from 'assets/ThemeIcon.svg';
 import styled from 'styled-components';
 
 export const Wrapper = styled.nav`

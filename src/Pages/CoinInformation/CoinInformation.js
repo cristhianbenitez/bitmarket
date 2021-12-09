@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import coinGecko from 'Api/coinGecko';
-import { withRouter } from 'Helpers';
+import coinGecko from 'api/coinGecko';
+import { withRouter } from 'helpers';
 
 import {
   Background,
@@ -17,14 +17,14 @@ import {
   TopPageContent
 } from './CoinInformation.styles';
 import {
-  AllTimeInfo,
+  CoinPricesData,
   CoinInfo,
   DescriptionInfo,
   IntervalDropdown,
   MarketDataInfo,
   LinkContainer,
   CurrencyConverter
-} from 'Components';
+} from 'components';
 
 class CoinInformation extends Component {
   state = {
@@ -77,7 +77,7 @@ class CoinInformation extends Component {
               />
             </LeftContent>
             <MiddleContent>
-              <AllTimeInfo
+              <CoinPricesData
                 priceChange={market_data?.price_change_24h}
                 currentPrice={market_data?.current_price?.usd}
                 athPrice={market_data?.ath?.usd}

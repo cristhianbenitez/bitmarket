@@ -1,5 +1,5 @@
 // export all components from here
-export { AllTimeInfo } from './AllTimeInfo/AllTimeInfo';
+export { CoinPricesData } from './CoinPricesData/CoinPricesData';
 export { Charts } from './Charts/Charts';
 export { ChartsLegend } from './ChartsLegend/ChartsLegend';
 export { CoinInfo } from './CoinInfo/CoinInfo';

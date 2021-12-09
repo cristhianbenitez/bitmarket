@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ArrowUp from 'Assets/ArrowUp.png';
-import ArrowDown from 'Assets/RedArrow.png';
+import ArrowUp from 'assets/ArrowUp.png';
+import ArrowDown from 'assets/RedArrow.png';
 
 const CenterItem = `
   display: flex;
@@ -28,7 +28,7 @@ export const CoinPriceContainer = styled.div`
   ${CenterItem}
 `;
 
-export const AllTimeInfoText = styled.p`
+export const CoinPricesDataText = styled.p`
   font-size: 1.125rem;
   text-align: start;
 `;

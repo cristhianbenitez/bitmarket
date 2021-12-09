@@ -8,6 +8,7 @@ import {
   SwapIcon,
   ValueInput
 } from './CurrencyConverter.styles';
+
 export class CurrencyConverter extends Component {
   state = {
     currencies: [
@@ -39,13 +40,11 @@ export class CurrencyConverter extends Component {
     });
   };
   render() {
+    const rightCurrencyValue = this.state.currencies[0]?.currencyValue;
     const convertedValue =
       this.state.currencies[0]?.currencyName !== this.props.coinSymbol
-        ? (
-            this.state.currencies[0]?.currencyValue / this.props.coinPrice
-          )?.toFixed(6)
-        : this.state.currencies[0]?.currencyValue *
-          this.props.coinPrice?.toFixed(2);
+        ? (rightCurrencyValue / this.props.coinPrice)?.toFixed(6)
+        : rightCurrencyValue * this.props.coinPrice?.toFixed(2);
 
     return (
       <Container>

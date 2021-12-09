@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import getSymbolFromCurrency from 'currency-symbol-map';
-import { formattedNumber, todayDate } from 'Utils';
+import { formattedNumber, todayDate } from 'utils';
 import {
   CoinInfo,
   CoinInfoDate,

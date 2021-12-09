@@ -1,4 +1,4 @@
-import Icon from 'Assets/PlusIcon.png';
+import Icon from 'assets/PlusIcon.png';
 import styled from 'styled-components';
 export const MarketDataList = styled.ul`
   margin: 2em 0;

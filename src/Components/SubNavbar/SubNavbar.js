@@ -1,7 +1,7 @@
 import React from 'react';
 
-import coinGecko from 'Api/coinGecko';
-import { formattedNumber } from 'Utils';
+import coinGecko from 'api/coinGecko';
+import { formattedNumber } from 'utils';
 import {
   BitcoinIcon,
   BitcoinPercentage,

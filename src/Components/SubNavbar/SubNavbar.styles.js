@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import Bitcoin from 'Assets/BitcoinIcon.png';
-import Ethereum from 'Assets/EthereumIcon.png';
+import Bitcoin from 'assets/BitcoinIcon.png';
+import Ethereum from 'assets/EthereumIcon.png';
 
 export const Wrapper = styled.div`
   display: flex;

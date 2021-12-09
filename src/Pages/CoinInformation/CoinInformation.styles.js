@@ -1,5 +1,5 @@
-import BackgroundImage from 'Assets/BackgroundImage.png';
 import styled from 'styled-components';
+import BackgroundImage from 'assets/BackgroundImage.png';
 
 const StyledDiv = styled.div`
   display: flex;

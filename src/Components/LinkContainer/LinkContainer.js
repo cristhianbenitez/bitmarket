@@ -18,11 +18,11 @@ export const LinkContainer = ({ urlLink, extraIcon = false }) => {
         <ChainIcon extraIcon={extraIcon} />
       </IconContainer>
       <SiteLink href={urlLink}>{cleanUrlString(urlLink)}</SiteLink>
-      {extraIcon ? (
+      {extraIcon && (
         <IconContainer>
           <TabsIcon />
         </IconContainer>
-      ) : null}
+      )}
     </CoinLinkContainer>
   );
 };

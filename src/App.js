@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Coins, Portfolio, CoinInformation } from './Pages';
+import { Coins, Portfolio, CoinInformation } from 'pages';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Wrapper } from './App.styles';
-import { SubNavbar, Navbar } from './Components';
+import { SubNavbar, Navbar } from './components';
 
 class App extends Component {
   state = {

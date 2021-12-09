@@ -41,12 +41,8 @@ export class Dropdown extends React.Component {
         <DropDownHeader
           tabIndex={0}
           role="button"
-          onKeyPress={() => {
-            this.toggle();
-          }}
-          onClick={() => {
-            this.toggle();
-          }}
+          onKeyPress={this.toggle}
+          onClick={this.toggle}
         >
           <CurrencyIcon />
           <SelectionContainer>

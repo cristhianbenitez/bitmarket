@@ -1,5 +1,5 @@
-import ArrowUp from 'Assets/ArrowUp.png';
-import RedArrow from 'Assets/RedArrow.png';
+import ArrowUp from 'assets/ArrowUp.png';
+import RedArrow from 'assets/RedArrow.png';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 

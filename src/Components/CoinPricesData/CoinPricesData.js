@@ -1,7 +1,7 @@
-import { displayPositiveNumber } from 'Utils';
+import { displayPositiveNumber } from 'utils';
 import {
   AllTimeContainer,
-  AllTimeInfoText,
+  CoinPricesDataText,
   CoinPrice,
   CoinPriceChange,
   CoinPriceContainer,
@@ -10,9 +10,9 @@ import {
   MiddleContentWrapper,
   RedArrowDown,
   TextContainer
-} from './AllTimeInfo.styles';
+} from './CoinPricesData.styles';
 
-export const AllTimeInfo = (props) => {
+export const CoinPricesData = (props) => {
   const renderRedOrGreenArrow = (price) =>
     price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
   const athDate = new Date(props.athDate).toGMTString();
@@ -37,8 +37,10 @@ export const AllTimeInfo = (props) => {
           {renderRedOrGreenArrow(props.athPriceChange)}
         </IconContainer>
         <TextContainer>
-          <AllTimeInfoText>All Time High: ${props.athPrice}</AllTimeInfoText>
-          <AllTimeInfoText>{athDate}</AllTimeInfoText>
+          <CoinPricesDataText>
+            All Time High: ${props.athPrice}
+          </CoinPricesDataText>
+          <CoinPricesDataText>{athDate}</CoinPricesDataText>
         </TextContainer>
       </AllTimeContainer>
       <AllTimeContainer>
@@ -46,8 +48,10 @@ export const AllTimeInfo = (props) => {
           {renderRedOrGreenArrow(props.atlPriceChange)}
         </IconContainer>
         <TextContainer>
-          <AllTimeInfoText>All Time Low: ${props.atlPrice}</AllTimeInfoText>
-          <AllTimeInfoText>{atlDate}</AllTimeInfoText>
+          <CoinPricesDataText>
+            All Time Low: ${props.atlPrice}
+          </CoinPricesDataText>
+          <CoinPricesDataText>{atlDate}</CoinPricesDataText>
         </TextContainer>
       </AllTimeContainer>
     </MiddleContentWrapper>

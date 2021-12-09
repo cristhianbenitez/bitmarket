@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from 'Assets/SwapIcon.png';
+import Icon from 'assets/SwapIcon.png';
 import NumberFormat from 'react-number-format';
 
 export const Container = styled.div`

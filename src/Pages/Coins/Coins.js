@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import { Charts, CoinsList } from 'Components';
-import coinGecko from 'Api/coinGecko';
+import { Charts, CoinsList } from 'components';
+import coinGecko from 'api/coinGecko';
 import {
   ChartContainer,
   ChartWrapper,

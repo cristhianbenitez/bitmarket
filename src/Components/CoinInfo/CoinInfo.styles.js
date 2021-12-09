@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import LinkIcon from 'Assets/LinkIcon.png';
+import LinkIcon from 'assets/LinkIcon.png';
 
 export const CoinInfoContainer = styled.div`
   width: 100%;

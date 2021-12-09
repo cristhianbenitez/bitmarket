@@ -1,4 +1,4 @@
-import Icon from 'Assets/Search-Icon.svg';
+import Icon from 'assets/Search-Icon.svg';
 import styled from 'styled-components';
 
 export const StyledForm = styled.form`

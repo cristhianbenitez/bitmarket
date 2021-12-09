@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
-import { addZero } from 'Utils';
-import { ChartsLegend } from 'Components';
+import { addZero } from 'utils';
+import { ChartsLegend } from 'components';
 import { ChartsWrapper } from './Charts.styles';
 import { chartOptions, smallChartOption } from './ChartsOptions';
 

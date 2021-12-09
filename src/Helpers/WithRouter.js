@@ -1,4 +1,3 @@
-// With Router Higher Order Component
 import { useLocation, useParams } from 'react-router-dom';
 
 export const withRouter = (Component) => {

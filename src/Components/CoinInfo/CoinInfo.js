@@ -1,4 +1,4 @@
-import { LinkContainer } from 'Components';
+import { LinkContainer } from 'components';
 
 import {
   BottomContent,
