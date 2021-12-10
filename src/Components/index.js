@@ -1,10 +1,9 @@
-// export all components from here
 export { CoinPricesData } from './CoinPricesData/CoinPricesData';
 export { Charts } from './Charts/Charts';
 export { ChartsLegend } from './ChartsLegend/ChartsLegend';
 export { CoinInfo } from './CoinInfo/CoinInfo';
-export { CoinsList } from './CoinsList/CoinsList';
-export { CoinsListItem } from './CoinsListItem/CoinsListItem';
+export { CoinsTable } from './CoinsTable/CoinsTable';
+export { CoinsTableRow } from './CoinsTableRow/CoinsTableRow';
 export { DescriptionInfo } from './DescriptionInfo/DescriptionInfo';
 export { Dropdown } from './Dropdown/Dropdown';
 export { IntervalDropdown } from './IntervalDropdown/IntervalDropdown';

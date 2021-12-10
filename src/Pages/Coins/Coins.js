@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Charts, CoinsList } from 'components';
+import { Charts, CoinsTable } from 'components';
 import coinGecko from 'api/coinGecko';
 import {
   ChartContainer,
@@ -68,7 +68,7 @@ export class Coins extends Component {
         </ChartWrapper>
         <Subtitle>Your overview</Subtitle>
         <CoinListContainer>
-          <CoinsList />
+          <CoinsTable />
         </CoinListContainer>
       </Container>
     );

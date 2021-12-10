@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
 import coinGecko from 'api/coinGecko';
-import { CoinsListItem } from 'components';
+import { CoinsTableRow } from 'components';
 import {
   Table,
   TableBody,
   TableHead,
   TableHeading,
   TableRowHead
-} from './CoinsList.styles';
-export class CoinsList extends Component {
+} from './CoinsTable.styles';
+export class CoinsTable extends Component {
   state = {
     isLoading: false,
     resultsPerPage: 10,
@@ -54,7 +54,7 @@ export class CoinsList extends Component {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          <CoinsListItem coinItemData={this.state.coinItemData} />
+          <CoinsTableRow coinItemData={this.state.coinItemData} />
         </TableBody>
       </Table>
     );

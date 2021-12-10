@@ -42,9 +42,7 @@ export class IntervalDropdown extends React.Component {
         <DropDownContainer
           tabIndex={0}
           role="button"
-          onKeyPress={() => {
-            this.toggle();
-          }}
+          onKeyPress={this.toggle}
           onClick={this.toggle}
         >
           <DropDownHeader>
