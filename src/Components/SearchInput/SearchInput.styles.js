@@ -1,5 +1,5 @@
+import Icon from 'assets/Search-Icon.svg';
 import styled from 'styled-components';
-import Icon from '../../Assets/Search-Icon.svg';
 
 export const StyledForm = styled.form`
   background-color: #2c2f36;
@@ -7,6 +7,7 @@ export const StyledForm = styled.form`
   margin-right: 1.5em;
   display: flex;
 `;
+
 export const StyledInput = styled.input`
   background: transparent;
   color: #fff;
@@ -17,6 +18,7 @@ export const StyledInput = styled.input`
     color: #fff;
   }
 `;
+
 export const SearchIcon = styled.img.attrs({
   src: `${Icon}`
 })`

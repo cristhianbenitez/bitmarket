@@ -13,7 +13,7 @@
     "react": "^17.0.2",
     "react-chartjs-2": "^3.3.0",
     "react-dom": "^17.0.2",
-    "react-normalize": "^0.4.4",
+    "react-number-format": "^4.8.0",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "react-select": "^5.2.1",
@@ -23,16 +23,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "surge build --domain crypto-app-test.surge.sh",
-    "build-deploy": "npm run build && npm run deploy",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -45,5 +37,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }

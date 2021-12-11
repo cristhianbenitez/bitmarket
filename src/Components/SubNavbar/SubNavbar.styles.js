@@ -1,12 +1,14 @@
 import styled from 'styled-components';
-import Bitcoin from '../../Assets/BitcoinIcon.png';
-import Ethereum from '../../Assets/EthereumIcon.png';
+
+import Bitcoin from 'assets/BitcoinIcon.png';
+import Ethereum from 'assets/EthereumIcon.png';
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
 export const Subnav = styled.div`
   background: #191b1f;
   width: fit-content;
@@ -14,6 +16,7 @@ export const Subnav = styled.div`
   padding: 0.75em 2em;
   border-radius: 0 0 6px 6px;
 `;
+
 export const SubnavItem = styled.div`
   padding-right: 1em;
   margin: 0 0.5em;
@@ -22,9 +25,11 @@ export const SubnavItem = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 export const SubnavText = styled.span`
   padding-right: 1em;
 `;
+
 export const BulletCircle = styled.div`
   width: 7px;
   height: 7px;
@@ -32,6 +37,7 @@ export const BulletCircle = styled.div`
   background: #fff;
   margin-right: 0.5em;
 `;
+
 export const PercentageBar = styled.div`
   width: 45px;
   height: 5px;
@@ -49,6 +55,7 @@ export const TotalVolumePercentage = styled.div`
   height: 100%;
   width: ${(props) => props.percentage};
 `;
+
 export const BitcoinPercentage = styled.div`
   background: #ffffff;
   z-index: 2;
@@ -56,6 +63,7 @@ export const BitcoinPercentage = styled.div`
   height: 100%;
   width: ${(props) => props.percentage};
 `;
+
 export const EthereumPercentage = styled.div`
   background: #ffffff;
   z-index: 2;
@@ -69,6 +77,7 @@ export const BitcoinIcon = styled.img.attrs({
 })`
   padding: 0 0.5em;
 `;
+
 export const EthereumIcon = styled.img.attrs({
   src: `${Ethereum}`
 })`

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import coinGecko from '../../Api/coinGecko';
+
+import { Charts, CoinsTable } from 'components';
+import coinGecko from 'api/coinGecko';
 import {
-  Container,
-  Subtitle,
   ChartContainer,
+  ChartWrapper,
   CoinListContainer,
-  ChartWrapper
+  Container,
+  Subtitle
 } from './Coins.styles';
-import { Charts, CoinsList } from '../../Components';
 export class Coins extends Component {
   state = {
     isLoading: false,
@@ -67,7 +68,7 @@ export class Coins extends Component {
         </ChartWrapper>
         <Subtitle>Your overview</Subtitle>
         <CoinListContainer>
-          <CoinsList />
+          <CoinsTable />
         </CoinListContainer>
       </Container>
     );

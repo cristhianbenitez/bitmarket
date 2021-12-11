@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { formattedNumber, todayDate } from 'utils';
 import {
   CoinInfo,
+  CoinInfoDate,
   CoinInfoTitle,
-  CoinInfoValue,
-  CoinInfoDate
+  CoinInfoValue
 } from './ChartsLegend.styles';
-import getSymbolFromCurrency from 'currency-symbol-map';
-import { formattedNumber, todayDate } from '../../Utils';
 
 export class ChartsLegend extends Component {
   render() {

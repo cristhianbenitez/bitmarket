@@ -1,16 +1,14 @@
+import coinGecko from 'api/coinGecko.js';
+import { Dropdown, SearchInput } from 'components';
+import { withRouter } from 'helpers';
 import React, { Component } from 'react';
-
+import { Link } from 'react-router-dom';
 import {
   Container,
-  Wrapper,
   StyledButton,
-  ThemeButton
+  ThemeButton,
+  Wrapper
 } from './Navbar.styles.js';
-import { Dropdown } from '../Dropdown/Dropdown';
-import { SearchInput } from '../SearchInput/SearchInput';
-import coinGecko from '../../Api/coinGecko.js';
-import { withRouter } from '../../Helpers/WithRouter.js';
-import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
   state = {
@@ -22,7 +20,7 @@ class Navbar extends Component {
       const upperCaseArr = data.map((el) => el.toUpperCase());
       this.setState({ supportedCoins: upperCaseArr });
     } catch (err) {
-      console.log('err');
+      console.log(err);
     }
   };
   componentDidMount() {

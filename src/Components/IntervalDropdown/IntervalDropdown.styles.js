@@ -1,36 +1,42 @@
-import styled from 'styled-components';
 import ArrowDown from 'assets/ArrowDown.png';
 import ArrowUp from 'assets/ArrowUp.png';
-import Currency from 'assets/CurrencyIcon.svg';
+import styled from 'styled-components';
+
+export const IntervalDropdownWrapper = styled.div`
+  display: flex;
+  margin: 0 auto;
+  margin-top: 2em;
+  align-items: center;
+`;
 
 export const DropDownContainer = styled.div`
-  width: 100px;
-  background: #2c2f36;
-  border-radius: 6px;
-  margin-right: 1.5em;
-  padding-right: 0.5em;
+  background: #2c2d33;
+  border-radius: 12px 0 0 12px;
+  padding: 1em;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const DropDownHeader = styled.div`
   cursor: pointer;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  padding-right: 2em;
   height: 100%;
 `;
 
 export const DropDownList = styled.ul`
-  color: blue;
   list-style: none;
   position: absolute;
   padding: 0;
-  margin-top: 0.5em;
+  margin-top: 3em;
   background: #191b1f;
-  right: 147.5px;
-  width: 100px;
+  width: 130px;
   border-radius: 6px;
-  height: 300px;
+  height: auto;
   overflow: auto;
+  -webkit-transition: height 0.3s ease;
+  transition: height 0.3s ease;
+  margin-left: -0.8em;
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -44,7 +50,8 @@ export const DropDownList = styled.ul`
 export const ListItem = styled.li`
   color: white;
   background: #191b1f;
-  margin: 1em 1em;
+  padding: 1em;
+  text-align: start;
   cursor: pointer;
   overflow: auto;
   &:hover {
@@ -52,9 +59,12 @@ export const ListItem = styled.li`
   }
 `;
 
-export const CurrencyIcon = styled.img.attrs({
-  src: `${Currency}`
-})``;
+export const SelectButton = styled.div`
+  padding: 1em 2em;
+  background-color: #06d554;
+  border-radius: 0 12px 12px 0;
+  cursor: pointer;
+`;
 
 export const SelectionContainer = styled.div`
   display: flex;

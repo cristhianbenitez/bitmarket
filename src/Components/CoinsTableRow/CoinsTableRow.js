@@ -1,28 +1,28 @@
 import React, { Component } from 'react';
 import {
-  TableData,
-  PercentageBar,
-  PercentageBarFill,
-  PercentageBarContainer,
-  ValuesContainer,
-  Value,
-  TableRow,
+  calculatePercentage,
+  displayPositiveNumber,
+  formattedNumber
+} from 'utils';
+import { Charts } from 'components';
+import {
   BulletCircle,
-  PriceChangePercentage,
+  CoinIcon,
   GreenArrowUp,
   NameContainer,
+  PercentageBar,
+  PercentageBarContainer,
+  PercentageBarFill,
+  PriceChangePercentage,
   RedArrowDown,
-  CoinIcon,
+  SmallChartContainer,
   StyledLink,
-  SmallChartContainer
-} from './CoinsListItem.styles';
-import {
-  calculatePercentage,
-  convertToPositive,
-  formattedNumber
-} from '../../Utils';
-import { Charts } from '..';
-export class CoinsListItem extends Component {
+  TableData,
+  TableRow,
+  Value,
+  ValuesContainer
+} from './CoinsTableRow.styles';
+export class CoinsTableRow extends Component {
   render() {
     return this.props.coinItemData.map((coinInfo, index) => {
       const {
@@ -39,10 +39,13 @@ export class CoinsListItem extends Component {
         price_change_percentage_7d_in_currency: weeklyChanges,
         sparkline_in_7d: pricesOfLastSevenDays
       } = coinInfo;
-      const renderRedOrGreenArrow = (price) =>
-        price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
 
-      const percBarColors = {
+      const directionIndicator = (price) => {
+        const isPositive = price < 0;
+        return isPositive ? <RedArrowDown /> : <GreenArrowUp />;
+      };
+
+      const percentageBarColors = {
         left: [
           '#FFB528',
           '#474C77',
@@ -68,6 +71,13 @@ export class CoinsListItem extends Component {
           '#728D86'
         ]
       };
+
+      const leftSideColors =
+        percentageBarColors.left[index % percentageBarColors.left.length];
+
+      const rightSideColors =
+        percentageBarColors.right[index % percentageBarColors.right.length];
+
       return (
         <TableRow key={index}>
           <TableData>{index + 1}</TableData>
@@ -82,49 +92,33 @@ export class CoinsListItem extends Component {
           </TableData>
           <TableData>${current_price}</TableData>
           <PriceChangePercentage price={hourlyChanges}>
-            {renderRedOrGreenArrow(hourlyChanges)}
-            {convertToPositive(hourlyChanges)}%
+            {directionIndicator(hourlyChanges)}
+            {displayPositiveNumber(hourlyChanges)}%
           </PriceChangePercentage>
           <PriceChangePercentage price={dailyChanges}>
-            {renderRedOrGreenArrow(dailyChanges)}
-            {convertToPositive(dailyChanges)}%
+            {directionIndicator(dailyChanges)}
+            {displayPositiveNumber(dailyChanges)}%
           </PriceChangePercentage>
           <PriceChangePercentage price={weeklyChanges}>
-            {renderRedOrGreenArrow(weeklyChanges)}
-            {convertToPositive(weeklyChanges)}%
+            {directionIndicator(weeklyChanges)}
+            {displayPositiveNumber(weeklyChanges)}%
           </PriceChangePercentage>
           <TableData>
             <PercentageBarContainer>
               <ValuesContainer>
-                <Value
-                  colors={percBarColors.left[index % percBarColors.left.length]}
-                >
-                  <BulletCircle
-                    colors={
-                      percBarColors.left[index % percBarColors.left.length]
-                    }
-                  />
+                <Value colors={leftSideColors}>
+                  <BulletCircle colors={leftSideColors} />
                   {formattedNumber(total_volume, '($ 0.00a)')}
                 </Value>
-                <Value
-                  colors={
-                    percBarColors.right[index % percBarColors.right.length]
-                  }
-                >
-                  <BulletCircle
-                    colors={
-                      percBarColors.right[index % percBarColors.right.length]
-                    }
-                  />
+                <Value colors={rightSideColors}>
+                  <BulletCircle colors={rightSideColors} />
                   {formattedNumber(market_cap, '($ 0.00a)')}
                 </Value>
               </ValuesContainer>
 
-              <PercentageBar
-                colors={percBarColors.right[index % percBarColors.right.length]}
-              >
+              <PercentageBar colors={rightSideColors}>
                 <PercentageBarFill
-                  colors={percBarColors.left[index % percBarColors.left.length]}
+                  colors={leftSideColors}
                   percentage={calculatePercentage(total_volume, market_cap)}
                 />
               </PercentageBar>
@@ -133,34 +127,18 @@ export class CoinsListItem extends Component {
           <TableData>
             <PercentageBarContainer>
               <ValuesContainer>
-                <Value
-                  colors={percBarColors.left[index % percBarColors.left.length]}
-                >
-                  <BulletCircle
-                    colors={
-                      percBarColors.left[index % percBarColors.left.length]
-                    }
-                  />
+                <Value colors={leftSideColors}>
+                  <BulletCircle colors={leftSideColors} />
                   {formattedNumber(circulating_supply, '($ 0.00a)')}
                 </Value>
-                <Value
-                  colors={
-                    percBarColors.right[index % percBarColors.right.length]
-                  }
-                >
-                  <BulletCircle
-                    colors={
-                      percBarColors.right[index % percBarColors.right.length]
-                    }
-                  />
+                <Value colors={rightSideColors}>
+                  <BulletCircle colors={rightSideColors} />
                   {formattedNumber(total_supply, '($ 0.00a)')}
                 </Value>
               </ValuesContainer>
-              <PercentageBar
-                colors={percBarColors.right[index % percBarColors.right.length]}
-              >
+              <PercentageBar colors={rightSideColors}>
                 <PercentageBarFill
-                  colors={percBarColors.left[index % percBarColors.left.length]}
+                  colors={leftSideColors}
                   percentage={calculatePercentage(
                     circulating_supply,
                     total_supply
