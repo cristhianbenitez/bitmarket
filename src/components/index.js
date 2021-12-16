@@ -13,3 +13,4 @@ export { WrappedNavbar as Navbar } from './Navbar/Navbar';
 export { SearchInput } from './SearchInput/SearchInput';
 export { SubNavbar } from './SubNavbar/SubNavbar';
 export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';
+export { Modal } from './Modal/Modal.js';
