@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { TextField } from '@mui/material';
+import getSymbolFromCurrency from 'currency-symbol-map';
+
 import {
   CloseButton,
   ModalButton,
@@ -16,15 +18,12 @@ import {
   CoinNameText,
   StyledDropdown,
   ModalButtons,
-  CloseModal,
-  SaveInformation,
   StyledPaper,
   StyledListbox,
   StyledDate,
   StyledCurrency,
   StyledButton
 } from './Modal.styles';
-import getSymbolFromCurrency from 'currency-symbol-map';
 
 export class Modal extends Component {
   constructor(props) {
