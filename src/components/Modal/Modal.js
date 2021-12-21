@@ -26,10 +26,7 @@ import {
 } from './Modal.styles';
 
 export class Modal extends Component {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef(null);
-  }
+  ref = React.createRef(null);
   state = {
     isOpen: false,
     coin: '',
@@ -58,6 +55,30 @@ export class Modal extends Component {
     }
   };
 
+  handleDropdownChange = (_, value) => {
+    this.setState({
+      ...this.state,
+      coin: value?.id
+    });
+  };
+
+  handleAmountChange = ({ value }) =>
+    this.setState({
+      ...this.state,
+      purchasedAmount: value
+    });
+
+  handleDateChange = (e) => {
+    this.setState({
+      ...this.state,
+      date: e.target.value
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(this.state);
+  };
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
   }
@@ -65,12 +86,6 @@ export class Modal extends Component {
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-  };
-
   render() {
     const currentCurrency = localStorage.selection;
 
@@ -122,12 +137,7 @@ export class Modal extends Component {
                             label="Select Coins"
                           />
                         )}
-                        onChange={(_, value) => {
-                          this.setState({
-                            ...this.state,
-                            coin: value?.id || ''
-                          });
-                        }}
+                        onChange={this.handleDropdownChange}
                       />
 
                       <StyledCurrency
@@ -145,12 +155,7 @@ export class Modal extends Component {
                         label="Purchased Amount"
                         variant="outlined"
                         value={this.state.purchasedAmount}
-                        onValueChange={({ value }) =>
-                          this.setState({
-                            ...this.state,
-                            purchasedAmount: value
-                          })
-                        }
+                        onValueChange={this.handleAmountChange}
                       />
                       <StyledDate
                         label="Purchased Date"
@@ -158,12 +163,7 @@ export class Modal extends Component {
                         InputLabelProps={{
                           shrink: true
                         }}
-                        onChange={(e) => {
-                          this.setState({
-                            ...this.state,
-                            date: e.target.value
-                          });
-                        }}
+                        onChange={this.handleDateChange}
                       />
                     </RightContent>
                   </ModalBody>
