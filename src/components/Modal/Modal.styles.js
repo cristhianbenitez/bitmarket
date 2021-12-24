@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Autocomplete, Paper, TextField } from '@mui/material';
 import NumberFormat from 'react-number-format';
 
 export const ModalButton = styled.button.attrs({
@@ -85,6 +84,7 @@ export const LeftContent = styled.div`
 `;
 export const RightContent = styled.div`
   padding-right: 1em;
+  width: 500px;
 `;
 
 export const CoinImage = styled.img`
@@ -105,94 +105,34 @@ export const CoinImageContainer = styled.div`
   margin-bottom: 0;
 `;
 
-export const StyledDropdown = styled(Autocomplete)`
-  && {
-    color: #ffff;
-    width: 360px;
-    margin-bottom: 1em;
-    max-width: 100%;
-    background-color: #191b1f;
-    border-radius: 12px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-    input,
-    label,
-    .MuiAutocomplete-clearIndicator {
-      color: #ffff;
-    }
-    .MuiAutocomplete {
-      &-popupIndicator {
-        color: #00ff5f;
-      }
-    }
+export const StyledInput = styled.input`
+  background: #191b1f;
+  width: 100%;
+  padding: 1.5em 1em;
+  border: none;
+  color: #fff;
+  box-sizing: border-box;
+  border-radius: 12px;
+  &:focus {
+    outline: #1976d2 solid 2px;
   }
-`;
-
-export const StyledPaper = styled(Paper)`
-  && {
-    background: #191b1f;
-    color: #fff;
-  }
-`;
-
-export const StyledListbox = styled.ul`
-  && {
-    li.Mui-focused {
-      background: #2c2f36;
-    }
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: #2c2f36;
-      outline: 1px solid #2c2f36;
-      border-radius: 4px;
+  &[type='date']::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    opacity: 0.6;
+    filter: invert(0.8);
+    &:hover {
+      opacity: 1;
     }
   }
 `;
 
 export const StyledCurrency = styled(NumberFormat)`
-  && {
-    background: #191b1f;
-    color: #fff;
-    border-radius: 12px;
-    width: 100%;
-    label,
-    input,
-    p {
-      color: #fff;
-    }
-  }
-`;
-
-export const StyledDate = styled(TextField)`
-  && {
-    background: #191b1f;
-    color: #fff;
-    outline: none;
-    border: none;
-    width: 100%;
-    margin-top: 1em;
-    border-radius: 12px;
-    input,
-    label,
-    p {
-      color: #fff;
-    }
-    input::-webkit-calendar-picker-indicator {
-      cursor: pointer;
-      border-radius: 4px;
-      margin-right: 2px;
-      opacity: 0.6;
-      filter: invert(0.8);
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
+  background: #191b1f;
+  color: #fff;
+  border-radius: 12px;
+  margin-bottom: 1em;
 `;
 
 export const ModalButtons = styled.div`

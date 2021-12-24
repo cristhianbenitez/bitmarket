@@ -19,7 +19,6 @@ export class Portfolio extends Component {
       }
     });
     this.setState({
-      ...this.state,
       isLoading: false,
       coins: data
     });

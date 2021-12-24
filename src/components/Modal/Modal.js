@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { TextField } from '@mui/material';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { ModalAutocomplete } from 'components';
 
 import {
   CloseButton,
@@ -16,13 +16,10 @@ import {
   CoinImageContainer,
   CoinImage,
   CoinNameText,
-  StyledDropdown,
   ModalButtons,
-  StyledPaper,
-  StyledListbox,
-  StyledDate,
   StyledCurrency,
-  StyledButton
+  StyledButton,
+  StyledInput
 } from './Modal.styles';
 
 export class Modal extends Component {
@@ -30,7 +27,7 @@ export class Modal extends Component {
   state = {
     isOpen: false,
     coin: '',
-    purchasedAmount: '',
+    purchasedAmount: 0,
     date: ''
   };
 
@@ -55,10 +52,10 @@ export class Modal extends Component {
     }
   };
 
-  handleDropdownChange = (_, value) => {
+  handleDropdownChange = (value) => {
     this.setState({
       ...this.state,
-      coin: value?.id
+      coin: value
     });
   };
 
@@ -77,7 +74,6 @@ export class Modal extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state);
   };
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
@@ -124,45 +120,22 @@ export class Modal extends Component {
                       </CoinNameText>
                     </LeftContent>
                     <RightContent>
-                      <StyledDropdown
-                        options={coinsDetails}
-                        isOptionEqualToValue={(props) => props.name}
-                        getOptionLabel={(option) => option.name}
-                        PaperComponent={StyledPaper}
-                        ListboxComponent={StyledListbox}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            name="coin"
-                            label="Select Coins"
-                          />
-                        )}
-                        onChange={this.handleDropdownChange}
+                      <ModalAutocomplete
+                        data={coinsDetails}
+                        handleChange={this.handleDropdownChange}
                       />
 
                       <StyledCurrency
-                        customInput={TextField}
+                        customInput={StyledInput}
                         isNumericString={true}
                         thousandSeparator={true}
                         decimalScale={2}
-                        InputProps={{
-                          startAdornment: (
-                            <p>
-                              {getSymbolFromCurrency(currentCurrency)}&nbsp;
-                            </p>
-                          )
-                        }}
-                        label="Purchased Amount"
-                        variant="outlined"
+                        prefix={getSymbolFromCurrency(currentCurrency)}
                         value={this.state.purchasedAmount}
                         onValueChange={this.handleAmountChange}
                       />
-                      <StyledDate
-                        label="Purchased Date"
+                      <StyledInput
                         type="date"
-                        InputLabelProps={{
-                          shrink: true
-                        }}
                         onChange={this.handleDateChange}
                       />
                     </RightContent>
