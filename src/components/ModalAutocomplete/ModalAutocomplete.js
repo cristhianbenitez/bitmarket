@@ -18,7 +18,7 @@ export class ModalAutocomplete extends Component {
     suggestions: [...this.props.data]
   };
 
-  onTextChanged = (e) => {
+  onTextChange = (e) => {
     const value = e.target.value;
     let suggestions = [];
     if (value.length > 0) {
@@ -56,7 +56,7 @@ export class ModalAutocomplete extends Component {
           <Input
             id="input"
             autoComplete="off"
-            value={this.state.text}
+            defaultValue={this.state.text}
             onChange={this.onTextChanged}
             type={'text'}
           />

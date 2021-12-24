@@ -85,15 +85,17 @@ export class Modal extends Component {
   render() {
     const currentCurrency = localStorage.selection;
 
-    const coinsDetails = this.props.coins.map((coin) => {
-      return { name: coin.name, id: coin.id };
-    });
+    const coinsDetails = this.props.coins.map((coin) => ({
+      name: coin.name,
+      id: coin.id
+    }));
 
-    const coinInformation = this.props.coins.filter(
+    const resultOfSelection = this.props.coins.filter(
       ({ id }) => id === this.state.coin
     );
+    const coinInformation = resultOfSelection[0];
 
-    const minimizedImage = coinInformation[0]?.image.replace('large', 'small');
+    const minimizedImage = coinInformation?.image.replace('large', 'small');
 
     return (
       <>
@@ -111,12 +113,12 @@ export class Modal extends Component {
                       <CoinImageContainer>
                         <CoinImage
                           src={minimizedImage}
-                          alt={coinInformation[0]?.id}
+                          alt={coinInformation?.id}
                         />
                       </CoinImageContainer>
                       <CoinNameText>
-                        {coinInformation[0]?.name}
-                        {`(${coinInformation[0]?.symbol.toUpperCase()})`}
+                        {coinInformation?.name}
+                        {`(${coinInformation?.symbol.toUpperCase()})`}
                       </CoinNameText>
                     </LeftContent>
                     <RightContent>
