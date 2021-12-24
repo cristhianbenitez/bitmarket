@@ -16,6 +16,7 @@ import {
   Subtitle,
   TopPageContent
 } from './CoinInformation.styles';
+
 import {
   CoinPricesData,
   CoinInfo,
