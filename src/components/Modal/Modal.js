@@ -23,14 +23,15 @@ import {
   StyledInput
 } from './Modal.styles';
 
+const initialState = {
+  isOpen: false,
+  coin: '',
+  purchasedAmount: 0,
+  date: ISOCurrentDate()
+};
 export class Modal extends Component {
   ref = React.createRef(null);
-  state = {
-    isOpen: false,
-    coin: '',
-    purchasedAmount: 0,
-    date: ISOCurrentDate()
-  };
+  state = initialState;
 
   toggle = () =>
     this.setState((prevState) => ({
@@ -38,12 +39,7 @@ export class Modal extends Component {
     }));
 
   clear = () => {
-    this.setState({
-      isOpen: false,
-      coin: '',
-      purchasedAmount: 0,
-      date: ''
-    });
+    this.setState(initialState);
   };
 
   handleClickOutside = (event) => {
