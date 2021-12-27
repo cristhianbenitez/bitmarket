@@ -64,7 +64,7 @@ export const SmallText = styled.p`
 `;
 
 export const GreenText = styled.span`
-  color: #00fc2a;
+  color: ${(props) => (props.price < 0 ? '#FE1040' : '#00fc2a')};
   margin-left: 1em;
   display: flex;
   align-items: center;

@@ -128,7 +128,7 @@ export class AssetsListRow extends Component {
               </SmallText>
               <SmallText>
                 Price Change 24h:
-                <GreenText>
+                <GreenText price={marketData?.price_change_24h.toFixed(2)}>
                   {directionIndicator(marketData?.price_change_24h)}$
                   {marketData?.price_change_24h.toFixed(2)}
                 </GreenText>
@@ -178,7 +178,9 @@ export class AssetsListRow extends Component {
               </SmallText>
               <SmallText>
                 Price change since purchase:
-                <GreenText>
+                <GreenText
+                  price={marketData?.current_price.usd - this.state.priceData}
+                >
                   {directionIndicator(
                     marketData?.current_price.usd - this.state.priceData
                   )}
