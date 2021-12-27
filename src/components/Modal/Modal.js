@@ -94,7 +94,7 @@ export class Modal extends Component {
     }));
 
     const resultOfSelection = this.props.supportedCoins.filter(
-      ({ id }) => id === this.state.coin
+      ({ id }) => id === this.state.coinId
     );
     const coinInformation = resultOfSelection[0];
 
