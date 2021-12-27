@@ -38,3 +38,13 @@ export const calculatePercentage = (a, b) => {
   const percentageB = ((b / sum) * 100).toFixed(0);
   return { percentageA: percentageA, percentageB: percentageB };
 };
+
+export const ISOCurrentDate = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  today = yyyy + '-' + mm + '-' + dd;
+  return today;
+};

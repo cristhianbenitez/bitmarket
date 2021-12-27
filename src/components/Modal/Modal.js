@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ModalAutocomplete } from 'components';
+import { ISOCurrentDate } from 'utils';
 
 import {
   CloseButton,
@@ -28,7 +29,7 @@ export class Modal extends Component {
     isOpen: false,
     coin: '',
     purchasedAmount: 0,
-    date: ''
+    date: ISOCurrentDate()
   };
 
   toggle = () =>
@@ -74,6 +75,12 @@ export class Modal extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { coin, purchasedAmount, date } = this.state;
+    if (coin && purchasedAmount && date) {
+      this.props.addAssets({ coin, purchasedAmount, date });
+      this.toggle();
+      this.clear();
+    }
   };
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
@@ -139,6 +146,7 @@ export class Modal extends Component {
                       <StyledInput
                         type="date"
                         onChange={this.handleDateChange}
+                        value={this.state.date}
                       />
                     </RightContent>
                   </ModalBody>
