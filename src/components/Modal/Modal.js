@@ -25,7 +25,7 @@ import {
 
 const initialState = {
   isOpen: false,
-  coin: '',
+  coinId: '',
   purchasedAmount: 0,
   date: ISOCurrentDate()
 };
@@ -52,7 +52,7 @@ export class Modal extends Component {
   handleDropdownChange = (value) => {
     this.setState({
       ...this.state,
-      coin: value
+      coinId: value
     });
   };
 
@@ -71,9 +71,9 @@ export class Modal extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { coin, purchasedAmount, date } = this.state;
-    if (coin && purchasedAmount && date) {
-      this.props.addAssets({ coin, purchasedAmount, date });
+    const { coinId, purchasedAmount, date } = this.state;
+    if (coinId && purchasedAmount && date) {
+      this.props.addAsset({ coinId, purchasedAmount, date });
       this.toggle();
       this.clear();
     }
@@ -88,12 +88,12 @@ export class Modal extends Component {
   render() {
     const currentCurrency = localStorage.selection;
 
-    const coinsDetails = this.props.coins.map((coin) => ({
+    const coinsDetails = this.props.supportedCoins.map((coin) => ({
       name: coin.name,
       id: coin.id
     }));
 
-    const resultOfSelection = this.props.coins.filter(
+    const resultOfSelection = this.props.supportedCoins.filter(
       ({ id }) => id === this.state.coin
     );
     const coinInformation = resultOfSelection[0];

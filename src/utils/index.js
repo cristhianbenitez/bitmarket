@@ -1,7 +1,6 @@
 import numeral from 'numeral';
 
 export const addZero = (i) => {
-  // Add zero to the hours
   if (i < 10) {
     i = '0' + i;
   }
@@ -47,4 +46,14 @@ export const ISOCurrentDate = () => {
 
   today = yyyy + '-' + mm + '-' + dd;
   return today;
+};
+
+export const currencyFormat = function (amount, symbol = '') {
+  const formattedAmount = new Intl.NumberFormat('en-US').format(amount);
+  if (formattedAmount.length > 8) {
+    const formattedBigNumber = formattedNumber(formattedAmount, '( 0.00a)');
+    return symbol + formattedBigNumber;
+  }
+  return symbol + formattedAmount;
+  s;
 };
