@@ -51,20 +51,17 @@ export class Modal extends Component {
 
   handleDropdownChange = (value) => {
     this.setState({
-      ...this.state,
       coinId: value
     });
   };
 
   handleAmountChange = ({ value }) =>
     this.setState({
-      ...this.state,
       purchasedAmount: value
     });
 
   handleDateChange = (e) => {
     this.setState({
-      ...this.state,
       date: e.target.value
     });
   };

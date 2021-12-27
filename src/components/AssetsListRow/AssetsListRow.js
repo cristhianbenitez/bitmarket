@@ -32,7 +32,7 @@ export class AssetsListRow extends Component {
   };
 
   getData = async () => {
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const id = this.props.id;
     const purchasedDate = this.props.purchaseDate
       .split('-')
@@ -61,7 +61,6 @@ export class AssetsListRow extends Component {
     const historicPriceData = priceData?.data?.market_data?.current_price.usd;
 
     this.setState({
-      ...this.state,
       isLoading: false,
       assetData: assetData.data,
       priceData: historicPriceData
@@ -73,7 +72,6 @@ export class AssetsListRow extends Component {
   };
 
   render() {
-    console.log(this.state);
     const {
       name,
       symbol,
@@ -96,8 +94,8 @@ export class AssetsListRow extends Component {
     );
 
     const directionIndicator = (price) => {
-      const isPositive = price < 0;
-      return isPositive ? <RedArrowDown /> : <GreenArrowUp />;
+      const isPositive = price > 0;
+      return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
     };
 
     if (this.state.isLoading) return <div>Loading...</div>;

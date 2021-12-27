@@ -11,7 +11,7 @@ export class Portfolio extends Component {
     assets: []
   };
   getSupportedCoins = async () => {
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get(`/coins/markets`, {
       params: {
         vs_currency: 'usd',
@@ -21,7 +21,6 @@ export class Portfolio extends Component {
     });
 
     this.setState({
-      ...this.state,
       isLoading: false,
       supportedCoins: data
     });
@@ -30,7 +29,6 @@ export class Portfolio extends Component {
   addAsset = (newAsset) => {
     const updatedAssets = [...this.state.assets, newAsset];
     this.setState({
-      ...this.state,
       assets: updatedAssets
     });
     localStorage.setItem('assets', JSON.stringify(updatedAssets));
@@ -41,7 +39,6 @@ export class Portfolio extends Component {
       (asset) => asset.coinId !== coinId
     );
     this.setState({
-      ...this.state,
       assets: updatedAssets
     });
     localStorage.setItem('assets', JSON.stringify(updatedAssets));
@@ -51,7 +48,6 @@ export class Portfolio extends Component {
     if (localStorage.assets.length > 0) {
       const currAssets = JSON.parse(localStorage.getItem('assets'));
       this.setState({
-        ...this.state,
         assets: currAssets
       });
     }
