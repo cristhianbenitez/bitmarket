@@ -15,3 +15,4 @@ export { SubNavbar } from './SubNavbar/SubNavbar';
 export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';
 export { Modal } from './Modal/Modal.js';
 export { ModalAutocomplete } from './ModalAutocomplete/ModalAutocomplete';
+export { AssetsListRow } from './AssetsListRow/AssetsListRow';

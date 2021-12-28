@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ModalAutocomplete } from 'components';
+import { ISOCurrentDate } from 'utils';
 
 import {
   CloseButton,
@@ -22,14 +23,15 @@ import {
   StyledInput
 } from './Modal.styles';
 
+const initialState = {
+  isOpen: false,
+  coinId: '',
+  purchasedAmount: 0,
+  date: ISOCurrentDate()
+};
 export class Modal extends Component {
   ref = React.createRef(null);
-  state = {
-    isOpen: false,
-    coin: '',
-    purchasedAmount: 0,
-    date: ''
-  };
+  state = initialState;
 
   toggle = () =>
     this.setState((prevState) => ({
@@ -37,12 +39,7 @@ export class Modal extends Component {
     }));
 
   clear = () => {
-    this.setState({
-      isOpen: false,
-      coin: '',
-      purchasedAmount: 0,
-      date: ''
-    });
+    this.setState(initialState);
   };
 
   handleClickOutside = (event) => {
@@ -54,26 +51,29 @@ export class Modal extends Component {
 
   handleDropdownChange = (value) => {
     this.setState({
-      ...this.state,
-      coin: value
+      coinId: value
     });
   };
 
   handleAmountChange = ({ value }) =>
     this.setState({
-      ...this.state,
       purchasedAmount: value
     });
 
   handleDateChange = (e) => {
     this.setState({
-      ...this.state,
       date: e.target.value
     });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const { coinId, purchasedAmount, date } = this.state;
+    if (coinId && purchasedAmount && date) {
+      this.props.addAsset({ coinId, purchasedAmount, date });
+      this.toggle();
+      this.clear();
+    }
   };
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
@@ -85,13 +85,13 @@ export class Modal extends Component {
   render() {
     const currentCurrency = localStorage.selection;
 
-    const coinsDetails = this.props.coins.map((coin) => ({
+    const coinsDetails = this.props.supportedCoins.map((coin) => ({
       name: coin.name,
       id: coin.id
     }));
 
-    const resultOfSelection = this.props.coins.filter(
-      ({ id }) => id === this.state.coin
+    const resultOfSelection = this.props.supportedCoins.filter(
+      ({ id }) => id === this.state.coinId
     );
     const coinInformation = resultOfSelection[0];
 
@@ -139,6 +139,7 @@ export class Modal extends Component {
                       <StyledInput
                         type="date"
                         onChange={this.handleDateChange}
+                        value={this.state.date}
                       />
                     </RightContent>
                   </ModalBody>

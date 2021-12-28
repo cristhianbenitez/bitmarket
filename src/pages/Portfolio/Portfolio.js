@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 
-import { Modal } from 'components';
-import { Container, Subtitle } from './Portfolio.styles';
+import { Modal, AssetsListRow } from 'components';
+import { Container, PageHead, Subtitle, AssetsList } from './Portfolio.styles';
 import coinGecko from 'api/coinGecko';
 
 export class Portfolio extends Component {
   state = {
     isLoading: false,
-    coins: []
+    supportedCoins: [],
+    assets: []
   };
-  getCoins = async () => {
-    this.setState({ ...this.state, isLoading: true });
+  getSupportedCoins = async () => {
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get(`/coins/markets`, {
       params: {
         vs_currency: 'usd',
@@ -18,22 +19,69 @@ export class Portfolio extends Component {
         per_page: '250'
       }
     });
+
     this.setState({
       isLoading: false,
-      coins: data
+      supportedCoins: data
     });
   };
 
-  componentDidMount = () => {
-    this.getCoins();
+  addAsset = (newAsset) => {
+    const updatedAssets = [...this.state.assets, newAsset];
+    this.setState({
+      assets: updatedAssets
+    });
+    localStorage.setItem('assets', JSON.stringify(updatedAssets));
   };
+
+  removeAsset = (coinId) => {
+    const updatedAssets = this.state.assets.filter(
+      (asset) => asset.coinId !== coinId
+    );
+    this.setState({
+      assets: updatedAssets
+    });
+    localStorage.setItem('assets', JSON.stringify(updatedAssets));
+  };
+  componentDidMount = () => {
+    this.getSupportedCoins();
+    if (localStorage.assets.length > 0) {
+      const currAssets = JSON.parse(localStorage.getItem('assets'));
+      this.setState({
+        assets: currAssets
+      });
+    }
+  };
+
   render() {
     return this.state.isLoading ? (
       <div>Loading...</div>
     ) : (
       <Container>
-        <Subtitle>Portfolio</Subtitle>
-        <Modal coins={this.state.coins} />
+        <PageHead>
+          <Modal
+            supportedCoins={this.state.supportedCoins}
+            addAsset={this.addAsset}
+          />
+        </PageHead>
+        <Subtitle>Your statistics</Subtitle>
+
+        <AssetsList>
+          {this.state.assets.length > 0 &&
+            !this.state.isLoading &&
+            this.state.assets.map((asset, index) => {
+              const { coinId, purchasedAmount, date } = asset;
+              return (
+                <AssetsListRow
+                  key={index}
+                  id={coinId}
+                  coinAmount={purchasedAmount}
+                  purchaseDate={date}
+                  removeAsset={this.removeAsset}
+                />
+              );
+            })}
+        </AssetsList>
       </Container>
     );
   }
