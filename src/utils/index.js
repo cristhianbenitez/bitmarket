@@ -1,7 +1,6 @@
 import numeral from 'numeral';
 
 export const addZero = (i) => {
-  // Add zero to the hours
   if (i < 10) {
     i = '0' + i;
   }
@@ -37,4 +36,23 @@ export const calculatePercentage = (a, b) => {
   const percentageA = ((a / sum) * 100).toFixed(0);
   const percentageB = ((b / sum) * 100).toFixed(0);
   return { percentageA: percentageA, percentageB: percentageB };
+};
+
+export const ISOCurrentDate = () => {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0');
+  var yyyy = today.getFullYear();
+
+  return `${yyyy}-${mm}-${dd}`;
+};
+
+export const currencyFormat = function (amount, symbol = '') {
+  const formattedAmount = new Intl.NumberFormat('en-US').format(amount);
+  if (formattedAmount.length > 8) {
+    const formattedBigNumber = formattedNumber(formattedAmount, '( 0.00a)');
+    return symbol + formattedBigNumber;
+  }
+  return symbol + formattedAmount;
+  s;
 };

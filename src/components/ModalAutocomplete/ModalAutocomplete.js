@@ -33,7 +33,6 @@ export class ModalAutocomplete extends Component {
   };
   suggestionSelected = (value) => {
     this.setState({
-      ...this.state,
       isDropdownVisible: false,
       text: value.name
     });
@@ -42,7 +41,6 @@ export class ModalAutocomplete extends Component {
 
   toggle = () => {
     this.setState((prevState) => ({
-      ...this.state,
       isDropdownVisible: !prevState.isDropdownVisible
     }));
   };
