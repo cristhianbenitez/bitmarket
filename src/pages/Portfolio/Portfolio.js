@@ -45,7 +45,7 @@ export class Portfolio extends Component {
   };
   componentDidMount = () => {
     this.getSupportedCoins();
-    if (localStorage.assets.length > 0) {
+    if (localStorage.assets && this.state.assets) {
       const currAssets = JSON.parse(localStorage.getItem('assets'));
       this.setState({
         assets: currAssets
