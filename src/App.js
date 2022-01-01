@@ -6,15 +6,19 @@ import { SubNavbar, Navbar } from 'components';
 
 class App extends Component {
   state = {
-    currency: 'USD'
+    currency: ''
   };
   changeCurrency = (newCurr) => {
-    this.setState({ ...this.state, currency: newCurr });
+    this.setState({ currency: newCurr });
   };
+
+  componentDidMount() {
+    localStorage.setItem('selection', this.state.currency || 'usd');
+  }
 
   render() {
     return (
-      <Wrapper onScroll={this.handleScroll}>
+      <Wrapper>
         <Router>
           <Navbar changeCurrency={this.changeCurrency} />
           <SubNavbar />
@@ -24,7 +28,10 @@ class App extends Component {
               path="/"
               element={<Coins currency={this.state.currency} />}
             />
-            <Route path="/coin/:id" element={<CoinInformation />} />
+            <Route
+              path="/coin/:id"
+              element={<CoinInformation currency={this.state.currency} />}
+            />
           </Routes>
         </Router>
       </Wrapper>
