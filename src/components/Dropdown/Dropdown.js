@@ -41,33 +41,27 @@ export class Dropdown extends React.Component {
     this.toggle();
   };
 
-  onTextChange = (e) => {
-    const value = e.target.value;
-    let updatedState = {
-      ...this.state,
+  onTextChange = ({ target: { value } }) => {
+    const updatedState = {
       isOpen: true,
-      selection: value,
-      suggestions: []
+      selection: value
     };
-    if (value.length > 0) {
+    if (value.length) {
       const regex = new RegExp(`^${value}`, 'i');
-      const filteredSuggestions = [...this.state.options]
-        .sort()
-        .filter((v) => regex.test(v));
-      updatedState.suggestions = filteredSuggestions;
-      this.setState({ ...updatedState });
-    }
-    if (!value.length) {
-      updatedState.suggestions = this.state.options;
+      const filteredSuggestions = this.state.options
+        .filter((v) => regex.test(v))
+        .sort();
+      this.setState({ ...updatedState, suggestions: filteredSuggestions });
+    } else {
       this.setState({ ...updatedState });
     }
   };
 
   componentDidMount = () => {
     this.getSupportedCurrencies();
-    const CurrentSelection = localStorage.getItem('selection') || 'usd';
-    this.setState({ selection: CurrentSelection });
-    this.props.changeCurrency(CurrentSelection);
+    const currentSelection = localStorage.getItem('selection') || 'usd';
+    this.setState({ selection: currentSelection });
+    this.props.changeCurrency(currentSelection);
   };
 
   render() {

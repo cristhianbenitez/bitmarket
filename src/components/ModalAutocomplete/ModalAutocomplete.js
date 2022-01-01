@@ -21,7 +21,6 @@ export class ModalAutocomplete extends Component {
   onTextChange = (e) => {
     const value = e.target.value;
     let suggestions = [];
-    console.log(value);
     if (value.length > 0) {
       const regex = new RegExp(`^${value}`, 'i');
       suggestions = this.props.data.sort().filter((v) => regex.test(v.name));
