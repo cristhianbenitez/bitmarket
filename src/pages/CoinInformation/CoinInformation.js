@@ -84,7 +84,10 @@ class CoinInformation extends Component {
             </LeftContent>
             <MiddleContent>
               <CoinPricesData
-                priceChange={market_data?.price_change_24h}
+                currencySymbol={currencySymbol}
+                priceChange={
+                  market_data?.price_change_24h_in_currency?.[currency]
+                }
                 currentPrice={market_data?.current_price?.[currency]}
                 athPrice={market_data?.ath?.[currency]}
                 athDate={market_data?.ath_date?.[currency]}
@@ -96,6 +99,8 @@ class CoinInformation extends Component {
             </MiddleContent>
             <RightContent>
               <MarketDataInfo
+                currencySymbol={currencySymbol}
+                symbol={symbol}
                 marketCap={market_data?.market_cap?.[currency]}
                 fullyDilutedVal={
                   market_data?.fully_diluted_valuation?.[currency]

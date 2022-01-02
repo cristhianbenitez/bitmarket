@@ -98,6 +98,10 @@ export class AssetsListRow extends Component {
       return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
     };
 
+    const currency = `${this.props.currency}`;
+
+    const currencySymbol = getSymbolFromCurrency(this.props.currency);
+
     if (this.state.isLoading) return <div>Loading...</div>;
 
     return (
@@ -121,14 +125,26 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Current Price:
                 <GreenText>
-                  {currencyFormat(marketData?.current_price.usd, '$')}
+                  {currencyFormat(
+                    marketData?.price_change_24h_in_currency?.[currency],
+                    currencySymbol
+                  )}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price Change 24h:
-                <GreenText price={marketData?.price_change_24h.toFixed(2)}>
-                  {directionIndicator(marketData?.price_change_24h)}$
-                  {marketData?.price_change_24h.toFixed(2)}
+                <GreenText
+                  price={marketData?.price_change_24h_in_currency?.[
+                    currency
+                  ].toFixed(2)}
+                >
+                  {directionIndicator(
+                    marketData?.price_change_24h_in_currency?.[currency]
+                  )}
+                  {currencySymbol}
+                  {marketData?.price_change_24h_in_currency?.[currency].toFixed(
+                    2
+                  )}
                 </GreenText>
               </SmallText>
               <WhiteText>
@@ -169,22 +185,26 @@ export class AssetsListRow extends Component {
                 Amount Value:
                 <GreenText>
                   {currencyFormat(
-                    this.props.coinAmount * marketData?.current_price.usd,
-                    '$'
+                    this.props.coinAmount *
+                      marketData?.current_price?.[currency],
+                    currencySymbol
                   )}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price change since purchase:
                 <GreenText
-                  price={marketData?.current_price.usd - this.state.priceData}
+                  price={
+                    marketData?.current_price?.[currency] - this.state.priceData
+                  }
                 >
                   {directionIndicator(
-                    marketData?.current_price.usd - this.state.priceData
+                    marketData?.current_price?.[currency] - this.state.priceData
                   )}
                   {currencyFormat(
-                    marketData?.current_price.usd - this.state.priceData,
-                    '$'
+                    marketData?.current_price?.[currency] -
+                      this.state.priceData,
+                    currencySymbol
                   )}
                 </GreenText>
               </SmallText>

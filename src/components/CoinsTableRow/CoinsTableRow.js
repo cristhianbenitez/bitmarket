@@ -42,10 +42,9 @@ export class CoinsTableRow extends Component {
       } = coinInfo;
 
       const directionIndicator = (price) => {
-        const isPositive = price < 0;
-        return isPositive ? <RedArrowDown /> : <GreenArrowUp />;
+        const isPositive = price > 0;
+        return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
       };
-
       const percentageBarColors = {
         left: [
           '#FFB528',

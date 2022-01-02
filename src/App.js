@@ -23,7 +23,10 @@ class App extends Component {
           <Navbar changeCurrency={this.changeCurrency} />
           <SubNavbar />
           <Routes>
-            <Route path="/portfolio" element={<Portfolio />}></Route>
+            <Route
+              path="/portfolio"
+              element={<Portfolio currency={this.state.currency} />}
+            ></Route>
             <Route
               path="/"
               element={<Coins currency={this.state.currency} />}
