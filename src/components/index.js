@@ -1,4 +1,4 @@
-export * as themes from './Themes/Themes';
+export * from './Themes/Themes';
 export { CoinPricesData } from './CoinPricesData/CoinPricesData';
 export { Charts } from './Charts/Charts';
 export { ChartsLegend } from './ChartsLegend/ChartsLegend';

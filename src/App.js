@@ -1,26 +1,46 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Wrapper } from './App.styles';
+import { GlobalStyle, Wrapper } from './App.styles';
 import { Coins, Portfolio, CoinInformation } from 'pages';
-import { SubNavbar, Navbar, themes } from 'components';
+import { SubNavbar, Navbar, lightTheme, darkTheme } from 'components';
 import { ThemeProvider } from 'styled-components';
+
 class App extends Component {
   state = {
     currency: 'USD',
-    currentTheme: 'dark'
+    theme: 'dark'
   };
+
   changeCurrency = (newCurr) => {
     this.setState({ ...this.state, currency: newCurr });
   };
 
+  setMode = (mode) => {
+    window.localStorage.setItem('theme', mode);
+    this.setState({ theme: mode });
+  };
+
+  themeToggler = () => {
+    this.state.theme === 'dark' ? this.setMode('light') : this.setMode('dark');
+  };
+
+  componentDidMount() {
+    const localTheme = window.localStorage.getItem('theme');
+    localTheme && this.setState({ theme: localTheme });
+  }
+
   render() {
-    const theme =
-      this.state.currentTheme === 'dark' ? themes.darkTheme : themes.lightTheme;
+    const themeMode = this.state.theme === 'dark' ? lightTheme : darkTheme;
+
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themeMode}>
         <Wrapper onScroll={this.handleScroll}>
+          <GlobalStyle />
           <Router>
-            <Navbar changeCurrency={this.changeCurrency} />
+            <Navbar
+              changeCurrency={this.changeCurrency}
+              themeToggler={this.themeToggler}
+            />
             <SubNavbar />
             <Routes>
               <Route path="/portfolio" element={<Portfolio />}></Route>

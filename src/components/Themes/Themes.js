@@ -1,17 +1,19 @@
 export const darkTheme = {
-  colors: {
-    blackRussian: '#1F2128',
-    persianGreen: '#06B49A',
-    lightBlue: '#AFDBD2',
-    onyx: '#36313D'
-  }
+  general: '#FFFFFF',
+  background: '#1F2128',
+  foreground: '#191B1F',
+  lineChart: '#06D554',
+  barChart: '#2172E5',
+  brightGreen: '#06D554',
+  brightNavyBlue: '#2172E5'
 };
 
 export const lightTheme = {
-  colors: {
-    blackRussian: '#1F2128',
-    persianGreen: '#06B49A',
-    lightBlue: '#AFDBD2',
-    onyx: '#36313D'
-  }
+  general: '#2C2F36',
+  background: '#FCFCFC',
+  foreground: '#FFFFFF',
+  lineChart: '#06D554',
+  barChart: '#2172E5',
+  Green: '#06D554',
+  navyBlue: '#2172E5'
 };

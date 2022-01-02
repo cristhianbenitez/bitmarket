@@ -5,7 +5,7 @@ export const Wrapper = styled.nav`
   padding: 1em 4em;
   display: flex;
   justify-content: space-between;
-  background-color: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   align-items: center;
 `;
 

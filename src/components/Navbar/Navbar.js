@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import coinGecko from 'api/coinGecko.js';
 import { withRouter } from 'helpers';
 
 import { Dropdown, SearchInput } from 'components';
@@ -36,7 +35,7 @@ class Navbar extends Component {
         <Container>
           <SearchInput />
           <Dropdown changeCurrency={this.props.changeCurrency} />
-          <ThemeButton />
+          <ThemeButton onClick={this.props.themeToggler} />
         </Container>
       </Wrapper>
     );
