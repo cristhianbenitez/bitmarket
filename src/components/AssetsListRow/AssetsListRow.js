@@ -72,6 +72,10 @@ export class AssetsListRow extends Component {
   };
 
   render() {
+    const currency = `${this.props.currency}`;
+
+    const currencySymbol = getSymbolFromCurrency(this.props.currency);
+
     const {
       name,
       symbol,
@@ -93,14 +97,15 @@ export class AssetsListRow extends Component {
       marketData?.max_supply
     );
 
+    const priceChangeIn24h =
+      marketData?.price_change_24h_in_currency?.[currency];
+
+    const currentPrice = marketData?.current_price?.[currency];
+
     const directionIndicator = (price) => {
       const isPositive = price > 0;
       return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
     };
-
-    const currency = `${this.props.currency}`;
-
-    const currencySymbol = getSymbolFromCurrency(this.props.currency);
 
     if (this.state.isLoading) return <div>Loading...</div>;
 
@@ -125,26 +130,15 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Current Price:
                 <GreenText>
-                  {currencyFormat(
-                    marketData?.price_change_24h_in_currency?.[currency],
-                    currencySymbol
-                  )}
+                  {currencyFormat(priceChangeIn24h, currencySymbol)}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price Change 24h:
-                <GreenText
-                  price={marketData?.price_change_24h_in_currency?.[
-                    currency
-                  ].toFixed(2)}
-                >
-                  {directionIndicator(
-                    marketData?.price_change_24h_in_currency?.[currency]
-                  )}
+                <GreenText price={priceChangeIn24h?.toFixed(2)}>
+                  {directionIndicator(priceChangeIn24h)}
                   {currencySymbol}
-                  {marketData?.price_change_24h_in_currency?.[currency].toFixed(
-                    2
-                  )}
+                  {priceChangeIn24h?.toFixed(2)}
                 </GreenText>
               </SmallText>
               <WhiteText>
@@ -185,25 +179,17 @@ export class AssetsListRow extends Component {
                 Amount Value:
                 <GreenText>
                   {currencyFormat(
-                    this.props.coinAmount *
-                      marketData?.current_price?.[currency],
+                    this.props.coinAmount * currentPrice,
                     currencySymbol
                   )}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price change since purchase:
-                <GreenText
-                  price={
-                    marketData?.current_price?.[currency] - this.state.priceData
-                  }
-                >
-                  {directionIndicator(
-                    marketData?.current_price?.[currency] - this.state.priceData
-                  )}
+                <GreenText price={currentPrice - this.state.priceData}>
+                  {directionIndicator(currentPrice - this.state.priceData)}
                   {currencyFormat(
-                    marketData?.current_price?.[currency] -
-                      this.state.priceData,
+                    currentPrice - this.state.priceData,
                     currencySymbol
                   )}
                 </GreenText>

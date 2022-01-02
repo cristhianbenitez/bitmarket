@@ -16,7 +16,7 @@ export class CoinsTable extends Component {
     coinItemData: []
   };
   getCoinItemData = async (currency = 'usd') => {
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get('/coins/markets', {
       params: {
         vs_currency: currency,
@@ -29,7 +29,6 @@ export class CoinsTable extends Component {
       }
     });
     this.setState({
-      ...this.state,
       isLoading: false,
       coinItemData: data
     });

@@ -36,7 +36,7 @@ class CoinInformation extends Component {
 
   getCoinInformation = async () => {
     const id = this.props.params.id;
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get(`/coins/${id}`, {
       params: {
         market_data: 'true',
@@ -50,7 +50,6 @@ class CoinInformation extends Component {
     });
 
     this.setState({
-      ...this.state,
       isLoading: false,
       coinInfo: data
     });

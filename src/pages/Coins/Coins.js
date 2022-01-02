@@ -20,7 +20,7 @@ export class Coins extends Component {
   formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
 
   getChartData = async (currency) => {
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const [volume24h, coinPrice] = await Promise.all([
       coinGecko.get('/coins/bitcoin/market_chart', {
         params: { vs_currency: currency, days: '30', interval: 'daily' }
@@ -31,7 +31,6 @@ export class Coins extends Component {
     ]);
 
     this.setState({
-      ...this.state,
       isLoading: false,
       volume24h: this.formatData(volume24h.data.total_volumes),
       coinPrice: this.formatData(coinPrice.data.prices)
