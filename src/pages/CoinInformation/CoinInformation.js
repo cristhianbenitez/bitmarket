@@ -26,6 +26,7 @@ import {
   LinkContainer,
   CurrencyConverter
 } from 'components';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 class CoinInformation extends Component {
   state = {
@@ -35,7 +36,7 @@ class CoinInformation extends Component {
 
   getCoinInformation = async () => {
     const id = this.props.params.id;
-    this.setState({ ...this.state, isLoading: true });
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get(`/coins/${id}`, {
       params: {
         market_data: 'true',
@@ -49,7 +50,6 @@ class CoinInformation extends Component {
     });
 
     this.setState({
-      ...this.state,
       isLoading: false,
       coinInfo: data
     });
@@ -61,6 +61,10 @@ class CoinInformation extends Component {
   render() {
     const { name, market_data, image, links, symbol, description } =
       this.state.coinInfo;
+
+    const currency = `${this.props.currency}`;
+
+    const currencySymbol = getSymbolFromCurrency(this.props.currency);
 
     return this.state.isLoading ? (
       <div>Loading...</div>
@@ -79,21 +83,28 @@ class CoinInformation extends Component {
             </LeftContent>
             <MiddleContent>
               <CoinPricesData
-                priceChange={market_data?.price_change_24h}
-                currentPrice={market_data?.current_price?.usd}
-                athPrice={market_data?.ath?.usd}
-                athDate={market_data?.ath_date?.usd}
-                athPriceChange={market_data?.ath_change_percentage?.usd}
-                atlPrice={market_data?.atl?.usd}
-                atlDate={market_data?.atl_date?.usd}
-                atlPriceChange={market_data?.atl_change_percentage?.usd}
+                currencySymbol={currencySymbol}
+                priceChange={
+                  market_data?.price_change_24h_in_currency?.[currency]
+                }
+                currentPrice={market_data?.current_price?.[currency]}
+                athPrice={market_data?.ath?.[currency]}
+                athDate={market_data?.ath_date?.[currency]}
+                athPriceChange={market_data?.ath_change_percentage?.[currency]}
+                atlPrice={market_data?.atl?.[currency]}
+                atlDate={market_data?.atl_date?.[currency]}
+                atlPriceChange={market_data?.atl_change_percentage?.[currency]}
               />
             </MiddleContent>
             <RightContent>
               <MarketDataInfo
-                marketCap={market_data?.market_cap.usd}
-                fullyDilutedVal={market_data?.fully_diluted_valuation.usd}
-                totalVolume={market_data?.total_volume.usd}
+                currencySymbol={currencySymbol}
+                symbol={symbol}
+                marketCap={market_data?.market_cap?.[currency]}
+                fullyDilutedVal={
+                  market_data?.fully_diluted_valuation?.[currency]
+                }
+                totalVolume={market_data?.total_volume?.[currency]}
                 circulatingSupply={market_data?.circulating_supply}
                 maxSupply={market_data?.max_supply}
               />
@@ -125,7 +136,7 @@ class CoinInformation extends Component {
             <IntervalDropdown />
             <CurrencyConverter
               coinSymbol={symbol?.toUpperCase()}
-              coinPrice={market_data?.current_price?.usd}
+              coinPrice={market_data?.current_price?.[currency]}
             />
           </BottomPageContent>
         </Container>

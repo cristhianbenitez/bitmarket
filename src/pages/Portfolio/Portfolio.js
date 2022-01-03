@@ -78,6 +78,7 @@ export class Portfolio extends Component {
                   coinAmount={purchasedAmount}
                   purchaseDate={date}
                   removeAsset={this.removeAsset}
+                  currency={this.props.currency}
                 />
               );
             })}

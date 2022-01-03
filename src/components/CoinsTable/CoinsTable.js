@@ -15,11 +15,11 @@ export class CoinsTable extends Component {
     resultsPerPage: 10,
     coinItemData: []
   };
-  getCoinItemData = async () => {
-    this.setState({ ...this.state, isLoading: true });
+  getCoinItemData = async (currency = 'usd') => {
+    this.setState({ isLoading: true });
     const { data } = await coinGecko.get('/coins/markets', {
       params: {
-        vs_currency: 'usd',
+        vs_currency: currency,
         days: '1',
         order: 'market_cap_desc',
         per_page: this.state.resultsPerPage.toString(),
@@ -29,14 +29,21 @@ export class CoinsTable extends Component {
       }
     });
     this.setState({
-      ...this.state,
       isLoading: false,
       coinItemData: data
     });
   };
+
   componentDidMount = () => {
     this.getCoinItemData();
   };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.currency !== this.props.currency) {
+      this.getCoinItemData(this.props.currency);
+    }
+  };
+
   render() {
     return (
       <Table>
@@ -54,7 +61,10 @@ export class CoinsTable extends Component {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          <CoinsTableRow coinItemData={this.state.coinItemData} />
+          <CoinsTableRow
+            coinItemData={this.state.coinItemData}
+            currency={this.props.currency}
+          />
         </TableBody>
       </Table>
     );
