@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-import Bitcoin from 'assets/BitcoinIcon.png';
-import Ethereum from 'assets/EthereumIcon.png';
+import { ReactComponent as Bitcoin } from 'assets/Icons/Bitcoin.svg';
+import { ReactComponent as Ethereum } from 'assets/Icons/Ethereum.svg';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -72,15 +72,13 @@ export const EthereumPercentage = styled.div`
   width: ${(props) => props.percentage};
 `;
 
-export const BitcoinIcon = styled.img.attrs({
-  src: `${Bitcoin}`
-})`
+export const BitcoinIcon = styled(Bitcoin)`
+  width: 12px;
   padding: 0 0.5em;
 `;
 
-export const EthereumIcon = styled.img.attrs({
-  src: `${Ethereum}`
-})`
+export const EthereumIcon = styled(Ethereum)`
+  width: 8px;
   padding: 0 0.5em;
 `;
 

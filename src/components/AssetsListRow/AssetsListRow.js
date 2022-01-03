@@ -103,11 +103,7 @@ export class AssetsListRow extends Component {
 
     const currentPrice = marketData?.current_price?.[currency];
 
-    const directionIndicator = (price) => {
-      const isPositive = price > 0;
-      return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
-    };
-
+    const purchasedPrice = this.state.priceData;
     if (this.state.isLoading) return <div>Loading...</div>;
 
     return (
@@ -137,9 +133,8 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Price Change 24h:
                 <GreenText price={priceChangeIn24h?.toFixed(2)}>
-                  {directionIndicator(priceChangeIn24h)}
-                  {currencySymbol}
-                  {priceChangeIn24h?.toFixed(2)}
+                  <ArrowIcon price={priceChangeIn24h} />
+                  {currencyFormat(priceChangeIn24h?.toFixed(2), currencySymbol)}
                 </GreenText>
               </SmallText>
               <Text>
@@ -187,11 +182,10 @@ export class AssetsListRow extends Component {
               </SmallText>
               <SmallText>
                 Price change since purchase:
-                <GreenText price={currentPrice - this.state.priceData}>
-                  {/* <ArrowIcon price={this.state.priceData} /> */}
-                  {directionIndicator(currentPrice - this.state.priceData)}
+                <GreenText price={currentPrice - purchasedPrice}>
+                  <ArrowIcon price={currentPrice - purchasedPrice} />
                   {currencyFormat(
-                    currentPrice - this.state.priceData,
+                    currentPrice - purchasedPrice,
                     currencySymbol
                   )}
                 </GreenText>

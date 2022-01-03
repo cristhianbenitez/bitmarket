@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Arrow from 'assets/Arrow.svg';
+import { ReactComponent as Arrow } from 'assets/Icons/Arrow.svg';
 
 export const Root = styled.div`
   position: relative;
@@ -41,10 +41,11 @@ export const Input = styled.input`
   }
 `;
 
-export const ArrowIcon = styled.img.attrs({
-  src: `${Arrow}`
-})`
+export const ArrowIcon = styled(Arrow)`
   width: 12px;
+  #arrow {
+    fill: ${({ theme }) => theme.green};
+  }
 `;
 
 export const AutoCompleteIcon = styled.span`

@@ -1,3 +1,4 @@
+import { PriceArrow } from 'assets';
 import { displayPositiveNumber } from 'utils';
 import {
   AllTimeContainer,
@@ -5,17 +6,14 @@ import {
   CoinPrice,
   CoinPriceChange,
   CoinPriceContainer,
-  GreenArrowUp,
   IconContainer,
   MiddleContentWrapper,
-  RedArrowDown,
   TextContainer
 } from './CoinPricesData.styles';
 
 export const CoinPricesData = (props) => {
-  const renderRedOrGreenArrow = (price) =>
-    price < 0 ? <RedArrowDown /> : <GreenArrowUp />;
   const athDate = new Date(props.athDate).toGMTString();
+
   const atlDate = new Date(props.atlDate).toGMTString();
 
   const priceChangePercentage =
@@ -30,14 +28,14 @@ export const CoinPricesData = (props) => {
         </CoinPrice>
         <CoinPriceChange priceChange={priceChangePercentage}>
           <IconContainer>
-            {renderRedOrGreenArrow(priceChangePercentage)}
+            <PriceArrow price={priceChangePercentage} />
           </IconContainer>
           {displayPositiveNumber(priceChangePercentage)}%
         </CoinPriceChange>
       </CoinPriceContainer>
       <AllTimeContainer>
         <IconContainer>
-          {renderRedOrGreenArrow(props.athPriceChange)}
+          <PriceArrow price={props.athPriceChange} />
         </IconContainer>
         <TextContainer>
           <CoinPricesDataText>
@@ -48,7 +46,7 @@ export const CoinPricesData = (props) => {
       </AllTimeContainer>
       <AllTimeContainer>
         <IconContainer>
-          {renderRedOrGreenArrow(props.atlPriceChange)}
+          <PriceArrow price={props.atlPriceChange} />
         </IconContainer>
         <TextContainer>
           <CoinPricesDataText>
