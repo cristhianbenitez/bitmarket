@@ -72,6 +72,10 @@ export class AssetsListRow extends Component {
   };
 
   render() {
+    const { currency } = this.props;
+
+    const currencySymbol = getSymbolFromCurrency(currency);
+
     const {
       name,
       symbol,
@@ -92,6 +96,11 @@ export class AssetsListRow extends Component {
       marketData?.circulating_supply,
       marketData?.max_supply
     );
+
+    const priceChangeIn24h =
+      marketData?.price_change_24h_in_currency?.[currency];
+
+    const currentPrice = marketData?.current_price?.[currency];
 
     const directionIndicator = (price) => {
       const isPositive = price > 0;
@@ -121,14 +130,15 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Current Price:
                 <GreenText>
-                  {currencyFormat(marketData?.current_price.usd, '$')}
+                  {currencyFormat(currentPrice, currencySymbol)}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price Change 24h:
-                <GreenText price={marketData?.price_change_24h.toFixed(2)}>
-                  {directionIndicator(marketData?.price_change_24h)}$
-                  {marketData?.price_change_24h.toFixed(2)}
+                <GreenText price={priceChangeIn24h?.toFixed(2)}>
+                  {directionIndicator(priceChangeIn24h)}
+                  {currencySymbol}
+                  {priceChangeIn24h?.toFixed(2)}
                 </GreenText>
               </SmallText>
               <WhiteText>
@@ -169,22 +179,18 @@ export class AssetsListRow extends Component {
                 Amount Value:
                 <GreenText>
                   {currencyFormat(
-                    this.props.coinAmount * marketData?.current_price.usd,
-                    '$'
+                    this.props.coinAmount * currentPrice,
+                    currencySymbol
                   )}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price change since purchase:
-                <GreenText
-                  price={marketData?.current_price.usd - this.state.priceData}
-                >
-                  {directionIndicator(
-                    marketData?.current_price.usd - this.state.priceData
-                  )}
+                <GreenText price={currentPrice - this.state.priceData}>
+                  {directionIndicator(currentPrice - this.state.priceData)}
                   {currencyFormat(
-                    marketData?.current_price.usd - this.state.priceData,
-                    '$'
+                    currentPrice - this.state.priceData,
+                    currencySymbol
                   )}
                 </GreenText>
               </SmallText>

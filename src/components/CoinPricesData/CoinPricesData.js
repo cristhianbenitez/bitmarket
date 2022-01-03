@@ -24,12 +24,15 @@ export const CoinPricesData = (props) => {
   return (
     <MiddleContentWrapper>
       <CoinPriceContainer>
-        <CoinPrice>${props.currentPrice}</CoinPrice>
+        <CoinPrice>
+          {props.currencySymbol}
+          {props.currentPrice}
+        </CoinPrice>
         <CoinPriceChange priceChange={priceChangePercentage}>
           <IconContainer>
             {renderRedOrGreenArrow(priceChangePercentage)}
           </IconContainer>
-          {displayPositiveNumber(priceChangePercentage)}
+          {displayPositiveNumber(priceChangePercentage)}%
         </CoinPriceChange>
       </CoinPriceContainer>
       <AllTimeContainer>

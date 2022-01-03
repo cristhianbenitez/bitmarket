@@ -55,7 +55,7 @@ export class ModalAutocomplete extends Component {
             id="input"
             autoComplete="off"
             defaultValue={this.state.text}
-            onChange={this.onTextChanged}
+            onChange={this.onTextChange}
             type={'text'}
           />
           <AutoCompleteIcon
