@@ -7,7 +7,7 @@ import { ThemeProvider } from 'styled-components';
 
 class App extends Component {
   state = {
-    currency: 'usd',
+    currency: '',
     theme: 'dark'
   };
 
@@ -44,12 +44,18 @@ class App extends Component {
             />
             <SubNavbar />
             <Routes>
-              <Route path="/portfolio" element={<Portfolio />}></Route>
+              <Route
+                path="/portfolio"
+                element={<Portfolio currency={this.state.currency} />}
+              ></Route>
               <Route
                 path="/"
                 element={<Coins currency={this.state.currency} />}
               />
-              <Route path="/coin/:id" element={<CoinInformation />} />
+              <Route
+                path="/coin/:id"
+                element={<CoinInformation currency={this.state.currency} />}
+              />
             </Routes>
           </Router>
         </Wrapper>
