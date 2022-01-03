@@ -17,8 +17,7 @@ export const CoinInfo = (props) => {
           <CoinImage src={props.coinImg} alt={props.coinName} />
         </CoinImageContainer>
         <CoinNameText>
-          {props.coinName}
-          {`(${props.coinSymbol})`}
+          {props.coinName}({props.coinSymbol})
         </CoinNameText>
       </TopContent>
       <BottomContent>

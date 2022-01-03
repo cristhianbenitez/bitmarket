@@ -16,7 +16,7 @@ export const Subtitle = styled.h3`
 export const ChartContainer = styled.div`
   margin-top: 2em;
   width: 45%;
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   border-radius: 8px;
   padding: 1em;
   height: 250px;
@@ -32,7 +32,7 @@ export const ChartWrapper = styled.div`
 
 export const CoinListContainer = styled.div`
   margin-top: 1.25em;
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   padding: 1.5em 1em;
   margin-bottom: 6em;
 `;

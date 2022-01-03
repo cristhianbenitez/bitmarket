@@ -14,12 +14,13 @@ import {
   GreenText,
   PercentageBar,
   FillPercentage,
-  WhiteText,
+  Text,
   CoinName,
   CoinSymbol,
   DeleteButton,
   RedArrowDown,
-  GreenArrowUp
+  GreenArrowUp,
+  ArrowIcon
 } from './AssetsListRow.styles';
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
@@ -141,7 +142,7 @@ export class AssetsListRow extends Component {
                   {priceChangeIn24h?.toFixed(2)}
                 </GreenText>
               </SmallText>
-              <WhiteText>
+              <Text>
                 Market Cap/Volume:
                 <GreenText>{marketvsvolumePercentage.percentageA}%</GreenText>
                 <PercentageBar>
@@ -149,9 +150,9 @@ export class AssetsListRow extends Component {
                     percentage={marketvsvolumePercentage.percentageA}
                   />
                 </PercentageBar>
-                <WhiteText>{marketvsvolumePercentage.percentageB}%</WhiteText>
-              </WhiteText>
-              <WhiteText>
+                <Text>{marketvsvolumePercentage.percentageB}%</Text>
+              </Text>
+              <Text>
                 Circ Supply/Max Supply:
                 <GreenText>{maxvscircSupplyPercentage.percentageA}%</GreenText>
                 <PercentageBar>
@@ -159,8 +160,8 @@ export class AssetsListRow extends Component {
                     percentage={maxvscircSupplyPercentage.percentageA}
                   />
                 </PercentageBar>
-                <WhiteText>{maxvscircSupplyPercentage.percentageB}%</WhiteText>
-              </WhiteText>
+                <Text>{maxvscircSupplyPercentage.percentageB}%</Text>
+              </Text>
             </InfoContainer>
           </TopContent>
           <BottomContent>
@@ -187,6 +188,7 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Price change since purchase:
                 <GreenText price={currentPrice - this.state.priceData}>
+                  {/* <ArrowIcon price={this.state.priceData} /> */}
                   {directionIndicator(currentPrice - this.state.priceData)}
                   {currencyFormat(
                     currentPrice - this.state.priceData,

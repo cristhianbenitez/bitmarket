@@ -11,12 +11,13 @@ export const InputContainer = styled.div`
   display: flex;
   align-items: center;
   border-radius: 12px;
-  background-color: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   width: 100%;
   &:focus-within {
-    outline: #1976d2 solid 2px;
+    outline: ${({ theme }) => theme.green} solid 2px;
   }
 `;
+
 export const Label = styled.label`
   display: block;
   position: absolute;
@@ -24,13 +25,14 @@ export const Label = styled.label`
   top: 50%;
   transform: translateY(-50%);
 `;
+
 export const Input = styled.input`
   width: 100%;
   height: 32px;
   box-sizing: border-box;
   transition: border-color 150ms linear;
-  color: #ffff;
-  background-color: #191b1f;
+  color: ${({ theme }) => theme.general};
+  background: ${({ theme }) => theme.foreground};
   border-radius: 8px;
   padding: 2.1em 1em;
   border: none;
@@ -44,6 +46,7 @@ export const ArrowIcon = styled.img.attrs({
 })`
   width: 12px;
 `;
+
 export const AutoCompleteIcon = styled.span`
   transform: ${(props) => (props.isOpen ? 'rotateX(180deg)' : 'none')};
   transform-origin: center;
@@ -56,7 +59,7 @@ export const AutoCompleteIcon = styled.span`
 `;
 
 export const AutoCompleteContainer = styled.ul`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   padding: 8px 0;
   list-style-type: none;
   min-width: 320px;
@@ -76,8 +79,8 @@ export const AutoCompleteContainer = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #2c2f36;
-    outline: 1px solid #2c2f36;
+    background: ${({ theme }) => theme.green};
+    outline: 1px solid ${({ theme }) => theme.green};
     border-radius: 4px;
   }
 `;
@@ -88,12 +91,12 @@ export const AutoCompleteItem = styled.li`
   box-sizing: border-box;
   &:hover,
   &:focus {
-    background: #2c2f36;
+    background: ${({ theme }) => theme.background};
   }
 `;
 
 export const AutoCompleteItemButton = styled.button`
-  color: #fff;
+  color: ${({ theme }) => theme.general};
   background: none;
   border: none;
   padding: 0;

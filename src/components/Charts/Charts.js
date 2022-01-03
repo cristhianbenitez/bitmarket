@@ -41,7 +41,7 @@ export class Charts extends Component {
     const lineChartData = (canvas) => {
       const ctx = canvas.getContext('2d');
       const gradient = ctx.createLinearGradient(0, 0, 0, 250);
-      gradient.addColorStop(0, 'rgba(0,255,95,0.175)');
+      gradient.addColorStop(0, 'rgba(0,255,95,0.3)');
       gradient.addColorStop(1, 'rgba(0,255,95,0)');
 
       return {

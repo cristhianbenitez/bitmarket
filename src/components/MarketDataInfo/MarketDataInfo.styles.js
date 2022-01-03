@@ -1,5 +1,6 @@
 import Icon from 'assets/PlusIcon.png';
 import styled from 'styled-components';
+
 export const MarketDataList = styled.ul`
   margin: 2em 0;
   margin-left: 3em;
@@ -14,11 +15,13 @@ export const MarketDataText = styled.p`
   font-size: 1rem;
   text-align: start;
 `;
+
 export const MarketDataItem = styled.li`
   display: flex;
   align-items: center;
   margin-right: 1em;
 `;
+
 export const MarketDataTitle = styled.span`
   font-weight: 500;
   margin-right: 0.25em;

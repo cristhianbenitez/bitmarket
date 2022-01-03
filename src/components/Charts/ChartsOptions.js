@@ -43,6 +43,9 @@ export const chartOptions = {
       display: false
     },
     x: {
+      grid: {
+        color: 'transparent'
+      },
       ticks: {
         font: {
           size: 12

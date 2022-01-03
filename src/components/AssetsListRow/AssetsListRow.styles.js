@@ -7,12 +7,14 @@ export const RowContainer = styled.div`
   margin-top: 1.5em;
   width: 100%;
 `;
+
 export const LeftContent = styled.div`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   border-radius: 6px;
   padding: 3em;
   margin-right: 1em;
 `;
+
 export const RightContent = styled.div`
   width: 100%;
   display: flex;
@@ -24,11 +26,13 @@ export const Image = styled.img`
   object-fit: cover;
   width: 60%;
 `;
+
 export const CoinName = styled.h2`
   font-weight: 400;
   font-size: 1rem;
   margin-top: 0.5em;
 `;
+
 export const CoinSymbol = styled.span`
   font-weight: 400;
   font-size: 1rem;
@@ -36,7 +40,7 @@ export const CoinSymbol = styled.span`
 `;
 
 export const ImageContainer = styled.div`
-  background: #1f2128;
+  background: ${({ theme }) => theme.background};
   padding: 1em;
   border-radius: 12px;
 `;
@@ -51,7 +55,7 @@ export const BottomContent = styled.div`
 export const InfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   padding: 1.8em 1.4em;
   margin-top: 0.5em;
 `;
@@ -69,8 +73,8 @@ export const GreenText = styled.span`
   display: flex;
   align-items: center;
 `;
-export const WhiteText = styled.div`
-  color: #ffff;
+export const Text = styled.div`
+  color: ${({ theme }) => theme.general};
   margin-left: 1em;
   display: flex;
   align-items: center;
@@ -81,7 +85,7 @@ export const WhiteText = styled.div`
 export const PercentageBar = styled.div`
   width: 45px;
   height: 9px;
-  background: #ffffff;
+  background: ${({ theme }) => theme.general};
   border-radius: 12px;
   margin-left: 0.5em;
 `;
