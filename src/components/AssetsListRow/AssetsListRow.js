@@ -14,7 +14,7 @@ import {
   GreenText,
   PercentageBar,
   FillPercentage,
-  WhiteText,
+  Text,
   CoinName,
   CoinSymbol,
   DeleteButton,
@@ -141,7 +141,7 @@ export class AssetsListRow extends Component {
                   {priceChangeIn24h?.toFixed(2)}
                 </GreenText>
               </SmallText>
-              <WhiteText>
+              <Text>
                 Market Cap/Volume:
                 <GreenText>{marketvsvolumePercentage.percentageA}%</GreenText>
                 <PercentageBar>
@@ -149,9 +149,9 @@ export class AssetsListRow extends Component {
                     percentage={marketvsvolumePercentage.percentageA}
                   />
                 </PercentageBar>
-                <WhiteText>{marketvsvolumePercentage.percentageB}%</WhiteText>
-              </WhiteText>
-              <WhiteText>
+                <Text>{marketvsvolumePercentage.percentageB}%</Text>
+              </Text>
+              <Text>
                 Circ Supply/Max Supply:
                 <GreenText>{maxvscircSupplyPercentage.percentageA}%</GreenText>
                 <PercentageBar>
@@ -159,8 +159,8 @@ export class AssetsListRow extends Component {
                     percentage={maxvscircSupplyPercentage.percentageA}
                   />
                 </PercentageBar>
-                <WhiteText>{maxvscircSupplyPercentage.percentageB}%</WhiteText>
-              </WhiteText>
+                <Text>{maxvscircSupplyPercentage.percentageB}%</Text>
+              </Text>
             </InfoContainer>
           </TopContent>
           <BottomContent>

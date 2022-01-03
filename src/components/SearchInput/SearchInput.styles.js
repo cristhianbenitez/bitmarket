@@ -1,8 +1,8 @@
-import Icon from 'assets/Search-Icon.svg';
 import styled from 'styled-components';
+import Icon from 'assets/Search-Icon.svg';
 
 export const StyledForm = styled.form`
-  background-color: #2c2f36;
+  background: ${({ theme }) => theme.background};
   border-radius: 6px;
   margin-right: 1.5em;
   display: flex;
@@ -10,12 +10,12 @@ export const StyledForm = styled.form`
 
 export const StyledInput = styled.input`
   background: transparent;
-  color: #fff;
+  color: ${({ theme }) => theme.general};
   border: none;
   outline: none;
   padding: 0.5em 5em 0.5em 0.5em;
   &::placeholder {
-    color: #fff;
+    color: ${({ theme }) => theme.general};
   }
 `;
 

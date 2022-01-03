@@ -8,7 +8,7 @@ export const TableData = styled.td`
   text-align: start;
 `;
 export const TableRow = styled.tr`
-  border-bottom: 1px solid #707070;
+  border-bottom: 2px solid ${({ theme }) => theme.background};
   &:last-child {
     border-bottom: none;
   }
@@ -87,6 +87,7 @@ export const NameContainer = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  color: ${({ theme }) => theme.general};
 `;
 
 export const StyledLink = styled(Link)`

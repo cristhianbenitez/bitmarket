@@ -16,7 +16,7 @@ body {
   padding: 0;
   font-family: 'Poppins', sans-serif;
   background-color: ${({ theme }) => theme.background};
-  color: #FFFFFF;
+  color: ${({ theme }) => theme.general};
 
 }
 a {
