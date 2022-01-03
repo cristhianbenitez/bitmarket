@@ -85,7 +85,7 @@ export const Text = styled.div`
 export const PercentageBar = styled.div`
   width: 45px;
   height: 9px;
-  background: #ffffff;
+  background: ${({ theme }) => theme.general};
   border-radius: 12px;
   margin-left: 0.5em;
 `;
@@ -113,4 +113,3 @@ export const GreenArrowUp = styled.img.attrs({
 })`
   margin-right: 0.2em;
 `;
-

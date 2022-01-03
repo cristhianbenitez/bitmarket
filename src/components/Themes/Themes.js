@@ -4,8 +4,8 @@ export const darkTheme = {
   foreground: '#191B1F',
   lineChart: '#06D554',
   barChart: '#2172E5',
-  brightGreen: '#06D554',
-  brightNavyBlue: '#2172E5'
+  green: '#06D554',
+  navyBlue: '#2172E5'
 };
 
 export const lightTheme = {
@@ -14,6 +14,6 @@ export const lightTheme = {
   foreground: '#FFFFFF',
   lineChart: '#06D554',
   barChart: '#2172E5',
-  Green: '#06D554',
+  green: '#06D554',
   navyBlue: '#2172E5'
 };

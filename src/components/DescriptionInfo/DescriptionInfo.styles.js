@@ -9,14 +9,14 @@ export const Description = styled.p`
     &:link,
     &:active {
       text-decoration: none;
-      color: #06d554;
+      color: ${({ theme }) => theme.green};
     }
   }
 `;
 
 export const DescriptionInfoContainer = styled.div`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   border-radius: 12px;
-  background: #191b1f;
+  color: ${({ theme }) => theme.general};
   padding: 1em 2em;
 `;

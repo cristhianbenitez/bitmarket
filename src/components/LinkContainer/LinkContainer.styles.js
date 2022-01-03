@@ -6,7 +6,7 @@ export const CoinLinkContainer = styled.div`
   display: flex;
   justify-content: ${(props) => (props.extraIcon ? 'space-around' : 'start')};
   align-items: center;
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   height: 100%;
   width: 100%;
   border-radius: 12px;
@@ -19,7 +19,7 @@ export const IconContainer = styled.div`
 export const ChainIcon = styled.img.attrs({
   src: `${LinkIcon}`
 })`
-  margin: ${(props) => (props.extraIcon ? '0' : '0 2em')}; ;
+  margin: ${(props) => (props.extraIcon ? '0' : '0 1em')}; ;
 `;
 export const TabsIcon = styled.img.attrs({
   src: `${TabsIconImage}`
@@ -33,6 +33,6 @@ export const SiteLink = styled.a`
   &:link,
   &:active {
     text-decoration: none;
-    color: #ffff;
+    color: ${({ theme }) => theme.general};
   }
 `;

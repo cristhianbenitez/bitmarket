@@ -5,8 +5,8 @@ export const ModalButton = styled.button.attrs({
   type: 'button'
 })`
   padding: 1.5em 13em;
-  background: #06d554;
-  color: #ffff;
+  background: ${({ theme }) => theme.green};
+  color: ${({ theme }) => theme.general};
   box-shadow: none;
   border: none;
   border-radius: 12px;
@@ -28,7 +28,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalContainer = styled.div`
   overflow: auto;
-  background-color: #2c2f36;
+  background: ${({ theme }) => theme.background};
   border-radius: 12px;
   display: flex;
   justify-content: center;
@@ -58,7 +58,7 @@ export const ModalTitle = styled.p`
 `;
 
 export const CloseButton = styled.span`
-  color: #06d554;
+  color: ${({ theme }) => theme.green};
   font-size: 3.5em;
   font-weight: bold;
   padding: 0;
@@ -73,7 +73,7 @@ export const CloseButton = styled.span`
 `;
 
 export const LeftContent = styled.div`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   border-radius: 6px;
   padding: 1.5em 1.5em;
   display: flex;
@@ -96,25 +96,26 @@ export const CoinNameText = styled.h2`
   margin-top: 0.25em;
   font-weight: 400;
   font-size: 1rem;
+  color: ${({ theme }) => theme.general};
 `;
 
 export const CoinImageContainer = styled.div`
-  background: #1f2128;
+  background: ${({ theme }) => theme.background};
   padding: 1em;
   border-radius: 12px;
   margin-bottom: 0;
 `;
 
 export const StyledInput = styled.input`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   width: 100%;
   padding: 1.5em 1em;
   border: none;
-  color: #fff;
+  color: ${({ theme }) => theme.general};
   box-sizing: border-box;
   border-radius: 12px;
   &:focus {
-    outline: #1976d2 solid 2px;
+    outline: ${({ theme }) => theme.green} solid 2px;
   }
   &[type='date']::-webkit-calendar-picker-indicator {
     cursor: pointer;
@@ -129,8 +130,8 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledCurrency = styled(NumberFormat)`
-  background: #191b1f;
-  color: #fff;
+  background: ${({ theme }) => theme.foreground};
+  color: ${({ theme }) => theme.general};
   border-radius: 12px;
   margin-bottom: 1em;
 `;
@@ -146,7 +147,7 @@ export const StyledButton = styled.button`
   margin: 0 auto;
   padding: 1.125em 2em;
   border-radius: 8px;
-  color: #fff;
+  color: ${({ theme }) => theme.general};
   &:hover {
     cursor: pointer;
   }
@@ -154,21 +155,22 @@ export const StyledButton = styled.button`
     width: 80%;
     margin-left: 4em;
     margin-right: 2em;
-    color: #06d554;
+    color: ${({ theme }) => theme.general};
+    background: ${({ theme }) => theme.foreground};
     &:hover,
     &:focus {
-      color: #fff;
-      background-color: #06d554;
+      color: ${({ theme }) => theme.general};
+      background: ${({ theme }) => theme.green};
     }
   }
   &:nth-child(2) {
     width: 80%;
     margin-right: 4em;
-    background-color: #06d554;
+    background: ${({ theme }) => theme.green};
     &:hover,
     &:focus {
-      color: #06d554;
-      background-color: #fff;
+      color: ${({ theme }) => theme.general};
+      background-color: ${({ theme }) => theme.foreground};
     }
   }
 `;

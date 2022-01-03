@@ -19,7 +19,8 @@ import {
   CoinSymbol,
   DeleteButton,
   RedArrowDown,
-  GreenArrowUp
+  GreenArrowUp,
+  ArrowIcon
 } from './AssetsListRow.styles';
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
@@ -187,6 +188,7 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Price change since purchase:
                 <GreenText price={currentPrice - this.state.priceData}>
+                  {/* <ArrowIcon price={this.state.priceData} /> */}
                   {directionIndicator(currentPrice - this.state.priceData)}
                   {currencyFormat(
                     currentPrice - this.state.priceData,
