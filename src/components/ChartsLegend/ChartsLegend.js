@@ -23,7 +23,7 @@ export class ChartsLegend extends Component {
     return (
       <CoinInfo>
         <CoinInfoTitle>
-          {this.props.lineChart ? localStorage.selection : 'Volume 24h'}
+          {this.props.lineChart ? 'Bitcoin' : 'Volume 24h'}
         </CoinInfoTitle>
         <CoinInfoValue>
           {currencySymbol}

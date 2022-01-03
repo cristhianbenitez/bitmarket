@@ -6,20 +6,26 @@ import {
   MarketDataTitle,
   PlusIcon
 } from './MarketDataInfo.styles';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 export const MarketDataInfo = (props) => {
+  const coinSymbol = props.symbol?.toUpperCase();
   return (
     <MarketDataList>
       <MarketDataItem>
         <PlusIcon />
         <MarketDataTitle> Market Cap:</MarketDataTitle>
-        <MarketDataText>${formattedNumber(props.marketCap)}</MarketDataText>
+        <MarketDataText>
+          {props.currencySymbol}
+          {formattedNumber(props.marketCap)}
+        </MarketDataText>
       </MarketDataItem>
       <MarketDataItem>
         <PlusIcon />
         <MarketDataTitle>Fully Diluted Valuation:</MarketDataTitle>
         <MarketDataText>
-          ${formattedNumber(props.fullyDilutedVal)}
+          {props.currencySymbol}
+          {formattedNumber(props.fullyDilutedVal)}
         </MarketDataText>
       </MarketDataItem>
       <MarketDataItem>
@@ -32,19 +38,26 @@ export const MarketDataInfo = (props) => {
       <MarketDataItem>
         <PlusIcon />
         <MarketDataTitle> Total Volume:</MarketDataTitle>
-        <MarketDataText>${formattedNumber(props.totalVolume)}</MarketDataText>
+        <MarketDataText>
+          {props.currencySymbol}
+          {formattedNumber(props.totalVolume)}
+        </MarketDataText>
       </MarketDataItem>
       <MarketDataItem>
         <PlusIcon />
         <MarketDataTitle> Circulating Supply:</MarketDataTitle>
         <MarketDataText>
-          ${formattedNumber(props.circulatingSupply)}
+          {coinSymbol}&nbsp;
+          {formattedNumber(props.circulatingSupply)}
         </MarketDataText>
       </MarketDataItem>
       <MarketDataItem>
         <PlusIcon />
         <MarketDataTitle> Max Supply:</MarketDataTitle>
-        <MarketDataText>${formattedNumber(props.maxSupply)}</MarketDataText>
+        <MarketDataText>
+          {coinSymbol}&nbsp;
+          {formattedNumber(props.maxSupply)}
+        </MarketDataText>
       </MarketDataItem>
     </MarketDataList>
   );

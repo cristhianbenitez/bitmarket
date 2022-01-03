@@ -22,6 +22,7 @@ import {
   Value,
   ValuesContainer
 } from './CoinsTableRow.styles';
+import getSymbolFromCurrency from 'currency-symbol-map';
 export class CoinsTableRow extends Component {
   render() {
     return this.props.coinItemData.map((coinInfo, index) => {
@@ -41,10 +42,9 @@ export class CoinsTableRow extends Component {
       } = coinInfo;
 
       const directionIndicator = (price) => {
-        const isPositive = price < 0;
-        return isPositive ? <RedArrowDown /> : <GreenArrowUp />;
+        const isPositive = price > 0;
+        return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
       };
-
       const percentageBarColors = {
         left: [
           '#FFB528',
@@ -78,6 +78,8 @@ export class CoinsTableRow extends Component {
       const rightSideColors =
         percentageBarColors.right[index % percentageBarColors.right.length];
 
+      const currencySymbol = getSymbolFromCurrency(this.props.currency);
+
       return (
         <TableRow key={index}>
           <TableData>{index + 1}</TableData>
@@ -90,7 +92,10 @@ export class CoinsTableRow extends Component {
               </NameContainer>
             </StyledLink>
           </TableData>
-          <TableData>${current_price}</TableData>
+          <TableData>
+            {currencySymbol}
+            {current_price}
+          </TableData>
           <PriceChangePercentage price={hourlyChanges}>
             {directionIndicator(hourlyChanges)}
             {displayPositiveNumber(hourlyChanges)}%
@@ -108,11 +113,13 @@ export class CoinsTableRow extends Component {
               <ValuesContainer>
                 <Value colors={leftSideColors}>
                   <BulletCircle colors={leftSideColors} />
-                  {formattedNumber(total_volume, '($ 0.00a)')}
+                  {currencySymbol}
+                  {formattedNumber(total_volume, '(0.00a)')}
                 </Value>
                 <Value colors={rightSideColors}>
                   <BulletCircle colors={rightSideColors} />
-                  {formattedNumber(market_cap, '($ 0.00a)')}
+                  {currencySymbol}
+                  {formattedNumber(market_cap, '(0.00a)')}
                 </Value>
               </ValuesContainer>
 
@@ -129,11 +136,13 @@ export class CoinsTableRow extends Component {
               <ValuesContainer>
                 <Value colors={leftSideColors}>
                   <BulletCircle colors={leftSideColors} />
-                  {formattedNumber(circulating_supply, '($ 0.00a)')}
+                  {currencySymbol}
+                  {formattedNumber(circulating_supply, '(0.00a)')}
                 </Value>
                 <Value colors={rightSideColors}>
                   <BulletCircle colors={rightSideColors} />
-                  {formattedNumber(total_supply, '($ 0.00a)')}
+                  {currencySymbol}
+                  {formattedNumber(total_supply, '(0.00a)')}
                 </Value>
               </ValuesContainer>
               <PercentageBar colors={rightSideColors}>

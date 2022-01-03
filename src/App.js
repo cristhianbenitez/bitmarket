@@ -7,12 +7,12 @@ import { ThemeProvider } from 'styled-components';
 
 class App extends Component {
   state = {
-    currency: 'USD',
+    currency: 'usd',
     theme: 'dark'
   };
 
   changeCurrency = (newCurr) => {
-    this.setState({ ...this.state, currency: newCurr });
+    this.setState({ currency: newCurr });
   };
 
   setMode = (mode) => {
@@ -25,6 +25,7 @@ class App extends Component {
   };
 
   componentDidMount() {
+    localStorage.setItem('selection', this.state.currency || 'usd');
     const localTheme = window.localStorage.getItem('theme');
     localTheme && this.setState({ theme: localTheme });
   }
