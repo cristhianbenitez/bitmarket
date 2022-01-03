@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import LinkIcon from 'assets/LinkIcon.png';
-import TabsIconImage from 'assets/TabsIcon.png';
+import { ReactComponent as LinkChain } from 'assets/Icons/LinkChain.svg';
+import { ReactComponent as LinkTabs } from 'assets/Icons/LinkTabs.svg';
 
 export const CoinLinkContainer = styled.div`
   display: flex;
@@ -16,14 +16,19 @@ export const IconContainer = styled.div`
   display: flex;
   align-items: center;
 `;
-export const ChainIcon = styled.img.attrs({
-  src: `${LinkIcon}`
-})`
-  margin: ${(props) => (props.extraIcon ? '0' : '0 1em')}; ;
+
+export const ChainIcon = styled(LinkChain)`
+  margin: ${(props) => (props.extraIcon ? '0' : '0 1em')};
+
+  #link-icon {
+    fill: ${({ theme }) => theme.general};
+  }
 `;
-export const TabsIcon = styled.img.attrs({
-  src: `${TabsIconImage}`
-})``;
+export const TabsIcon = styled(LinkTabs)`
+  #tab {
+    stroke: ${({ theme }) => theme.general};
+  }
+`;
 export const SiteLink = styled.a`
   text-align: center;
   text-decoration: none;

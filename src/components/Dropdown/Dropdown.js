@@ -2,17 +2,16 @@ import React from 'react';
 import coinGecko from 'api/coinGecko';
 
 import {
-  CurrencyIcon,
+  DollarIcon,
   DropDownContainer,
   DropDownHeader,
   DropDownList,
   ListItem,
   SelectionContainer,
-  ArrowUpIcon,
-  ArrowDownIcon,
   ArrowsContainer,
   Input
 } from './Dropdown.styles';
+import { DropdownArrow } from 'assets';
 
 export class Dropdown extends React.Component {
   state = {
@@ -73,7 +72,7 @@ export class Dropdown extends React.Component {
           onKeyPress={this.toggle}
           onClick={this.toggle}
         >
-          <CurrencyIcon />
+          <DollarIcon />
           <SelectionContainer>
             <Input
               autoComplete="off"
@@ -82,7 +81,7 @@ export class Dropdown extends React.Component {
               type="text"
             />
             <ArrowsContainer>
-              {this.state.isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
+              <DropdownArrow isOpen={this.state.isOpen} />
             </ArrowsContainer>
           </SelectionContainer>
         </DropDownHeader>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import BackgroundImage from 'assets/BackgroundImage.png';
-import GreenBackgroundImage from 'assets/GreenBackgroundImage.png';
+import DarkTheme from 'assets/BackgroundImages/DarkTheme.png';
+import LightTheme from 'assets/BackgroundImages/LightTheme.png';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -77,11 +77,7 @@ export const Subtitle = styled.h3`
 const darkGunmetal = '#1F2128';
 
 export const Background = styled.img.attrs((props) => ({
-  src: `${
-    props.theme.background === darkGunmetal
-      ? BackgroundImage
-      : GreenBackgroundImage
-  }`
+  src: `${props.theme.background === darkGunmetal ? DarkTheme : LightTheme}`
 }))`
   margin-top: 5em;
   width: 100%;

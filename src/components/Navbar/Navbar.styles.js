@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ThemeIcon from 'assets/ThemeIcon.svg';
+import { ReactComponent as ThemeIcon } from 'assets/Icons/ThemeIcon.svg';
 
 export const Wrapper = styled.nav`
   padding: 1em 4em;
@@ -29,12 +29,19 @@ export const CoinsButton = styled.div``;
 
 export const PortfolioButton = styled.div``;
 
-export const ThemeButton = styled.img.attrs({
-  src: `${ThemeIcon}`
-})`
+export const ThemeButton = styled(ThemeIcon)`
   cursor: pointer;
   margin: 0;
   background: ${({ theme }) => theme.background};
-  padding: 0.5em 1em;
+  padding: 0.8em 1em;
   border-radius: 6px;
+
+  #scan-icon {
+    #left {
+      fill: ${({ theme }) => theme.general};
+    }
+    #right {
+      fill: #707070;
+    }
+  }
 `;

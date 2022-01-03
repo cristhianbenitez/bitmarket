@@ -1,3 +1,4 @@
+import { DropdownArrow } from 'assets';
 import React from 'react';
 import {
   ArrowDownIcon,
@@ -49,7 +50,7 @@ export class IntervalDropdown extends React.Component {
             <SelectionContainer>{this.state.text}</SelectionContainer>
           </DropDownHeader>
           <ArrowsContainer>
-            {this.state.isOpen ? <ArrowUpIcon /> : <ArrowDownIcon />}
+            <DropdownArrow isOpen={this.state.isOpen} />
           </ArrowsContainer>
           {this.state.isOpen && (
             <DropDownList>

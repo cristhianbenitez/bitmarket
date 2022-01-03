@@ -1,7 +1,6 @@
-import ArrowUp from 'assets/ArrowUp.png';
-import RedArrow from 'assets/RedArrow.png';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { PriceArrow } from 'assets';
 
 export const TableData = styled.td`
   padding: 1.25em 1em;
@@ -60,20 +59,14 @@ export const PriceChangePercentage = styled.td`
   color: ${(props) => (props.price > 0 ? '#00FC2A' : '#FE1040')};
 `;
 
-export const RedArrowDown = styled.img.attrs({
-  src: `${RedArrow}`
-})`
-  padding: 0 0.25em;
-  top: 50%;
-  transform: translateY(-50%);
+export const CenterDiv = styled.div`
+  display: flex;
+  align-items: center;
 `;
-
-export const GreenArrowUp = styled.img.attrs({
-  src: `${ArrowUp}`
-})`
+export const ArrowIcon = styled(PriceArrow)`
   padding: 0 0.25em;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%; ;
 `;
 
 export const CoinIcon = styled.img`

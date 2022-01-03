@@ -48,7 +48,8 @@ export const ISOCurrentDate = () => {
 };
 
 export const currencyFormat = function (amount, symbol = '') {
-  const formattedAmount = new Intl.NumberFormat('en-US').format(amount);
+  const posInt = amount < 0 ? amount * -1 : amount;
+  const formattedAmount = new Intl.NumberFormat('en-US').format(posInt);
   if (formattedAmount.length > 8) {
     const formattedBigNumber = formattedNumber(formattedAmount, '( 0.00a)');
     return symbol + formattedBigNumber;

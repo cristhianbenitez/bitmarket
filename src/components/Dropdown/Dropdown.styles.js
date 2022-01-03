@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import ArrowDown from 'assets/ArrowDown.png';
-import ArrowUp from 'assets/ArrowUp.png';
-import Currency from 'assets/CurrencyIcon.svg';
+import DollarSign from 'assets/Icons/DollarSign.svg';
 
 export const Input = styled.input`
   width: 100%;
@@ -75,8 +73,8 @@ export const ListItem = styled.li`
   }
 `;
 
-export const CurrencyIcon = styled.img.attrs({
-  src: `${Currency}`
+export const DollarIcon = styled.img.attrs({
+  src: `${DollarSign}`
 })``;
 
 export const SelectionContainer = styled.div`
@@ -89,11 +87,3 @@ export const ArrowsContainer = styled.div`
   justify-content: center;
   margin-left: 0.5em;
 `;
-
-export const ArrowUpIcon = styled.img.attrs({
-  src: `${ArrowUp}`
-})``;
-
-export const ArrowDownIcon = styled.img.attrs({
-  src: `${ArrowDown}`
-})``;

@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import Icon from 'assets/Search-Icon.svg';
+import { ReactComponent as Search } from 'assets/Icons/Search.svg';
 
 export const StyledForm = styled.form`
+  display: flex;
+  align-items: center;
   background: ${({ theme }) => theme.background};
   border-radius: 6px;
   margin-right: 1.5em;
@@ -19,9 +21,11 @@ export const StyledInput = styled.input`
   }
 `;
 
-export const SearchIcon = styled.img.attrs({
-  src: `${Icon}`
-})`
+export const SearchIcon = styled(Search)`
   cursor: pointer;
   padding: 0 0.5em;
+
+  #search-icon {
+    fill: ${({ theme }) => theme.general};
+  }
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ArrowUp from 'assets/ArrowUp.png';
-import RedArrow from 'assets/RedArrow.png';
+
+import { PriceArrow } from 'assets';
 
 export const RowContainer = styled.div`
   display: flex;
@@ -44,6 +44,7 @@ export const ImageContainer = styled.div`
   padding: 1em;
   border-radius: 12px;
 `;
+
 export const TopContent = styled.div`
   text-align: start;
 `;
@@ -68,11 +69,12 @@ export const SmallText = styled.p`
 `;
 
 export const GreenText = styled.span`
-  color: ${(props) => (props.price < 0 ? '#FE1040' : '#00fc2a')};
+  color: ${(props) => (props.price <= 0 ? '#FE1040' : '#00fc2a')};
   margin-left: 1em;
   display: flex;
   align-items: center;
 `;
+
 export const Text = styled.div`
   color: ${({ theme }) => theme.general};
   margin-left: 1em;
@@ -102,14 +104,6 @@ export const DeleteButton = styled.span`
   cursor: pointer;
 `;
 
-export const RedArrowDown = styled.img.attrs({
-  src: `${RedArrow}`
-})`
-  margin-right: 0.2em;
-`;
-
-export const GreenArrowUp = styled.img.attrs({
-  src: `${ArrowUp}`
-})`
+export const ArrowIcon = styled(PriceArrow)`
   margin-right: 0.2em;
 `;
