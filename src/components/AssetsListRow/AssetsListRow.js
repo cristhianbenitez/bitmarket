@@ -72,9 +72,9 @@ export class AssetsListRow extends Component {
   };
 
   render() {
-    const currency = `${this.props.currency}`;
+    const { currency } = this.props;
 
-    const currencySymbol = getSymbolFromCurrency(this.props.currency);
+    const currencySymbol = getSymbolFromCurrency(currency);
 
     const {
       name,
@@ -130,7 +130,7 @@ export class AssetsListRow extends Component {
               <SmallText>
                 Current Price:
                 <GreenText>
-                  {currencyFormat(priceChangeIn24h, currencySymbol)}
+                  {currencyFormat(currentPrice, currencySymbol)}
                 </GreenText>
               </SmallText>
               <SmallText>
