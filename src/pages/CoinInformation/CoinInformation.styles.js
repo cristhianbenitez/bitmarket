@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import BackgroundImage from 'assets/BackgroundImage.png';
+import GreenBackgroundImage from 'assets/GreenBackgroundImage.png';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -58,10 +59,12 @@ export const LeftContent = styled(StyledDiv)`
 
 export const MiddleContent = styled(StyledDiv)`
   width: 30%;
+  background: ${({ theme }) => theme.foreground};
 `;
 
 export const RightContent = styled(StyledDiv)`
   width: 40%;
+  background: ${({ theme }) => theme.foreground};
 `;
 
 export const Subtitle = styled.h3`
@@ -71,9 +74,15 @@ export const Subtitle = styled.h3`
   margin-top: 3em;
 `;
 
-export const Background = styled.img.attrs({
-  src: `${BackgroundImage}`
-})`
+const darkGunmetal = '#1F2128';
+
+export const Background = styled.img.attrs((props) => ({
+  src: `${
+    props.theme.background === darkGunmetal
+      ? BackgroundImage
+      : GreenBackgroundImage
+  }`
+}))`
   margin-top: 5em;
   width: 100%;
 `;

@@ -1,11 +1,11 @@
-import ThemeIcon from 'assets/ThemeIcon.svg';
 import styled from 'styled-components';
+import ThemeIcon from 'assets/ThemeIcon.svg';
 
 export const Wrapper = styled.nav`
   padding: 1em 4em;
   display: flex;
   justify-content: space-between;
-  background-color: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   align-items: center;
 `;
 
@@ -21,8 +21,8 @@ export const StyledButton = styled.div`
   margin-right: 0.5em;
   border-radius: 6px;
   text-decoration: none;
-  color: #fff;
-  background: ${(props) => props.currentPage && '#2c2f36'};
+  color: ${({ theme }) => theme.general};
+  background: ${({ currentPage, theme }) => currentPage && theme.background};
 `;
 
 export const CoinsButton = styled.div``;
@@ -34,7 +34,7 @@ export const ThemeButton = styled.img.attrs({
 })`
   cursor: pointer;
   margin: 0;
-  background: #2c2f36;
+  background: ${({ theme }) => theme.background};
   padding: 0.5em 1em;
   border-radius: 6px;
 `;

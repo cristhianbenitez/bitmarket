@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Subnav = styled.div`
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   width: fit-content;
   margin: 0 auto;
   padding: 0.75em 2em;
@@ -34,7 +34,7 @@ export const BulletCircle = styled.div`
   width: 7px;
   height: 7px;
   border-radius: 100%;
-  background: #fff;
+  background: ${({ theme }) => theme.general};
   margin-right: 0.5em;
 `;
 
@@ -49,7 +49,7 @@ export const PercentageBar = styled.div`
 `;
 
 export const TotalVolumePercentage = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.general};
   z-index: 2;
   border-radius: 12px;
   height: 100%;
@@ -57,7 +57,7 @@ export const TotalVolumePercentage = styled.div`
 `;
 
 export const BitcoinPercentage = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.general};
   z-index: 2;
   border-radius: 12px;
   height: 100%;
@@ -65,7 +65,7 @@ export const BitcoinPercentage = styled.div`
 `;
 
 export const EthereumPercentage = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.general};
   z-index: 2;
   border-radius: 12px;
   height: 100%;

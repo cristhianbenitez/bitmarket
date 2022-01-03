@@ -14,7 +14,7 @@ export const CurrencyWrapper = styled.div`
 `;
 
 export const Currency = styled.div`
-  background: #06d554;
+  background: ${({ theme }) => theme.green};
   padding: 1em 2.5em;
   border-radius: 12px 0 0 12px;
   text-transform: uppercase;
@@ -23,8 +23,8 @@ export const Currency = styled.div`
 export const ValueInput = styled(NumberFormat)`
   display: flex;
   align-items: center;
-  background: #2c2d33;
-  color: #ffff;
+  background: ${({ theme }) => theme.foreground};
+  color: ${({ theme }) => theme.general};
   font-size: 1rem;
   padding-left: 1em;
   width: 250px;

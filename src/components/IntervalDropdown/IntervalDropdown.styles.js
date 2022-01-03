@@ -10,7 +10,7 @@ export const IntervalDropdownWrapper = styled.div`
 `;
 
 export const DropDownContainer = styled.div`
-  background: #2c2d33;
+  background: ${({ theme }) => theme.foreground};
   border-radius: 12px 0 0 12px;
   padding: 1em;
   cursor: pointer;
@@ -29,7 +29,7 @@ export const DropDownList = styled.ul`
   position: absolute;
   padding: 0;
   margin-top: 3em;
-  background: #191b1f;
+  background: ${({ theme }) => theme.foreground};
   width: 130px;
   border-radius: 6px;
   height: auto;
@@ -48,14 +48,14 @@ export const DropDownList = styled.ul`
   }
 `;
 export const ListItem = styled.li`
-  color: white;
-  background: #191b1f;
+  color: ${({ theme }) => theme.general};
+  background: ${({ theme }) => theme.foreground};
   padding: 1em;
   text-align: start;
   cursor: pointer;
   overflow: auto;
   &:hover {
-    background: #2c2f36;
+    background: ${({ theme }) => theme.background};
   }
 `;
 
