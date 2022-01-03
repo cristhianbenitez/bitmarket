@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from 'assets/SwapIcon.png';
+import { ReactComponent as SwapArrows } from 'assets/Icons/SwapArrows.svg';
 import NumberFormat from 'react-number-format';
 
 export const Container = styled.div`
@@ -37,9 +37,11 @@ export const ValueInput = styled(NumberFormat)`
   }
 `;
 
-export const SwapIcon = styled.img.attrs({
-  src: `${Icon}`
-})`
+export const SwapIcon = styled(SwapArrows)`
   margin: 0 2em;
   cursor: pointer;
+
+  #swap-icon {
+    fill: ${({ theme }) => theme.general};
+  }
 `;

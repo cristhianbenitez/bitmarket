@@ -1,4 +1,4 @@
-import Icon from 'assets/PlusIcon.png';
+import { ReactComponent as Plus } from 'assets/Icons/Plus.svg';
 import styled from 'styled-components';
 
 export const MarketDataList = styled.ul`
@@ -27,8 +27,6 @@ export const MarketDataTitle = styled.span`
   margin-right: 0.25em;
 `;
 
-export const PlusIcon = styled.img.attrs({
-  src: `${Icon}`
-})`
+export const PlusIcon = styled(Plus)`
   padding-right: 1em;
 `;

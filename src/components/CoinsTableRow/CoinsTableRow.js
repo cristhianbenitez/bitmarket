@@ -8,19 +8,19 @@ import { Charts } from 'components';
 import {
   BulletCircle,
   CoinIcon,
-  GreenArrowUp,
   NameContainer,
   PercentageBar,
   PercentageBarContainer,
   PercentageBarFill,
   PriceChangePercentage,
-  RedArrowDown,
   SmallChartContainer,
+  ArrowIcon,
   StyledLink,
   TableData,
   TableRow,
   Value,
-  ValuesContainer
+  ValuesContainer,
+  CenterDiv
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
 export class CoinsTableRow extends Component {
@@ -41,10 +41,6 @@ export class CoinsTableRow extends Component {
         sparkline_in_7d: pricesOfLastSevenDays
       } = coinInfo;
 
-      const directionIndicator = (price) => {
-        const isPositive = price > 0;
-        return isPositive ? <GreenArrowUp /> : <RedArrowDown />;
-      };
       const percentageBarColors = {
         left: [
           '#FFB528',
@@ -97,16 +93,22 @@ export class CoinsTableRow extends Component {
             {current_price}
           </TableData>
           <PriceChangePercentage price={hourlyChanges}>
-            {directionIndicator(hourlyChanges)}
-            {displayPositiveNumber(hourlyChanges)}%
+            <CenterDiv>
+              <ArrowIcon price={hourlyChanges} />
+              {displayPositiveNumber(hourlyChanges)}%
+            </CenterDiv>
           </PriceChangePercentage>
           <PriceChangePercentage price={dailyChanges}>
-            {directionIndicator(dailyChanges)}
-            {displayPositiveNumber(dailyChanges)}%
+            <CenterDiv>
+              <ArrowIcon price={dailyChanges} />
+              {displayPositiveNumber(dailyChanges)}%
+            </CenterDiv>
           </PriceChangePercentage>
           <PriceChangePercentage price={weeklyChanges}>
-            {directionIndicator(weeklyChanges)}
-            {displayPositiveNumber(weeklyChanges)}%
+            <CenterDiv>
+              <ArrowIcon price={weeklyChanges} />
+              {displayPositiveNumber(weeklyChanges)}%
+            </CenterDiv>
           </PriceChangePercentage>
           <TableData>
             <PercentageBarContainer>

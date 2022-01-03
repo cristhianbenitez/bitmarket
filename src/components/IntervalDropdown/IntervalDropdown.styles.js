@@ -1,5 +1,3 @@
-import ArrowDown from 'assets/ArrowDown.png';
-import ArrowUp from 'assets/ArrowUp.png';
 import styled from 'styled-components';
 
 export const IntervalDropdownWrapper = styled.div`
@@ -76,11 +74,3 @@ export const ArrowsContainer = styled.div`
   justify-content: center;
   margin-left: 0.5em;
 `;
-
-export const ArrowUpIcon = styled.img.attrs({
-  src: `${ArrowUp}`
-})``;
-
-export const ArrowDownIcon = styled.img.attrs({
-  src: `${ArrowDown}`
-})``;

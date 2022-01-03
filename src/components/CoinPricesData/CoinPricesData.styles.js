@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import ArrowUp from 'assets/ArrowUp.png';
-import ArrowDown from 'assets/RedArrow.png';
 
 const CenterItem = `
   display: flex;
@@ -39,14 +37,6 @@ export const AllTimeContainer = styled.div`
 `;
 
 export const TextContainer = styled.div``;
-
-export const GreenArrowUp = styled.img.attrs({
-  src: `${ArrowUp}`
-})``;
-
-export const RedArrowDown = styled.img.attrs({
-  src: `${ArrowDown}`
-})``;
 
 export const IconContainer = styled.i`
   ${CenterItem}
