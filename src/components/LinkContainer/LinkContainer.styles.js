@@ -17,8 +17,10 @@ export const IconContainer = styled.div`
   align-items: center;
 `;
 
-export const ChainIcon = styled(LinkChain)`
-  margin: ${(props) => (props.extraIcon ? '0' : '0 1em')};
+export const ChainIcon = styled(({ extraIcon, ...restProps }) => (
+  <LinkChain {...restProps} />
+))`
+  margin: ${({ extraIcon }) => (extraIcon ? '0' : '0 1em')};
 
   #link-icon {
     fill: ${({ theme }) => theme.general};

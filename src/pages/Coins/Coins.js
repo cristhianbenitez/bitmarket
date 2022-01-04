@@ -40,6 +40,7 @@ export class Coins extends Component {
   componentDidMount() {
     if (this.props.currency) {
       this.getChartData(this.props.currency);
+      window.addEventListener('scroll', this.handleScroll);
     }
   }
   componentDidUpdate = (prevProps, prevState) => {
@@ -49,13 +50,25 @@ export class Coins extends Component {
     }
   };
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    console.log(event);
+    // let scrollTop = event.srcElement.body.scrollTop,
+    //   itemTranslate = Math.min(0, scrollTop / 3 - 60);
+    // this.setState({
+    //   transform: itemTranslate
+    // });
+  }
   render() {
     const latestData = {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
       latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
     };
     return (
-      <Container>
+      <Container onScroll={this.handleScroll}>
         <Subtitle>Your overview</Subtitle>
         <ChartWrapper>
           <ChartContainer>
