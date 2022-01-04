@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ReactComponent as Arrow } from 'assets/Icons/Arrow.svg';
+import ReactLoading from 'react-loading';
 
 export const PriceArrow = styled(({ price, ...restProps }) => (
   <Arrow {...restProps} />
@@ -20,4 +21,10 @@ export const DropdownArrow = styled(({ isOpen, theme, ...restProps }) => (
     fill: ${({ theme }) =>
       theme.background === '#1F2128' ? '#00FC2A' : '#191B1F'};
   }
+`;
+
+export const Loading = styled(ReactLoading).attrs(({ theme }) => ({
+  color: `${theme.general}`
+}))`
+  margin: 0.5em auto;
 `;
