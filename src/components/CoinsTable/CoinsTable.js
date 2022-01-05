@@ -9,6 +9,7 @@ import {
   TableHeading,
   TableRowHead
 } from './CoinsTable.styles';
+import { Loading } from 'assets';
 export class CoinsTable extends Component {
   state = {
     isLoading: false,
@@ -36,6 +37,7 @@ export class CoinsTable extends Component {
 
   componentDidMount = () => {
     this.getCoinItemData();
+    window.addEventListener('scroll', this.handleScrollBottom);
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -43,30 +45,51 @@ export class CoinsTable extends Component {
       this.getCoinItemData(this.props.currency);
     }
   };
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScrollBottom);
+  }
 
+  handleScrollBottom = () => {
+    const isBottom =
+      Math.ceil(window.innerHeight + window.scrollY) >=
+      document.documentElement.scrollHeight;
+
+    if (isBottom) {
+      this.setState((prevState) => ({
+        resultsPerPage: prevState.resultsPerPage + 10
+      }));
+
+      this.getCoinItemData();
+    }
+  };
   render() {
     return (
-      <Table>
-        <TableHead>
-          <TableRowHead>
-            <TableHeading>#</TableHeading>
-            <TableHeading>Name</TableHeading>
-            <TableHeading>Price</TableHeading>
-            <TableHeading>1h%</TableHeading>
-            <TableHeading>24h%</TableHeading>
-            <TableHeading>7d%</TableHeading>
-            <TableHeading>24h Volume/Market Cap</TableHeading>
-            <TableHeading>Circulating/Total Supply</TableHeading>
-            <TableHeading>Last 7d</TableHeading>
-          </TableRowHead>
-        </TableHead>
-        <TableBody>
-          <CoinsTableRow
-            coinItemData={this.state.coinItemData}
-            currency={this.props.currency}
-          />
-        </TableBody>
-      </Table>
+      <>
+        <Table>
+          <TableHead>
+            <TableRowHead>
+              <TableHeading>#</TableHeading>
+              <TableHeading>Name</TableHeading>
+              <TableHeading>Price</TableHeading>
+              <TableHeading>1h%</TableHeading>
+              <TableHeading>24h%</TableHeading>
+              <TableHeading>7d%</TableHeading>
+              <TableHeading>24h Volume/Market Cap</TableHeading>
+              <TableHeading>Circulating/Total Supply</TableHeading>
+              <TableHeading>Last 7d</TableHeading>
+            </TableRowHead>
+          </TableHead>
+          <TableBody>
+            <CoinsTableRow
+              coinItemData={this.state.coinItemData}
+              currency={this.props.currency}
+            />
+          </TableBody>
+        </Table>
+        {this.state.isLoading && this.state.resultsPerPage > 10 && (
+          <Loading type="spin" height={50} width={30} />
+        )}
+      </>
     );
   }
 }

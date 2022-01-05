@@ -14,7 +14,8 @@ export class Coins extends Component {
     isLoading: false,
     coinPrice: [],
     volume24h: [],
-    currency: this.props.currency
+    currency: this.props.currency,
+    resultsPerPage: 10
   };
 
   formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
@@ -42,6 +43,7 @@ export class Coins extends Component {
       this.getChartData(this.props.currency);
     }
   }
+
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.currency !== this.props.currency) {
       this.getChartData(this.props.currency);
