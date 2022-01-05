@@ -24,10 +24,11 @@ import {
 } from './AssetsListRow.styles';
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { CenterDiv, Loading } from 'assets';
 
 export class AssetsListRow extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     assetData: {},
     priceData: 0
   };
@@ -59,7 +60,7 @@ export class AssetsListRow extends Component {
       })
     ]);
 
-    const historicPriceData = priceData?.data?.market_data?.current_price.usd;
+    const historicPriceData = priceData.data.market_data.current_price.usd;
 
     this.setState({
       isLoading: false,
@@ -73,6 +74,13 @@ export class AssetsListRow extends Component {
   };
 
   render() {
+    if (this.state.isLoading)
+      return (
+        <CenterDiv>
+          <Loading type="spin" />
+        </CenterDiv>
+      );
+
     const { currency } = this.props;
 
     const currencySymbol = getSymbolFromCurrency(currency);
@@ -89,28 +97,27 @@ export class AssetsListRow extends Component {
     ).toLocaleDateString();
 
     const marketvsvolumePercentage = calculatePercentage(
-      marketData?.market_cap.usd,
-      marketData?.total_volume.usd
+      marketData.market_cap.usd,
+      marketData.total_volume.usd
     );
 
     const maxvscircSupplyPercentage = calculatePercentage(
-      marketData?.circulating_supply,
-      marketData?.max_supply
+      marketData.circulating_supply,
+      marketData.max_supply
     );
 
     const priceChangeIn24h =
-      marketData?.price_change_24h_in_currency?.[currency];
+      marketData.price_change_24h_in_currency?.[currency];
 
-    const currentPrice = marketData?.current_price?.[currency];
+    const currentPrice = marketData.current_price?.[currency];
 
     const purchasedPrice = this.state.priceData;
-    if (this.state.isLoading) return <div>Loading...</div>;
 
     return (
       <RowContainer>
         <LeftContent>
           <ImageContainer>
-            <Image src={image?.small} alt={name} />
+            <Image src={image.small} alt={name} />
           </ImageContainer>
           <CoinName>
             {name}
@@ -132,9 +139,9 @@ export class AssetsListRow extends Component {
               </SmallText>
               <SmallText>
                 Price Change 24h:
-                <GreenText price={priceChangeIn24h?.toFixed(2)}>
+                <GreenText price={priceChangeIn24h.toFixed(2)}>
                   <ArrowIcon price={priceChangeIn24h} />
-                  {currencyFormat(priceChangeIn24h?.toFixed(2), currencySymbol)}
+                  {currencyFormat(priceChangeIn24h.toFixed(2), currencySymbol)}
                 </GreenText>
               </SmallText>
               <Text>

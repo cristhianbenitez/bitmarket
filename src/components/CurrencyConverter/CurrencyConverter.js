@@ -40,11 +40,11 @@ export class CurrencyConverter extends Component {
     });
   };
   render() {
-    const rightCurrencyValue = this.state.currencies[0]?.currencyValue;
+    const rightCurrencyValue = this.state.currencies[0].currencyValue;
     const convertedValue =
-      this.state.currencies[0]?.currencyName !== this.props.coinSymbol
-        ? (rightCurrencyValue / this.props.coinPrice)?.toFixed(6)
-        : rightCurrencyValue * this.props.coinPrice?.toFixed(2);
+      this.state.currencies[0].currencyName !== this.props.coinSymbol
+        ? (rightCurrencyValue / this.props.coinPrice).toFixed(6)
+        : rightCurrencyValue * this.props.coinPrice.toFixed(2);
 
     return (
       <Container>

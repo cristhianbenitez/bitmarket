@@ -28,3 +28,11 @@ export const Loading = styled(ReactLoading).attrs(({ theme }) => ({
 }))`
   margin: 0.5em auto;
 `;
+
+export const CenterDiv = styled.div`
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

@@ -13,11 +13,11 @@ export class ChartsLegend extends Component {
   render() {
     const currencySymbol = getSymbolFromCurrency(this.props.currency);
     const latestCoinPrice = formattedNumber(
-      this.props.latestData?.latestCoinPrice?.y,
+      this.props.latestData.latestCoinPrice.y,
       `10,000.00`
     );
     const latestVolume24h = formattedNumber(
-      this.props.latestData?.latestVolume24h?.y,
+      this.props.latestData.latestVolume24h.y,
       '(0.000a)'
     );
     return (

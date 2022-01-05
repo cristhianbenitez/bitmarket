@@ -27,116 +27,132 @@ import {
   CurrencyConverter
 } from 'components';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { Loading, CenterDiv } from 'assets';
 
 class CoinInformation extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
+    hasError: false,
     coinInfo: []
   };
 
   getCoinInformation = async () => {
     const id = this.props.params.id;
     this.setState({ isLoading: true });
-    const { data } = await coinGecko.get(`/coins/${id}`, {
-      params: {
-        market_data: 'true',
-        localization: 'false',
-        tickers: 'false',
-        interval: 'daily',
-        community_data: 'false',
-        developer_data: 'false',
-        sparkline: 'false'
-      }
-    });
+    try {
+      const { data } = await coinGecko.get(`/coins/${id}`, {
+        params: {
+          market_data: 'true',
+          localization: 'false',
+          tickers: 'false',
+          interval: 'daily',
+          community_data: 'false',
+          developer_data: 'false',
+          sparkline: 'false'
+        }
+      });
 
-    this.setState({
-      isLoading: false,
-      coinInfo: data
-    });
+      this.setState({
+        isLoading: false,
+        coinInfo: data
+      });
+    } catch (error) {
+      this.setState({
+        hasError: true
+      });
+    }
   };
 
   componentDidMount = () => {
     this.getCoinInformation();
   };
   render() {
+    if (this.state.hasError)
+      return <CenterDiv>This Page does not exist</CenterDiv>;
+
+    if (this.state.isLoading)
+      return (
+        <CenterDiv>
+          <Loading type="spin" />
+        </CenterDiv>
+      );
+
     const { name, market_data, image, links, symbol, description } =
       this.state.coinInfo;
 
-    const currency = `${this.props.currency}`;
+    const currency = this.props.currency;
 
     const currencySymbol = getSymbolFromCurrency(this.props.currency);
 
-    return this.state.isLoading ? (
-      <div>Loading...</div>
-    ) : (
+    return (
       <>
         <Container>
           <Subtitle>Your Summary</Subtitle>
           <TopPageContent>
             <LeftContent>
               <CoinInfo
-                coinImg={image?.small}
+                coinImg={image.small}
                 coinName={name}
-                coinSymbol={symbol?.toUpperCase()}
-                coinLink={links?.homepage[0]}
+                coinSymbol={symbol.toUpperCase()}
+                coinLink={links.homepage[0]}
               />
             </LeftContent>
             <MiddleContent>
               <CoinPricesData
                 currencySymbol={currencySymbol}
                 priceChange={
-                  market_data?.price_change_24h_in_currency?.[currency]
+                  market_data.price_change_24h_in_currency?.[currency]
                 }
-                currentPrice={market_data?.current_price?.[currency]}
-                athPrice={market_data?.ath?.[currency]}
-                athDate={market_data?.ath_date?.[currency]}
-                athPriceChange={market_data?.ath_change_percentage?.[currency]}
-                atlPrice={market_data?.atl?.[currency]}
-                atlDate={market_data?.atl_date?.[currency]}
-                atlPriceChange={market_data?.atl_change_percentage?.[currency]}
+                currentPrice={market_data.current_price?.[currency]}
+                athPrice={market_data.ath?.[currency]}
+                athDate={market_data.ath_date?.[currency]}
+                athPriceChange={market_data.ath_change_percentage?.[currency]}
+                atlPrice={market_data.atl?.[currency]}
+                atlDate={market_data.atl_date?.[currency]}
+                atlPriceChange={market_data.atl_change_percentage?.[currency]}
               />
             </MiddleContent>
             <RightContent>
               <MarketDataInfo
                 currencySymbol={currencySymbol}
                 symbol={symbol}
-                marketCap={market_data?.market_cap?.[currency]}
+                marketCap={market_data.market_cap?.[currency]}
                 fullyDilutedVal={
-                  market_data?.fully_diluted_valuation?.[currency]
+                  market_data.fully_diluted_valuation?.[currency]
                 }
-                totalVolume={market_data?.total_volume?.[currency]}
-                circulatingSupply={market_data?.circulating_supply}
-                maxSupply={market_data?.max_supply}
+                totalVolume={market_data.total_volume?.[currency]}
+                circulatingSupply={market_data.circulating_supply}
+                maxSupply={market_data.max_supply}
               />
             </RightContent>
           </TopPageContent>
           <Subtitle>Description</Subtitle>
           <BottomPageContent>
-            <DescriptionInfo text={description?.en} />
+            <DescriptionInfo text={description.en} />
             <CoinLinksContainer>
               <LeftLink>
                 <LinkContainer
-                  urlLink={`${links?.blockchain_site[0]}`}
+                  urlLink={`${links.blockchain_site[0]}`}
                   extraIcon
                 />
               </LeftLink>
               <MiddleLink>
                 <LinkContainer
-                  urlLink={`${links?.blockchain_site[1]}`}
+                  urlLink={`${links.blockchain_site[1]}`}
                   extraIcon
                 />
               </MiddleLink>
               <RightLink>
                 <LinkContainer
-                  urlLink={`${links?.blockchain_site[2]}`}
+                  urlLink={`${links.blockchain_site[2]}`}
                   extraIcon
                 />
               </RightLink>
             </CoinLinksContainer>
             <IntervalDropdown />
             <CurrencyConverter
-              coinSymbol={symbol?.toUpperCase()}
-              coinPrice={market_data?.current_price?.[currency]}
+              coinSymbol={symbol.toUpperCase()}
+              coinPrice={market_data.current_price?.[currency]}
             />
           </BottomPageContent>
         </Container>

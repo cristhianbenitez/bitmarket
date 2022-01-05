@@ -17,7 +17,7 @@ export const CoinPricesData = (props) => {
   const atlDate = new Date(props.atlDate).toGMTString();
 
   const priceChangePercentage =
-    (props?.priceChange / props?.currentPrice) * 100;
+    (props.priceChange / props.currentPrice) * 100;
 
   return (
     <MiddleContentWrapper>

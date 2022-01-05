@@ -12,7 +12,7 @@ import {
 import { Loading } from 'assets';
 export class CoinsTable extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     resultsPerPage: 10,
     coinItemData: []
   };
@@ -23,7 +23,7 @@ export class CoinsTable extends Component {
         vs_currency: currency,
         days: '1',
         order: 'market_cap_desc',
-        per_page: this.state.resultsPerPage.toString(),
+        per_page: this.state.resultsPerPage,
         interval: 'hourly',
         sparkline: true,
         price_change_percentage: '1h,24h,7d'
@@ -54,7 +54,7 @@ export class CoinsTable extends Component {
       Math.ceil(window.innerHeight + window.scrollY) >=
       document.documentElement.scrollHeight;
 
-    if (isBottom) {
+    if (isBottom && this.state.resultsPerPage < 250) {
       this.setState((prevState) => ({
         resultsPerPage: prevState.resultsPerPage + 10
       }));

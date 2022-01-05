@@ -21,7 +21,7 @@ export const CoinInfo = (props) => {
         </CoinNameText>
       </TopContent>
       <BottomContent>
-        <LinkContainer urlLink={props?.coinLink} />
+        <LinkContainer urlLink={props.coinLink} />
       </BottomContent>
     </CoinInfoContainer>
   );

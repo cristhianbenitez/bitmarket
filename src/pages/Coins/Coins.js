@@ -9,9 +9,10 @@ import {
   Container,
   Subtitle
 } from './Coins.styles';
+import { CenterDiv, Loading } from 'assets';
 export class Coins extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     coinPrice: [],
     volume24h: [],
     currency: this.props.currency,
@@ -56,6 +57,13 @@ export class Coins extends Component {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
       latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
     };
+
+    if (this.state.isLoading)
+      return (
+        <CenterDiv>
+          <Loading type="spin" />
+        </CenterDiv>
+      );
     return (
       <Container>
         <Subtitle>Your overview</Subtitle>

@@ -11,7 +11,6 @@ export const DescriptionInfo = (props) => {
           dangerouslySetInnerHTML={{ __html: props.text }}
         ></Description>
       </div>
-      <div>{/* WEBSITES */}</div>
     </DescriptionInfoContainer>
   );
 };

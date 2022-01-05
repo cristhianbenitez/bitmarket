@@ -118,7 +118,7 @@ export class Modal extends Component {
                       </CoinImageContainer>
                       <CoinNameText>
                         {coinInformation?.name}
-                        {`(${coinInformation?.symbol.toUpperCase()})`}
+                        {`(${coinInformation?.symbol?.toUpperCase()})`}
                       </CoinNameText>
                     </LeftContent>
                     <RightContent>

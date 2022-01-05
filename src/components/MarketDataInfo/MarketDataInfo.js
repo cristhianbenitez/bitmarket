@@ -9,7 +9,7 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 export const MarketDataInfo = (props) => {
-  const coinSymbol = props.symbol?.toUpperCase();
+  const coinSymbol = props.symbol.toUpperCase();
   return (
     <MarketDataList>
       <MarketDataItem>

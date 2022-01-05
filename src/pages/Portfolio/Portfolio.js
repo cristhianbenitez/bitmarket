@@ -6,7 +6,7 @@ import coinGecko from 'api/coinGecko';
 
 export class Portfolio extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     supportedCoins: [],
     assets: []
   };
