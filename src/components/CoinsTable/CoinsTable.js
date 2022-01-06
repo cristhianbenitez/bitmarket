@@ -54,7 +54,6 @@ export class CoinsTable extends Component {
   };
 
   lastListElementRef = (node, observer) => {
-    console.log(observer);
     if (this.state.isLoading) return;
     if (observer.current) {
       observer.current.disconnect();
