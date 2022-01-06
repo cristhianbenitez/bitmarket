@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import {
   calculatePercentage,
   displayPositiveNumber,
@@ -24,6 +24,8 @@ import {
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
 export class CoinsTableRow extends Component {
+  observer = createRef();
+
   render() {
     return this.props.coinItemData.map((coinInfo, index) => {
       const {
@@ -77,7 +79,12 @@ export class CoinsTableRow extends Component {
       const currencySymbol = getSymbolFromCurrency(this.props.currency);
 
       return (
-        <TableRow key={index}>
+        <TableRow
+          key={index}
+          ref={(node) => {
+            this.props.lastListElementRef(node, this.observer);
+          }}
+        >
           <TableData>{index + 1}</TableData>
           <TableData>
             <StyledLink to={`coin/${name.split(' ').join('').toLowerCase()}`}>

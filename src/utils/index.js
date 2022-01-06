@@ -28,7 +28,7 @@ export const todayDate = new Date()
 
 export const displayPositiveNumber = (num) => {
   const posNum = num < 0 ? num * -1 : num;
-  return posNum.toFixed(1);
+  return posNum?.toFixed(1);
 };
 
 export const calculatePercentage = (a, b) => {

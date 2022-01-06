@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 
 import coinGecko from 'api/coinGecko';
 import { CoinsTableRow } from 'components';
@@ -13,31 +13,38 @@ import { Loading } from 'assets';
 export class CoinsTable extends Component {
   state = {
     isLoading: true,
-    resultsPerPage: 10,
-    coinItemData: []
+    pageNumber: 1,
+    coinItemData: [],
+    hasMore: false
   };
+
   getCoinItemData = async (currency = 'usd') => {
     this.setState({ isLoading: true });
-    const { data } = await coinGecko.get('/coins/markets', {
-      params: {
-        vs_currency: currency,
-        days: '1',
-        order: 'market_cap_desc',
-        per_page: this.state.resultsPerPage,
-        interval: 'hourly',
-        sparkline: true,
-        price_change_percentage: '1h,24h,7d'
-      }
-    });
-    this.setState({
-      isLoading: false,
-      coinItemData: data
-    });
+    try {
+      const { data } = await coinGecko.get('/coins/markets', {
+        params: {
+          vs_currency: currency,
+          days: '1',
+          order: 'market_cap_desc',
+          per_page: '10',
+          page: this.state.pageNumber,
+          interval: 'hourly',
+          sparkline: true,
+          price_change_percentage: '1h,24h,7d'
+        }
+      });
+      this.setState((prevState) => ({
+        isLoading: false,
+        coinItemData: [...prevState.coinItemData, ...data],
+        hasMore: data.length > 0
+      }));
+    } catch (e) {
+      if (axios.isCancel(e)) return;
+    }
   };
 
   componentDidMount = () => {
     this.getCoinItemData();
-    window.addEventListener('scroll', this.handleScrollBottom);
   };
 
   componentDidUpdate = (prevProps, prevState) => {
@@ -45,23 +52,23 @@ export class CoinsTable extends Component {
       this.getCoinItemData(this.props.currency);
     }
   };
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScrollBottom);
-  }
 
-  handleScrollBottom = () => {
-    const isBottom =
-      Math.ceil(window.innerHeight + window.scrollY) >=
-      document.documentElement.scrollHeight;
-
-    if (isBottom && this.state.resultsPerPage < 250) {
-      this.setState((prevState) => ({
-        resultsPerPage: prevState.resultsPerPage + 10
-      }));
-
-      this.getCoinItemData();
+  lastListElementRef = (node, observer) => {
+    console.log(observer);
+    if (this.state.isLoading) return;
+    if (observer.current) {
+      observer.current.disconnect();
     }
+    observer.current = new IntersectionObserver((entries) => {
+      const hasIntersectedWithRoot = entries[0].isIntersecting;
+      if (hasIntersectedWithRoot && this.state.hasMore) {
+        this.setState((prevState) => prevState.pageNumber + 1);
+        this.getCoinItemData();
+      }
+    });
+    if (node) observer.current.observe(node);
   };
+
   render() {
     return (
       <>
@@ -83,12 +90,11 @@ export class CoinsTable extends Component {
             <CoinsTableRow
               coinItemData={this.state.coinItemData}
               currency={this.props.currency}
+              lastListElementRef={this.lastListElementRef}
             />
           </TableBody>
         </Table>
-        {this.state.isLoading && this.state.resultsPerPage > 10 && (
-          <Loading type="spin" height={50} width={30} />
-        )}
+        {this.state.isLoading && <Loading type="spin" height={50} width={30} />}
       </>
     );
   }
