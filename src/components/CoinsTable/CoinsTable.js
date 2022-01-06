@@ -53,16 +53,18 @@ export class CoinsTable extends Component {
     }
   };
 
-  lastListElementRef = async (node, observer) => {
+  lastListElementRef = (node, observer) => {
     if (this.state.isLoading) return;
     if (observer.current) {
       observer.current.disconnect();
     }
-
     observer.current = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && this.state.hasMore) {
-          this.setState((prevState) => prevState.pageNumber + 1);
+          this.setState({
+            pageNumber: this.state.pageNumber + 1
+          });
+
           this.getCoinItemData();
         }
       },
