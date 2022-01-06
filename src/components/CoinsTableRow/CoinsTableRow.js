@@ -69,7 +69,6 @@ export class CoinsTableRow extends Component {
           '#728D86'
         ]
       };
-
       const leftSideColors =
         percentageBarColors.left[index % percentageBarColors.left.length];
 
