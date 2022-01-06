@@ -10,7 +10,7 @@ export const Description = styled.p`
     &:link,
     &:active {
       text-decoration: none;
-      color: ${({ theme }) => theme.green};
+      color: #06d554;
     }
   }
 `;

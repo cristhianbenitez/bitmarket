@@ -14,7 +14,7 @@ export const CurrencyWrapper = styled.div`
 `;
 
 export const Currency = styled.div`
-  background: ${({ theme }) => theme.green};
+  background: #06d554;
   padding: 1em 2.5em;
   border-radius: 12px 0 0 12px;
   text-transform: uppercase;

@@ -14,7 +14,7 @@ export const InputContainer = styled.div`
   background: ${({ theme }) => theme.foreground};
   width: 100%;
   &:focus-within {
-    outline: ${({ theme }) => theme.green} solid 2px;
+    outline: #06d554 solid 2px;
   }
 `;
 
@@ -44,7 +44,7 @@ export const Input = styled.input`
 export const ArrowIcon = styled(Arrow)`
   width: 12px;
   #arrow {
-    fill: ${({ theme }) => theme.green};
+    fill: #06d554;
   }
 `;
 
@@ -80,8 +80,8 @@ export const AutoCompleteContainer = styled.ul`
   }
 
   &::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.green};
-    outline: 1px solid ${({ theme }) => theme.green};
+    background: #06d554;
+    outline: 1px solid #06d554;
     border-radius: 4px;
   }
 `;

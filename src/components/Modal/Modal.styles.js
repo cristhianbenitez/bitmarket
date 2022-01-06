@@ -5,7 +5,7 @@ export const ModalButton = styled.button.attrs({
   type: 'button'
 })`
   padding: 1.5em 13em;
-  background: ${({ theme }) => theme.green};
+  background: #06d554;
   color: ${({ theme }) => theme.general};
   box-shadow: none;
   border: none;
@@ -58,7 +58,7 @@ export const ModalTitle = styled.p`
 `;
 
 export const CloseButton = styled.span`
-  color: ${({ theme }) => theme.green};
+  color: #06d554;
   font-size: 3.5em;
   font-weight: bold;
   padding: 0;
@@ -115,7 +115,7 @@ export const StyledInput = styled.input`
   box-sizing: border-box;
   border-radius: 12px;
   &:focus {
-    outline: ${({ theme }) => theme.green} solid 2px;
+    outline: #06d554 solid 2px;
   }
   &[type='date']::-webkit-calendar-picker-indicator {
     cursor: pointer;
@@ -160,13 +160,13 @@ export const StyledButton = styled.button`
     &:hover,
     &:focus {
       color: ${({ theme }) => theme.general};
-      background: ${({ theme }) => theme.green};
+      background: #06d554;
     }
   }
   &:nth-child(2) {
     width: 80%;
     margin-right: 4em;
-    background: ${({ theme }) => theme.green};
+    background: #06d554;
     &:hover,
     &:focus {
       color: ${({ theme }) => theme.general};
