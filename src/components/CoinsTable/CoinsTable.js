@@ -58,13 +58,15 @@ export class CoinsTable extends Component {
     if (observer.current) {
       observer.current.disconnect();
     }
-    observer.current = new IntersectionObserver((entries) => {
-      const hasIntersectedWithRoot = entries[0].isIntersecting;
-      if (hasIntersectedWithRoot && this.state.hasMore) {
-        this.setState((prevState) => prevState.pageNumber + 1);
-        this.getCoinItemData();
-      }
-    });
+    observer.current = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && this.state.hasMore) {
+          this.setState((prevState) => prevState.pageNumber + 1);
+          this.getCoinItemData();
+        }
+      },
+      { threshold: 1 }
+    );
     if (node) observer.current.observe(node);
   };
 
