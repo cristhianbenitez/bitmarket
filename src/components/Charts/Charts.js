@@ -4,8 +4,8 @@ import { addZero } from 'utils';
 import { ChartsLegend } from 'components';
 import { ChartsWrapper } from './Charts.styles';
 import { chartOptions, smallChartOption } from './ChartsOptions';
-
-export class Charts extends Component {
+import { withTheme } from 'styled-components';
+class Charts extends Component {
   render() {
     const chartDataTimes = (time) =>
       Array.isArray(this.props.chartData) &&
@@ -29,8 +29,8 @@ export class Charts extends Component {
         {
           data: arrOfData,
           fill: false,
-          backgroundColor: '#2172E5',
-          borderColor: '#2172E5',
+          backgroundColor: this.props.theme.barChart,
+          borderColor: this.props.theme.barChart,
           borderRadius: '2',
           barThickness: 14,
           maxBarThickness: 18
@@ -41,8 +41,8 @@ export class Charts extends Component {
     const lineChartData = (canvas) => {
       const ctx = canvas.getContext('2d');
       const gradient = ctx.createLinearGradient(0, 0, 0, 250);
-      gradient.addColorStop(0, 'rgba(0,255,95,0.3)');
-      gradient.addColorStop(1, 'rgba(0,255,95,0)');
+      gradient.addColorStop(0, this.props.theme.chartsGradient.start);
+      gradient.addColorStop(1, this.props.theme.chartsGradient.end);
 
       return {
         labels: chartDataTimes('hour'),
@@ -52,7 +52,7 @@ export class Charts extends Component {
             label: 'Price',
             data: arrOfData,
             fill: true,
-            borderColor: '#00FF5F',
+            borderColor: this.props.theme.lineChart,
             backgroundColor: gradient,
             borderRadius: '2',
             tension: 0.5,
@@ -105,3 +105,5 @@ Charts.defaultProps = {
   lineChart: false,
   smallLineChart: false
 };
+
+export default withTheme(Charts);
