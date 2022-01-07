@@ -38,7 +38,5 @@
   "resolutions": {
     "styled-components": "^5"
   },
-  "devDependencies": {
-    "yarn-upgrade-all": "^0.6.1"
-  }
+  "devDependencies": {}
 }

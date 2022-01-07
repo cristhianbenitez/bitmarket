@@ -12,6 +12,7 @@ export { LinkContainer } from './LinkContainer/LinkContainer';
 export { MarketDataInfo } from './MarketDataInfo/MarketDataInfo';
 export { WrappedNavbar as Navbar } from './Navbar/Navbar';
 export { SearchInput } from './SearchInput/SearchInput';
+export { SearchResults } from './SearchResults/SearchResults';
 export { SubNavbar } from './SubNavbar/SubNavbar';
 export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';
 export { Modal } from './Modal/Modal.js';
