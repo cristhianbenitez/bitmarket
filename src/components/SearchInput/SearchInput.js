@@ -27,72 +27,60 @@ export class SearchInput extends Component {
           per_page: '250'
         }
       });
-
       this.setState((prevState) => ({
         isLoading: false,
         searchResult: [
           ...prevState.searchResult,
-          ...data.map(({ name, image, id }) => ({
-            name,
-            image,
-            id
-          }))
+          ...data.map(({ name, id }) => ({ name, id }))
         ],
         hasMore: data.length > 0
       }));
     } catch (e) {
       this.setState({ hasError: false });
     }
-
     if (this.state.hasError) return () => cancel();
   };
 
   handleChange = ({ target: { value } }) => {
-    let suggestions = [];
-    if (value.length > 0) {
-      const regex = new RegExp(`^${value}`, 'i');
-      suggestions = this.state.searchResult
-        .sort()
-        .filter((v) => regex.test(v.name));
-    }
-    this.setState({
-      isOpen: true,
-      query: value,
-      suggestions
-    });
-  };
-
-  handleClickOutside = ({ target: { id } }) => {
-    if (this.state.isOpen && id !== 'input' && id !== 'search-result') {
-      this.setState({ isOpen: false });
-    }
+    this.setState({ isOpen: true, query: value });
   };
 
   handleClick = () => {
-    this.getCoinItemData();
-    this.setState((prevState) => ({ isOpen: true }));
+    this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
   };
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
+  handleClickOutside = ({ target: { id } }) => {
+    if (this.state.isOpen && id !== 'search-input' && id !== 'search-result') {
+      this.setState({ isOpen: false });
+    }
+  };
 
   handleSelectItem() {
     this.setState({ isOpen: false, query: '' });
   }
 
+  componentDidMount() {
+    this.getCoinItemData();
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
   render() {
-    const { query, isOpen, isLoading } = this.state;
+    const { query, isOpen, isLoading, searchResult } = this.state;
+    const regex = new RegExp(`^${query}`, 'i');
+    const suggestions = searchResult.sort().filter((v) => regex.test(v.name));
 
     return (
       <Container>
         <StyledForm>
           <SearchIcon />
           <StyledInput
-            id="input"
+            id="search-input"
             autoComplete="off"
             onClick={this.handleClick}
-            ref={this.searchBox}
             onChange={this.handleChange}
             type="text"
             placeholder="Search..."
@@ -102,8 +90,8 @@ export class SearchInput extends Component {
 
         {isOpen && query.length > 0 && !isLoading && (
           <SearchResults
-            results={this.state.suggestions}
-            handleSelectItem={this.handleSelectItem}
+            results={suggestions}
+            handleSelectItem={() => this.handleSelectItem}
           />
         )}
       </Container>
