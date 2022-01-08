@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GlobalStyle, Wrapper } from './App.styles';
-import { Coins, Portfolio, CoinInformation } from 'pages';
+import { GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
+import { Coins, Portfolio, Summary } from 'pages';
 import { SubNavbar, Navbar, lightTheme, darkTheme } from 'components';
 import { ThemeProvider } from 'styled-components';
 
@@ -34,16 +34,18 @@ class App extends Component {
     const themeMode = this.state.theme === 'dark' ? lightTheme : darkTheme;
 
     return (
-      <ThemeProvider theme={themeMode}>
-        <Wrapper onScroll={this.handleScroll}>
+      <Wrapper>
+        <ThemeProvider theme={themeMode}>
           <GlobalStyle />
           <Router>
-            <Navbar
-              changeCurrency={this.changeCurrency}
-              themeToggler={this.themeToggler}
-            />
-            <SubNavbar />
-            <Routes>
+            <NavbarContainer>
+              <Navbar
+                changeCurrency={this.changeCurrency}
+                themeToggler={this.themeToggler}
+              />
+            </NavbarContainer>
+            {/* <SubNavbar /> */}
+            {/* <Routes>
               <Route
                 path="/portfolio"
                 element={<Portfolio currency={this.state.currency} />}
@@ -54,12 +56,12 @@ class App extends Component {
               />
               <Route
                 path="/coin/:id"
-                element={<CoinInformation currency={this.state.currency} />}
+                element={<Summary currency={this.state.currency} />}
               />
-            </Routes>
+            </Routes> */}
           </Router>
-        </Wrapper>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Wrapper>
     );
   }
 }

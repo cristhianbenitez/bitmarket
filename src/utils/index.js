@@ -1,6 +1,8 @@
 import numeral from 'numeral';
 
+export { default as devices } from './media-queries';
 export const addZero = (i) => {
+  1;
   if (i < 10) {
     i = '0' + i;
   }

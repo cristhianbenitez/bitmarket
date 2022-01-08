@@ -1,30 +1,34 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { devices } from 'utils';
 
 export const List = styled.ul`
   position: absolute;
   border: none;
   background: ${({ theme }) => theme.foreground};
-  padding: 8px 0;
   list-style-type: none;
   border-radius: 6px;
-  width: 280px;
+  width: 200px;
   max-height: 200px;
   overflow-y: auto;
   z-index: 999;
-  margin: 0;
-  margin-top: 1em;
-  box-sizing: border-box;
+  top: 60px;
+  right: 185px;
   &::-webkit-scrollbar {
     width: 6px;
   }
-
   &::-webkit-scrollbar-thumb {
     background: #06d554;
     outline: 1px solid #06d554;
     border-radius: 4px;
   }
+  @media ${devices.desktop} {
+    width: 370px;
+    top: 80px;
+    right: 255px;
+  }
 `;
+
 export const Item = styled.li`
   cursor: pointer;
   padding: 0 24px;

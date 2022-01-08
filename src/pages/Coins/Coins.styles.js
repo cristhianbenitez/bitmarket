@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from 'utils';
 
 export const Container = styled.div`
   padding: 0 4em;

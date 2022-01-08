@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { withRouter } from 'helpers';
 
 import { Dropdown, SearchInput } from 'components';
@@ -7,32 +6,39 @@ import {
   Container,
   StyledButton,
   ThemeButton,
-  Wrapper
+  Wrapper,
+  SummaryButton,
+  SummaryIcon,
+  PortfolioIcon,
+  CoinsIcon
 } from './Navbar.styles.js';
-
 class Navbar extends Component {
   render() {
+    console.log(this.props.location.pathname.slice(1, 5));
     return (
       <Wrapper>
         <Container>
-          <Link to="/">
-            <StyledButton
-              currentPage={this.props.location.pathname.slice(1) === ''}
-            >
-              Coins
-            </StyledButton>
-          </Link>
-          <Link to="/portfolio">
-            <StyledButton
-              currentPage={
-                this.props.location.pathname.slice(1) === 'portfolio'
-              }
-            >
-              Portfolio
-            </StyledButton>
-          </Link>
+          <StyledButton
+            to="/"
+            currentPage={this.props.location.pathname.slice(1) === ''}
+          >
+            <CoinsIcon /> Coins
+          </StyledButton>
+          <StyledButton
+            to="/portfolio"
+            currentPage={this.props.location.pathname.slice(1) === 'portfolio'}
+          >
+            <PortfolioIcon />
+            Portfolio
+          </StyledButton>
         </Container>
         <Container>
+          <SummaryButton
+            currentPage={this.props.location.pathname.slice(1, 5) === 'coin'}
+          >
+            <SummaryIcon />
+            Summary
+          </SummaryButton>
           <SearchInput />
           <Dropdown changeCurrency={this.props.changeCurrency} />
           <ThemeButton onClick={this.props.themeToggler} />
