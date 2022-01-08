@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33">
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 35 35">
   <g id="Group_2569" data-name="Group 2569" transform="translate(-1810 -108)">
-    <circle id="Ellipse_43" data-name="Ellipse 43" cx="16.5" cy="16.5" r="16.5" transform="translate(1810 108)" fill="#191b1f"/>
-    <text id="_" data-name="$" transform="translate(1821 131)" fill="#00ff5f" font-size="17" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">$</tspan></text>
+    <circle id="circle" data-name="Ellipse 43" cx="17.5" cy="17.5" r="17.5" transform="translate(1810 108)" fill="#191b1f"/>
+    <text id="dollar-sign" data-name="$" transform="translate(1822 132)" fill="#00ff5f" font-size="20" font-family="SegoeUI, Segoe UI"><tspan x="0" y="0">$</tspan></text>
   </g>
 </svg>
