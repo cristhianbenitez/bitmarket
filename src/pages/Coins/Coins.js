@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Charts, CoinsTable } from 'components';
 import coinGecko from 'api/coinGecko';
 import {
+  Arrow,
+  ArrowsContainer,
   ChartContainer,
   ChartWrapper,
   CoinListContainer,
@@ -16,7 +18,8 @@ export class Coins extends Component {
     coinPrice: [],
     volume24h: [],
     currency: this.props.currency,
-    resultsPerPage: 10
+    resultsPerPage: 10,
+    isVisible: false
   };
 
   formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
@@ -52,6 +55,9 @@ export class Coins extends Component {
     }
   };
 
+  show = () => {
+    this.setState((prevState) => ({ isVisible: !prevState.isVisible }));
+  };
   render() {
     const latestData = {
       latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
@@ -64,30 +70,33 @@ export class Coins extends Component {
           <Loading type="spin" />
         </CenterDiv>
       );
+
     return (
       <Container>
         <Subtitle>Your overview</Subtitle>
-        <ChartWrapper>
-          <ChartContainer>
+        <ChartWrapper isVisible={this.state.isVisible}>
+          <ChartContainer id="line-chart">
             <Charts
               chartData={this.state.coinPrice}
               latestData={latestData}
               currency={this.props.currency}
+              show={this.show}
               lineChart
             />
           </ChartContainer>
-          <ChartContainer>
+          <ChartContainer id="bar-chart">
             <Charts
               chartData={this.state.volume24h}
               latestData={latestData}
               currency={this.props.currency}
+              show={this.show}
               barChart
             />
           </ChartContainer>
         </ChartWrapper>
         <Subtitle>Your overview</Subtitle>
         <CoinListContainer>
-          <CoinsTable currency={this.props.currency} />
+          {/* <CoinsTable currency={this.props.currency} /> */}
         </CoinListContainer>
       </Container>
     );

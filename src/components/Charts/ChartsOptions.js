@@ -20,10 +20,7 @@ const tooltip = {
 export const chartOptions = {
   layout: {
     padding: {
-      top: 100,
-      right: 40,
-      bottom: 0,
-      left: 40
+      top: 100
     }
   },
 

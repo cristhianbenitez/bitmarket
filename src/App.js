@@ -53,20 +53,20 @@ class App extends Component {
             <Content>
               <MobileHeader />
               <SubNavbar />
-              {/* <Routes>
-              <Route
-                path="/portfolio"
-                element={<Portfolio currency={this.state.currency} />}
-              ></Route>
-              <Route
-                path="/"
-                element={<Coins currency={this.state.currency} />}
-              />
-              <Route
-                path="/coin/:id"
-                element={<Summary currency={this.state.currency} />}
-              />
-            </Routes> */}
+              <Routes>
+                <Route
+                  path="/portfolio"
+                  element={<Portfolio currency={this.state.currency} />}
+                ></Route>
+                <Route
+                  path="/"
+                  element={<Coins currency={this.state.currency} />}
+                />
+                <Route
+                  path="/coin/:id"
+                  element={<Summary currency={this.state.currency} />}
+                />
+              </Routes>
             </Content>
           </Router>
         </ThemeProvider>

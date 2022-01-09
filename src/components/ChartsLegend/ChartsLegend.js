@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { formattedNumber, todayDate } from 'utils';
 import {
+  Arrow,
+  ArrowsContainer,
+  Legend,
   CoinInfo,
   CoinInfoDate,
   CoinInfoTitle,
@@ -21,16 +24,22 @@ export class ChartsLegend extends Component {
       '(0.000a)'
     );
     return (
-      <CoinInfo>
-        <CoinInfoTitle>
-          {this.props.lineChart ? 'Bitcoin' : 'Volume 24h'}
-        </CoinInfoTitle>
-        <CoinInfoValue>
-          {currencySymbol}
-          {this.props.lineChart ? latestCoinPrice : latestVolume24h}
-        </CoinInfoValue>
-        <CoinInfoDate>{todayDate} </CoinInfoDate>
-      </CoinInfo>
+      <Legend>
+        <CoinInfo>
+          <CoinInfoTitle>
+            {this.props.lineChart ? 'Bitcoin' : 'Volume 24h'}
+          </CoinInfoTitle>
+          <CoinInfoValue>
+            {currencySymbol}
+            {this.props.lineChart ? latestCoinPrice : latestVolume24h}
+          </CoinInfoValue>
+          <CoinInfoDate>{todayDate} </CoinInfoDate>
+        </CoinInfo>
+        <ArrowsContainer>
+          <Arrow left onClick={this.props.show} />
+          <Arrow onClick={this.props.show} />
+        </ArrowsContainer>
+      </Legend>
     );
   }
 }

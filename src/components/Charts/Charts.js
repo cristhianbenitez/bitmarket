@@ -32,29 +32,39 @@ class Charts extends Component {
           backgroundColor: this.props.theme.barChart,
           borderColor: this.props.theme.barChart,
           borderRadius: '2',
-          barThickness: 14,
-          maxBarThickness: 18
+          maxBarThickness: 20
         }
       ]
     };
 
-    const lineChartData = (canvas) => {
-      const ctx = canvas.getContext('2d');
-      const gradient = ctx.createLinearGradient(0, 0, 0, 250);
-      gradient.addColorStop(0, this.props.theme.chartsGradient.start);
-      gradient.addColorStop(1, this.props.theme.chartsGradient.end);
+    const pluginsConfig = [
+      {
+        afterLayout: (chart) => {
+          let ctx = chart.ctx;
+          ctx.save();
+          let yAxis = chart.scales.y;
+          let gradient = ctx.createLinearGradient(0, 0, 0, yAxis.bottom);
+          gradient.addColorStop(0, this.props.theme.chartsGradient.start);
+          gradient.addColorStop(0.5, this.props.theme.chartsGradient.middle);
+          gradient.addColorStop(1, this.props.theme.chartsGradient.end);
+          if (chart.data.datasets[0]) {
+            chart.data.datasets[0].backgroundColor = gradient;
+            ctx.restore();
+          }
+        }
+      }
+    ];
 
+    const lineChartData = () => {
       return {
         labels: chartDataTimes('hour'),
-
         datasets: [
           {
             label: 'Price',
             data: arrOfData,
             fill: true,
             borderColor: this.props.theme.lineChart,
-            backgroundColor: gradient,
-            borderRadius: '2',
+            borderRadius: '5',
             tension: 0.5,
             pointBackgroundColor: 'transparent',
             pointBorderColor: 'transparent'
@@ -79,7 +89,13 @@ class Charts extends Component {
 
     const renderChart = () => {
       if (this.props.lineChart)
-        return <Line data={lineChartData} options={chartOptions} />;
+        return (
+          <Line
+            data={lineChartData}
+            options={chartOptions}
+            plugins={pluginsConfig}
+          />
+        );
       if (this.props.barChart)
         return <Bar data={barChartData} options={chartOptions} />;
       if (this.props.smallLineChart)
@@ -93,6 +109,7 @@ class Charts extends Component {
             latestData={this.props.latestData}
             currency={this.props.currency}
             lineChart={this.props.lineChart}
+            show={this.props.show}
           />
         ) : null}
         {renderChart()}
