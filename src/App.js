@@ -44,8 +44,9 @@ class App extends Component {
                 themeToggler={this.themeToggler}
               />
             </NavbarContainer>
-            {/* <SubNavbar /> */}
-            {/* <Routes>
+            <div>
+              <SubNavbar />
+              {/* <Routes>
               <Route
                 path="/portfolio"
                 element={<Portfolio currency={this.state.currency} />}
@@ -59,6 +60,7 @@ class App extends Component {
                 element={<Summary currency={this.state.currency} />}
               />
             </Routes> */}
+            </div>
           </Router>
         </ThemeProvider>
       </Wrapper>

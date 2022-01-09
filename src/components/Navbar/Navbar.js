@@ -14,7 +14,6 @@ import {
 } from './Navbar.styles.js';
 class Navbar extends Component {
   render() {
-    console.log(this.props.location.pathname.slice(1, 5));
     return (
       <Wrapper>
         <Container>
