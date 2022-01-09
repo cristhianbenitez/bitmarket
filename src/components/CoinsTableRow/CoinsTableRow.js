@@ -30,6 +30,7 @@ export class CoinsTableRow extends Component {
     return this.props.coinItemData.map((coinInfo, index) => {
       const {
         name,
+        id,
         image,
         symbol,
         current_price,
@@ -86,7 +87,7 @@ export class CoinsTableRow extends Component {
         >
           <TableData>{index + 1}</TableData>
           <TableData>
-            <StyledLink to={`coin/${name.split(' ').join('').toLowerCase()}`}>
+            <StyledLink to={`coin/${id}`}>
               <NameContainer>
                 <CoinIcon src={`${image}`} alt={`${name}-icon`} />
                 {name}
