@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
+import { Content, GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
 import { Coins, Portfolio, Summary } from 'pages';
-import { SubNavbar, Navbar, lightTheme, darkTheme } from 'components';
+import {
+  SubNavbar,
+  Navbar,
+  MobileHeader,
+  lightTheme,
+  darkTheme
+} from 'components';
 import { ThemeProvider } from 'styled-components';
 
 class App extends Component {
@@ -44,7 +50,8 @@ class App extends Component {
                 themeToggler={this.themeToggler}
               />
             </NavbarContainer>
-            <div>
+            <Content>
+              <MobileHeader />
               <SubNavbar />
               {/* <Routes>
               <Route
@@ -60,7 +67,7 @@ class App extends Component {
                 element={<Summary currency={this.state.currency} />}
               />
             </Routes> */}
-            </div>
+            </Content>
           </Router>
         </ThemeProvider>
       </Wrapper>

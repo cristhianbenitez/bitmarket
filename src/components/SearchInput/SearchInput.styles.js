@@ -4,9 +4,7 @@ import { devices } from 'utils';
 
 export const SearchBox = styled.div`
   margin-right: 1.5em;
-  @media ${devices.tablet} {
-    display: none;
-  }
+  display: none;
   @media (min-width: 500px) {
     padding: 0.6em 0.5em;
     background: ${({ theme }) => theme.background};

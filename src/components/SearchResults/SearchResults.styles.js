@@ -24,6 +24,7 @@ export const List = styled.ul`
   }
   @media ${devices.desktop} {
     width: 370px;
+
     top: 80px;
     right: 255px;
   }

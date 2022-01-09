@@ -10,7 +10,8 @@ import {
   SummaryButton,
   SummaryIcon,
   PortfolioIcon,
-  CoinsIcon
+  CoinsIcon,
+  Separator
 } from './Navbar.styles.js';
 class Navbar extends Component {
   render() {
@@ -30,18 +31,18 @@ class Navbar extends Component {
             <PortfolioIcon />
             Portfolio
           </StyledButton>
-        </Container>
-        <Container>
           <SummaryButton
             currentPage={this.props.location.pathname.slice(1, 5) === 'coin'}
           >
             <SummaryIcon />
             Summary
           </SummaryButton>
+        </Container>
+        <Separator>
           <SearchInput />
           <Dropdown changeCurrency={this.props.changeCurrency} />
           <ThemeButton onClick={this.props.themeToggler} />
-        </Container>
+        </Separator>
       </Wrapper>
     );
   }

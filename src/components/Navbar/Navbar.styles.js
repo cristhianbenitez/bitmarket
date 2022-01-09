@@ -19,13 +19,18 @@ export const Wrapper = styled.nav`
 
 export const Container = styled.div`
   display: flex;
-  width: 50%;
   justify-content: space-around;
+  width: 100%;
   align-items: center;
+  margin: 0 auto;
   @media ${devices.tablet} {
-    width: unset;
     justify-content: center;
+    width: unset;
+    margin: 0;
   }
+`;
+export const Separator = styled.div`
+  display: flex;
 `;
 
 export const StyledButton = styled(({ currentPage, ...rest }) => (
