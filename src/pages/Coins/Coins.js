@@ -96,7 +96,7 @@ export class Coins extends Component {
         </ChartWrapper>
         <Subtitle>Your overview</Subtitle>
         <CoinListContainer>
-          {/* <CoinsTable currency={this.props.currency} /> */}
+          <CoinsTable currency={this.props.currency} />
         </CoinListContainer>
       </Container>
     );

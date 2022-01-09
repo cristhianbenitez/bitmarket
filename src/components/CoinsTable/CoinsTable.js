@@ -3,6 +3,7 @@ import React, { Component, createRef } from 'react';
 import coinGecko from 'api/coinGecko';
 import { CoinsTableRow } from 'components';
 import {
+  ScrollableDiv,
   Table,
   TableBody,
   TableHead,
@@ -58,24 +59,21 @@ export class CoinsTable extends Component {
     if (observer.current) {
       observer.current.disconnect();
     }
-    observer.current = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && this.state.hasMore) {
-          this.setState({
-            pageNumber: this.state.pageNumber + 1
-          });
+    observer.current = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && this.state.hasMore) {
+        this.setState({
+          pageNumber: this.state.pageNumber + 1
+        });
 
-          this.getCoinItemData();
-        }
-      },
-      { threshold: 1 }
-    );
+        this.getCoinItemData();
+      }
+    });
     if (node) observer.current.observe(node);
   };
 
   render() {
     return (
-      <>
+      <ScrollableDiv>
         <Table>
           <TableHead>
             <TableRowHead>
@@ -99,7 +97,7 @@ export class CoinsTable extends Component {
           </TableBody>
         </Table>
         {this.state.isLoading && <Loading type="spin" height={50} width={30} />}
-      </>
+      </ScrollableDiv>
     );
   }
 }

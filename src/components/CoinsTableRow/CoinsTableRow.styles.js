@@ -1,21 +1,41 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { PriceArrow } from 'assets';
+import { devices } from 'utils';
 
 export const TableData = styled.td`
-  padding: 1.25em 1em;
+  font-size: 0.8rem;
   text-align: start;
+  padding-right: 1em;
+  @media ${devices.desktop} {
+    font-size: 0.9rem;
+    padding: 1.25em 1em;
+  }
 `;
 export const TableRow = styled.tr`
   border-bottom: 2px solid ${({ theme }) => theme.background};
   &:last-child {
     border-bottom: none;
   }
+  & > td {
+    &:first-child {
+      display: none;
+    }
+    &:last-child {
+      width: 0;
+    }
+  }
+  @media ${devices.desktop} {
+    & > td:first-child {
+      display: table-cell;
+    }
+  }
 `;
 export const TableBody = styled.tbody``;
 
 export const ValuesContainer = styled.div`
-  width: 100%;
+  width: 95%;
+  margin: auto;
   display: flex;
   justify-content: space-between;
 `;
@@ -56,7 +76,12 @@ export const BulletCircle = styled.div`
 `;
 
 export const PriceChangePercentage = styled.td`
+  font-size: 0.8rem;
   color: ${(props) => (props.price > 0 ? '#00FC2A' : '#FE1040')};
+  padding-right: 1em;
+  @media ${devices.desktop} {
+    font-size: 0.9rem;
+  }
 `;
 
 export const CenterDiv = styled.div`
@@ -64,14 +89,21 @@ export const CenterDiv = styled.div`
   align-items: center;
 `;
 export const ArrowIcon = styled(PriceArrow)`
+  height: 100%;
+  width: 1.3em;
   padding: 0 0.25em;
   top: 50%;
   left: 50%; ;
 `;
 
-export const CoinIcon = styled.img`
-  width: 33px;
-  height: 33px;
+export const CoinIcon = styled.img.attrs((props) => ({
+  src: `${props.image}`,
+  alt: `${props.name}-icon`
+}))`
+  max-width: 100%;
+  max-height: 100%;
+  height: 30px;
+  object-fit: cover;
   margin-right: 1em;
   border-radius: 100%;
 `;
@@ -81,6 +113,20 @@ export const NameContainer = styled.div`
   align-items: center;
   cursor: pointer;
   color: ${({ theme }) => theme.general};
+  padding-right: 4em;
+`;
+
+export const CoinName = styled.p`
+  font-size: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  @media ${devices.desktop} {
+    font-size: 1rem;
+    flex-direction: row;
+  }
+`;
+export const Symbol = styled.span`
+  text-transform: uppercase;
 `;
 
 export const StyledLink = styled(Link)`
@@ -96,8 +142,6 @@ export const StyledLink = styled(Link)`
 `;
 
 export const SmallChartContainer = styled.div`
-  width: 125px;
+  width: 12em;
   height: 50px;
-  display: flex;
-  align-items: center;
 `;

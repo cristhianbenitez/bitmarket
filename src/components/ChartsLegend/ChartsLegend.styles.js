@@ -6,7 +6,7 @@ export const Legend = styled.div`
   position: absolute;
   display: flex;
   justify-content: space-between;
-  width: 75%;
+  width: 85%;
   @media ${devices.tablet} {
     width: unset;
   }
@@ -36,6 +36,7 @@ export const ArrowsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2.5em;
   width: 60px;
   @media ${devices.tablet} {
     display: none;

@@ -47,9 +47,10 @@ body,html {
   font-family: 'Poppins', sans-serif;
   background-color: ${({ theme }) => theme.background};
   color: ${({ theme }) => theme.general};
-
 }
 a {
   text-decoration: none;
 }
+
+
 `;

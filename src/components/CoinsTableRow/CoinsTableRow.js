@@ -20,7 +20,9 @@ import {
   TableRow,
   Value,
   ValuesContainer,
-  CenterDiv
+  CenterDiv,
+  CoinName,
+  Symbol
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
 export class CoinsTableRow extends Component {
@@ -76,6 +78,7 @@ export class CoinsTableRow extends Component {
         percentageBarColors.right[index % percentageBarColors.right.length];
 
       const currencySymbol = getSymbolFromCurrency(this.props.currency);
+      const minimizedImage = image.replace('large', 'small');
 
       return (
         <TableRow
@@ -88,9 +91,11 @@ export class CoinsTableRow extends Component {
           <TableData>
             <StyledLink to={`coin/${name.split(' ').join('').toLowerCase()}`}>
               <NameContainer>
-                <CoinIcon src={`${image}`} alt={`${name}-icon`} />
-                {name}
-                {`(${symbol.toUpperCase()})`}
+                <CoinIcon image={minimizedImage} name={name} />
+                <CoinName>
+                  {name}
+                  <Symbol>({symbol})</Symbol>
+                </CoinName>
               </NameContainer>
             </StyledLink>
           </TableData>
