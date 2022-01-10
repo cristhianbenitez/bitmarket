@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import coinGecko from 'api/coinGecko';
 
 import {
-  RowContainer,
-  LeftContent,
-  RightContent,
+  ListWrapper,
+  ListHead,
+  MarketPrice,
+  OwnedCoin,
   Image,
   ImageContainer,
   InfoContainer,
-  TopContent,
-  BottomContent,
+  ListBody,
   SmallText,
   GreenText,
   PercentageBar,
@@ -18,9 +18,8 @@ import {
   CoinName,
   CoinSymbol,
   DeleteButton,
-  RedArrowDown,
-  GreenArrowUp,
-  ArrowIcon
+  ArrowIcon,
+  Subtitle
 } from './AssetsListRow.styles';
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
@@ -114,8 +113,8 @@ export class AssetsListRow extends Component {
     const purchasedPrice = this.state.priceData;
 
     return (
-      <RowContainer>
-        <LeftContent>
+      <ListWrapper>
+        <ListHead>
           <ImageContainer>
             <Image src={image.small} alt={name} />
           </ImageContainer>
@@ -126,10 +125,10 @@ export class AssetsListRow extends Component {
           <DeleteButton onClick={() => this.props.removeAsset(this.props.id)}>
             &times;
           </DeleteButton>
-        </LeftContent>
-        <RightContent>
-          <TopContent>
-            <SmallText>Market Price:</SmallText>
+        </ListHead>
+        <ListBody>
+          <MarketPrice>
+            <Subtitle>Market Price:</Subtitle>
             <InfoContainer>
               <SmallText>
                 Current Price:
@@ -165,9 +164,9 @@ export class AssetsListRow extends Component {
                 <Text>{maxvscircSupplyPercentage.percentageB}%</Text>
               </Text>
             </InfoContainer>
-          </TopContent>
-          <BottomContent>
-            <SmallText>Your Coin:</SmallText>
+          </MarketPrice>
+          <OwnedCoin>
+            <Subtitle>Your Coin:</Subtitle>
             <InfoContainer>
               <SmallText>
                 Coin Amount:
@@ -202,9 +201,9 @@ export class AssetsListRow extends Component {
                 <GreenText>{purchaseDateLocale}</GreenText>
               </SmallText>
             </InfoContainer>
-          </BottomContent>
-        </RightContent>
-      </RowContainer>
+          </OwnedCoin>
+        </ListBody>
+      </ListWrapper>
     );
   }
 }

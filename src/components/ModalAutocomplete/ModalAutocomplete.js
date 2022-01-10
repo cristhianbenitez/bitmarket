@@ -50,13 +50,12 @@ export class ModalAutocomplete extends Component {
     return (
       <Root>
         <InputContainer onClick={this.toggle}>
-          {this.state.text === '' && <Label>Select Coins</Label>}
           <Input
-            id="input"
             autoComplete="off"
             defaultValue={this.state.text}
             onChange={this.onTextChange}
             type={'text'}
+            placeholder="Select Coin"
           />
           <AutoCompleteIcon
             isOpen={this.state.isDropdownVisible}
@@ -67,7 +66,7 @@ export class ModalAutocomplete extends Component {
         </InputContainer>
         {suggestions.length > 0 && this.state.isDropdownVisible && (
           <AutoCompleteContainer>
-            {suggestions.map((item) => {
+            {suggestions?.map((item) => {
               return (
                 <AutoCompleteItem key={item.id}>
                   <AutoCompleteItemButton
