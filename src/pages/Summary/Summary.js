@@ -9,6 +9,7 @@ import {
   Container,
   LeftContent,
   LeftLink,
+  Link,
   MiddleContent,
   MiddleLink,
   RightContent,
@@ -130,24 +131,24 @@ class Summary extends Component {
           <BottomPageContent>
             <DescriptionInfo text={description.en} />
             <CoinLinksContainer>
-              <LeftLink>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[0]}`}
                   extraIcon
                 />
-              </LeftLink>
-              <MiddleLink>
+              </Link>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[1]}`}
                   extraIcon
                 />
-              </MiddleLink>
-              <RightLink>
+              </Link>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[2]}`}
                   extraIcon
                 />
-              </RightLink>
+              </Link>
             </CoinLinksContainer>
             <IntervalDropdown />
             <CurrencyConverter

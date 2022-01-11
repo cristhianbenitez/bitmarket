@@ -10,7 +10,7 @@ export const LinkContainer = ({ urlLink, extraIcon = false }) => {
   const cleanUrlString = (url) => {
     const checkLastString =
       url && url[url.length - 1] === '/' ? url.slice(0, -1) : url;
-    return checkLastString.replace(/^https?\:\/\//i, '');
+    return `www.${checkLastString.replace(/^https?\:\/\//i, '')}`;
   };
   return (
     <CoinLinkContainer extraIcon={extraIcon}>

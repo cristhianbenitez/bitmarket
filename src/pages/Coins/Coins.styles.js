@@ -33,13 +33,15 @@ export const Subtitle = styled.h3`
 export const ChartContainer = styled.div`
   margin-top: 2em;
   width: 100%;
-  background: ${({ theme }) => theme.foreground};
   border-radius: 8px;
   padding: 0.5em;
   height: 229px;
   max-width: 840px;
   max-height: 450px;
+  background: #2c2d33;
+
   @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
     height: 35vh;
     @media (min-width: 650px) {
       height: 25vw;
@@ -71,8 +73,11 @@ export const ChartWrapper = styled.div`
 
 export const CoinListContainer = styled.div`
   margin-top: 1.25em;
-  background: ${({ theme }) => theme.foreground};
   padding: 1.5em 1em;
   margin-bottom: 6em;
   border-radius: 6px;
+  background: #171821;
+  @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
+  }
 `;

@@ -37,7 +37,7 @@ class App extends Component {
   }
 
   render() {
-    const themeMode = this.state.theme === 'dark' ? lightTheme : darkTheme;
+    const themeMode = this.state.theme === 'dark' ? darkTheme : lightTheme;
 
     return (
       <Wrapper>

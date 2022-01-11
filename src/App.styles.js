@@ -45,8 +45,12 @@ body,html {
   margin: 0;
   padding: 0;
   font-family: 'Poppins', sans-serif;
-  background-color: ${({ theme }) => theme.background};
+  background: #171821;
   color: ${({ theme }) => theme.general};
+  @media ${devices.tablet}{
+    background: ${({ theme }) => theme.background};
+
+  }
 }
 a {
   text-decoration: none;
