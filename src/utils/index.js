@@ -1,6 +1,8 @@
 import numeral from 'numeral';
 
 export { default as devices } from './media-queries';
+export { default as percentageBarColors } from './percentage-bar-colors';
+
 export const addZero = (i) => {
   1;
   if (i < 10) {
