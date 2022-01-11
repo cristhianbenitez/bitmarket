@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { devices } from 'utils';
 
 const CenterItem = `
   display: flex;
@@ -7,14 +8,28 @@ const CenterItem = `
 `;
 
 export const MiddleContentWrapper = styled.div`
-  margin: auto;
+  width: 100%;
+  background: #2c2d33;
+  border-radius: 12px;
+  padding: 1.5em 3em;
+  margin-bottom: 1em;
+  @media ${devices.laptop} {
+    background: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const CoinPrice = styled.h2`
-  margin-top: 0;
-  font-weight: 500;
-  font-size: 2.75rem;
-  margin-right: 0.5em;
+  display: flex;
+  font-size: 2rem;
+  font-weight: 400;
+  padding-right: 0.5em;
+  @media ${devices.laptopL} {
+    font-size: 2.2rem;
+  }
 `;
 
 export const CoinPriceChange = styled.p`
@@ -24,11 +39,16 @@ export const CoinPriceChange = styled.p`
 
 export const CoinPriceContainer = styled.div`
   ${CenterItem}
+  padding-bottom: .5em;
 `;
 
 export const CoinPricesDataText = styled.p`
-  font-size: 1.125rem;
+  font-size: 0.7rem;
   text-align: start;
+
+  @media ${devices.laptopL} {
+    font-size: 1.2rem;
+  }
 `;
 
 export const AllTimeContainer = styled.div`

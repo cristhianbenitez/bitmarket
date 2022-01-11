@@ -14,23 +14,13 @@ import {
 export class ModalAutocomplete extends Component {
   state = {
     isDropdownVisible: false,
-    text: '',
-    suggestions: [...this.props.data]
+    text: ''
   };
 
-  onTextChange = (e) => {
-    const value = e.target.value;
-    let suggestions = [];
-    if (value.length > 0) {
-      const regex = new RegExp(`^${value}`, 'i');
-      suggestions = this.props.data.sort().filter((v) => regex.test(v.name));
-    }
-    this.setState({
-      isDropdownVisible: true,
-      text: value,
-      suggestions
-    });
+  onTextChange = ({ target: { value } }) => {
+    this.setState({ isDropdownVisible: true, text: value });
   };
+
   suggestionSelected = (value) => {
     this.setState({
       isDropdownVisible: false,
@@ -44,9 +34,13 @@ export class ModalAutocomplete extends Component {
       isDropdownVisible: !prevState.isDropdownVisible
     }));
   };
-  render() {
-    const { suggestions } = this.state;
 
+  render() {
+    let suggestions = [...this.props.data];
+    if (this.state.text?.length) {
+      const regex = new RegExp(`^${this.state.text}`, 'i');
+      suggestions = this.props.data.sort().filter((v) => regex.test(v.name));
+    }
     return (
       <Root>
         <InputContainer onClick={this.toggle}>

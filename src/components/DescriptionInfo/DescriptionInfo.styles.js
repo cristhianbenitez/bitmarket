@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import { devices } from 'utils';
 
 export const Description = styled.p`
-  margin-top: 3em;
-  margin-bottom: 2em;
   & a {
     &:focus,
     &:hover,
@@ -13,11 +12,24 @@ export const Description = styled.p`
       color: #06d554;
     }
   }
+  margin-bottom: 0.2em;
 `;
 
 export const DescriptionInfoContainer = styled.div`
-  background: ${({ theme }) => theme.foreground};
+  font-size: 0.8rem;
+  padding: 3em 2em;
+  background: #2c2d33;
   border-radius: 12px;
-  color: ${({ theme }) => theme.general};
-  padding: 1em 2em;
+  margin-bottom: 1em;
+  @media ${devices.laptop} {
+    background: ${({ theme }) => theme.foreground};
+    border-radius: 12px;
+    color: ${({ theme }) => theme.general};
+    font-size: 1rem;
+  }
+`;
+
+export const ReadMore = styled.span`
+  color: #06d554;
+  cursor: pointer;
 `;

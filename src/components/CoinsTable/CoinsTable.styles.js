@@ -43,11 +43,14 @@ export const TableRowHead = styled.tr`
 `;
 
 export const TableHead = styled.thead`
-  background: ${({ theme }) => theme.foreground};
   color: #fff;
   position: sticky;
+  background: #171821;
   top: -15px;
   height: 40px;
+  @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
+  }
   @media ${devices.laptopL} {
     position: unset;
   }

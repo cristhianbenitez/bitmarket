@@ -12,7 +12,6 @@ export const Container = styled.div`
   @media ${devices.desktop} {
     padding: 1em 5em;
   }
-  /* margin-bottom: 7em; */
 `;
 
 export const Subtitle = styled.h3`

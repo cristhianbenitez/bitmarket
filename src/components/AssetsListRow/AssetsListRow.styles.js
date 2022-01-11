@@ -22,13 +22,14 @@ export const ListHead = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: ${({ theme }) => theme.foreground};
+  background: #2c2d33;
   border-radius: 6px;
   padding: 0.7em 1em;
   margin-bottom: 1em;
   margin-top: 2em;
   @media ${devices.tablet} {
     margin: 0 auto;
+    background: ${({ theme }) => theme.foreground};
   }
   @media ${devices.laptopL} {
     width: 15%;
@@ -95,7 +96,7 @@ export const InfoContainer = styled.div`
   p {
     font-size: 0.7rem;
     padding: 1.5em 1em;
-    background: ${({ theme }) => theme.foreground};
+    background: #2c2d33;
     margin-bottom: 0.8em;
     border-radius: 8px;
   }
@@ -110,6 +111,7 @@ export const InfoContainer = styled.div`
     overflow: auto;
     & > div,
     p {
+      background: ${({ theme }) => theme.foreground};
       font-size: 0.8rem;
       padding: 0;
       padding-right: 1em;
@@ -147,7 +149,7 @@ export const GreenText = styled.span`
   color: ${(props) => (props.price <= 0 ? '#FE1040' : '#00fc2a')};
   margin-left: 1em;
   display: flex;
-  align-items: center; */
+  align-items: center;
 `;
 
 export const Text = styled.div`

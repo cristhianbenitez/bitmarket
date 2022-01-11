@@ -16,7 +16,6 @@ export const DropdownArrow = styled(({ isOpen, theme, ...restProps }) => (
   <Arrow {...restProps} />
 ))`
   width: 10px;
-  position: absolute;
 
   transform: ${({ isOpen }) => isOpen && 'rotate(180deg)'};
   #arrow {

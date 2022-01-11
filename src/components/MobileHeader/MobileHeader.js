@@ -8,6 +8,7 @@ class MobileHeader extends Component {
       let name;
       if (location === '/') name = 'Coins';
       if (location === '/portfolio') name = location.slice(1);
+      if (location.slice(0, 5) === '/coin') name = 'Summary';
       return name;
     };
     return (

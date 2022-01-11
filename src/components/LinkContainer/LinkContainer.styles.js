@@ -1,20 +1,38 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as LinkChain } from 'assets/Icons/LinkChain.svg';
 import { ReactComponent as LinkTabs } from 'assets/Icons/LinkTabs.svg';
+import { devices } from 'utils';
 
 export const CoinLinkContainer = styled.div`
   display: flex;
-  justify-content: ${(props) => (props.extraIcon ? 'space-around' : 'start')};
+  justify-content: flex-start;
   align-items: center;
-  background: ${({ theme }) => theme.foreground};
-  height: 100%;
-  width: 100%;
+  background: #2c2d33;
   border-radius: 12px;
+  height: 100%;
   padding: 1em 0;
+  width: 100%;
+  margin-bottom: 1em;
+  & div {
+    padding: 0;
+  }
+  ${({ extraIcon }) =>
+    extraIcon &&
+    css`
+      width: 100%;
+      justify-content: space-between;
+      padding: 1em 1em;
+    `};
+
+  @media ${devices.laptop} {
+    background: ${({ theme }) => theme.foreground};
+    margin: 0;
+  }
 `;
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
+  padding: 0 2em;
 `;
 
 export const ChainIcon = styled(({ extraIcon, ...restProps }) => (
@@ -26,13 +44,19 @@ export const ChainIcon = styled(({ extraIcon, ...restProps }) => (
     fill: ${({ theme }) => theme.general};
   }
 `;
+
 export const TabsIcon = styled(LinkTabs)`
   #tab {
     stroke: ${({ theme }) => theme.general};
   }
 `;
+
 export const SiteLink = styled.a`
+  font-size: 0.7rem;
+  width: 70%;
+  display: flex;
   text-align: center;
+  justify-content: center;
   text-decoration: none;
   &:focus,
   &:hover,
@@ -41,5 +65,8 @@ export const SiteLink = styled.a`
   &:active {
     text-decoration: none;
     color: ${({ theme }) => theme.general};
+  }
+  @media ${devices.laptop} {
+    font-size: 0.9rem;
   }
 `;
