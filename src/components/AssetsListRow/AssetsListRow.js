@@ -79,108 +79,101 @@ export class AssetsListRow extends Component {
     const currentPrice = marketData.current_price?.[currency];
 
     return (
-      <>
-        <ListWrapper>
-          <ListHead>
-            <ImageContainer>
-              <Image src={image} alt={name} />
-            </ImageContainer>
-            <CoinName>
-              {name}
-              <CoinSymbol>({symbol})</CoinSymbol>
-            </CoinName>
-            <DeleteButton
-              onClick={() => {
-                removeAsset(uniqueId);
-              }}
-            >
-              &times;
-            </DeleteButton>
-          </ListHead>
-          <ListBody>
-            <MarketPrice>
-              <Subtitle>Market Price:</Subtitle>
-              <InfoContainer>
-                <SmallText>
-                  Current Price:
-                  <GreenText>
-                    {currencyFormat(currentPrice, currencySymbol)}
-                  </GreenText>
-                </SmallText>
-                <SmallText>
-                  Price Change 24h:
-                  <GreenText price={priceChangeIn24h.toFixed(2)}>
-                    <ArrowIcon price={priceChangeIn24h} />
-                    {currencyFormat(
-                      priceChangeIn24h.toFixed(2),
-                      currencySymbol
-                    )}
-                  </GreenText>
-                </SmallText>
-                <Text>
-                  Market Cap/Volume:
-                  <GreenText>{marketvsvolumePercentage.percentageA}%</GreenText>
-                  <PercentageBar>
-                    <FillPercentage
-                      percentage={marketvsvolumePercentage.percentageA}
-                    />
-                  </PercentageBar>
-                  <Text>{marketvsvolumePercentage.percentageB}%</Text>
-                </Text>
-                <Text>
-                  Circ Supply/Max Supply:
-                  <GreenText>
-                    {maxvscircSupplyPercentage.percentageA}%
-                  </GreenText>
-                  <PercentageBar>
-                    <FillPercentage
-                      percentage={maxvscircSupplyPercentage.percentageA}
-                    />
-                  </PercentageBar>
-                  <Text>{maxvscircSupplyPercentage.percentageB}%</Text>
-                </Text>
-              </InfoContainer>
-            </MarketPrice>
-            <OwnedCoin>
-              <Subtitle>Your Coin:</Subtitle>
-              <InfoContainer>
-                <SmallText>
-                  Coin Amount:
-                  <GreenText>
-                    {currencyFormat(
-                      purchasedAmount,
-                      getSymbolFromCurrency(symbol)
-                    )}
-                  </GreenText>
-                </SmallText>
-                <SmallText>
-                  Amount Value:
-                  <GreenText>
-                    {currencyFormat(
-                      purchasedAmount * currentPrice,
-                      currencySymbol
-                    )}
-                  </GreenText>
-                </SmallText>
-                <SmallText>
-                  Price change since purchase:
-                  <GreenText price={currentPrice - purchasedAmount}>
-                    <ArrowIcon price={currentPrice - purchasedAmount} />
-                    {currencyFormat(
-                      currentPrice - purchasedAmount,
-                      currencySymbol
-                    )}
-                  </GreenText>
-                </SmallText>
-                <SmallText>
-                  Purchase Date:
-                  <GreenText>{purchaseDateLocale}</GreenText>
-                </SmallText>
-              </InfoContainer>
-            </OwnedCoin>
-          </ListBody>
-        </ListWrapper>
-      </>
+      <ListWrapper>
+        <ListHead>
+          <ImageContainer>
+            <Image src={image} alt={name} />
+          </ImageContainer>
+          <CoinName>
+            {name}
+            <CoinSymbol>({symbol})</CoinSymbol>
+          </CoinName>
+          <DeleteButton
+            onClick={() => {
+              removeAsset(uniqueId);
+            }}
+          >
+            &times;
+          </DeleteButton>
+        </ListHead>
+        <ListBody>
+          <MarketPrice>
+            <Subtitle>Market Price:</Subtitle>
+            <InfoContainer>
+              <SmallText>
+                Current Price:
+                <GreenText>
+                  {currencyFormat(currentPrice, currencySymbol)}
+                </GreenText>
+              </SmallText>
+              <SmallText>
+                Price Change 24h:
+                <GreenText price={priceChangeIn24h.toFixed(2)}>
+                  <ArrowIcon price={priceChangeIn24h} />
+                  {currencyFormat(priceChangeIn24h.toFixed(2), currencySymbol)}
+                </GreenText>
+              </SmallText>
+              <Text>
+                Market Cap/Volume:
+                <GreenText>{marketvsvolumePercentage.percentageA}%</GreenText>
+                <PercentageBar>
+                  <FillPercentage
+                    percentage={marketvsvolumePercentage.percentageA}
+                  />
+                </PercentageBar>
+                <Text>{marketvsvolumePercentage.percentageB}%</Text>
+              </Text>
+              <Text>
+                Circ Supply/Max Supply:
+                <GreenText>{maxvscircSupplyPercentage.percentageA}%</GreenText>
+                <PercentageBar>
+                  <FillPercentage
+                    percentage={maxvscircSupplyPercentage.percentageA}
+                  />
+                </PercentageBar>
+                <Text>{maxvscircSupplyPercentage.percentageB}%</Text>
+              </Text>
+            </InfoContainer>
+          </MarketPrice>
+          <OwnedCoin>
+            <Subtitle>Your Coin:</Subtitle>
+            <InfoContainer>
+              <SmallText>
+                Coin Amount:
+                <GreenText>
+                  {currencyFormat(
+                    purchasedAmount,
+                    getSymbolFromCurrency(symbol)
+                  )}
+                </GreenText>
+              </SmallText>
+              <SmallText>
+                Amount Value:
+                <GreenText>
+                  {currencyFormat(
+                    purchasedAmount * currentPrice,
+                    currencySymbol
+                  )}
+                </GreenText>
+              </SmallText>
+              <SmallText>
+                Price change since purchase:
+                <GreenText price={currentPrice - purchasedAmount}>
+                  <ArrowIcon price={currentPrice - purchasedAmount} />
+                  {currencyFormat(
+                    currentPrice - purchasedAmount,
+                    currencySymbol
+                  )}
+                </GreenText>
+              </SmallText>
+              <SmallText>
+                Purchase Date:
+                <GreenText>{purchaseDateLocale}</GreenText>
+              </SmallText>
+            </InfoContainer>
+          </OwnedCoin>
+        </ListBody>
+      </ListWrapper>
     );
   }
 }

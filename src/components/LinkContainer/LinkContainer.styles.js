@@ -13,6 +13,7 @@ export const CoinLinkContainer = styled.div`
   padding: 1em 0;
   width: 100%;
   margin-bottom: 1em;
+
   & div {
     padding: 0;
   }
@@ -24,8 +25,10 @@ export const CoinLinkContainer = styled.div`
       padding: 1em 1em;
     `};
 
-  @media ${devices.laptop} {
+  @media ${devices.tablet} {
     background: ${({ theme }) => theme.foreground};
+  }
+  @media ${devices.laptop} {
     margin: 0;
   }
 `;
@@ -52,6 +55,9 @@ export const TabsIcon = styled(LinkTabs)`
 `;
 
 export const SiteLink = styled.a`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 0.7rem;
   width: 70%;
   display: flex;

@@ -124,7 +124,7 @@ export const CoinImage = styled.img`
   min-width: 100%;
 `;
 
-export const CoinNameText = styled.h2`
+export const CoinNameText = styled.p`
   font-weight: 300;
   font-size: 1rem;
   color: ${({ theme }) => theme.general};
@@ -144,6 +144,8 @@ export const StyledInput = styled.input`
   color: ${({ theme }) => theme.general};
   border-radius: 12px;
   margin-bottom: 1em;
+  width: 100%;
+
   &:focus {
     outline: #06d554 solid 2px;
   }

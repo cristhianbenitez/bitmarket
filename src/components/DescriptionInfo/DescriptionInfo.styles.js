@@ -21,8 +21,10 @@ export const DescriptionInfoContainer = styled.div`
   background: #2c2d33;
   border-radius: 12px;
   margin-bottom: 1em;
-  @media ${devices.laptop} {
+  @media ${devices.tablet} {
     background: ${({ theme }) => theme.foreground};
+  }
+  @media ${devices.laptop} {
     border-radius: 12px;
     color: ${({ theme }) => theme.general};
     font-size: 1rem;

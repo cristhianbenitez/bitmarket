@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { devices } from 'utils';
 
-export const Header = styled.div`
+export const Header = styled.header`
   display: flex;
   justify-content: space-between;
   padding: 0.25em 1.5em;

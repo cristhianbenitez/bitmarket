@@ -13,8 +13,10 @@ export const MiddleContentWrapper = styled.div`
   border-radius: 12px;
   padding: 1.5em 3em;
   margin-bottom: 1em;
+  @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
+  }
   @media ${devices.laptop} {
-    background: unset;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +24,7 @@ export const MiddleContentWrapper = styled.div`
   }
 `;
 
-export const CoinPrice = styled.h2`
+export const CoinPrice = styled.p`
   display: flex;
   font-size: 2rem;
   font-weight: 400;

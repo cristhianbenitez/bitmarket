@@ -30,6 +30,9 @@ export const CoinImageContainer = styled.div`
   padding: 1.5em;
   border-radius: 12px;
   margin-bottom: 0;
+  @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
+  }
   @media ${devices.laptop} {
     background: ${({ theme }) => theme.background};
   }
@@ -40,7 +43,7 @@ export const CoinImage = styled.img`
   width: 100%;
 `;
 
-export const CoinNameText = styled.h2`
+export const CoinNameText = styled.p`
   margin-top: 0.25em;
   font-weight: 400;
   font-size: 1.5rem;

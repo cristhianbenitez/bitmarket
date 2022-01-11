@@ -4,7 +4,7 @@ import { devices } from 'utils';
 export const Container = styled.div`
   width: 100%;
   max-width: 1920px;
-  margin: 0 auto;
+  margin: auto;
   margin-bottom: 5em;
   padding: 0 1em;
   @media ${devices.tablet} {
@@ -15,7 +15,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Subtitle = styled.h3`
+export const Subtitle = styled.p`
   font-weight: 400;
   font-size: 1rem;
   text-align: start;

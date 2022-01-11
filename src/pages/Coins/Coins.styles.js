@@ -4,7 +4,7 @@ import { devices } from 'utils';
 export const Container = styled.div`
   padding: 0 0.5em;
   max-width: 1920px;
-  margin: 0 auto;
+  margin: auto 0;
   transition-property: font-size;
   transition-duration: 4s;
   transition-delay: 2s;
@@ -16,7 +16,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Subtitle = styled.h3`
+export const Subtitle = styled.p`
   display: none;
   @media ${devices.tablet} {
     display: block;

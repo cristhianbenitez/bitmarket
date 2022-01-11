@@ -57,7 +57,7 @@ export class SubNavbar extends React.Component {
     );
 
     return (
-      <Subnav>
+      <Subnav role="sub-navbar">
         <Wrapper>
           <SubnavItem>
             <Text>Coins</Text> {active_cryptocurrencies}

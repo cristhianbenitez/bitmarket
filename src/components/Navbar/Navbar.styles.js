@@ -6,8 +6,8 @@ import { ReactComponent as Coins } from 'assets/Icons/Coins.svg';
 import { ReactComponent as Portfolio } from 'assets/Icons/Portfolio.svg';
 import { devices } from 'utils';
 
-export const Wrapper = styled.nav`
-  margin: 0 auto;
+export const Wrapper = styled.div`
+  margin: auto 0;
   display: flex;
   justify-content: center;
   align-items: center;
