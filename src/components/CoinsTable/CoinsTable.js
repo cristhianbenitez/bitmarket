@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import coinGecko from 'api/coinGecko';
 import { CoinsTableRow } from 'components';
@@ -11,16 +11,15 @@ import {
   TableRowHead
 } from './CoinsTable.styles';
 import { Loading } from 'assets';
-export class CoinsTable extends Component {
-  state = {
-    isLoading: true,
-    pageNumber: 1,
-    coinItemData: [],
-    hasMore: false
-  };
 
-  getCoinItemData = async (currency = 'usd') => {
-    this.setState({ isLoading: true });
+export const CoinsTable = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [coinItemData, setCoinItemData] = useState([]);
+  const [hasMore, setHasMore] = useState(false);
+
+  const getCoinItemData = async (currency = 'usd') => {
+    setLoading(true);
     try {
       const { data } = await coinGecko.get('/coins/markets', {
         params: {
@@ -28,76 +27,63 @@ export class CoinsTable extends Component {
           days: '1',
           order: 'market_cap_desc',
           per_page: '10',
-          page: this.state.pageNumber,
+          page: pageNumber,
           interval: 'hourly',
           sparkline: true,
           price_change_percentage: '1h,24h,7d'
         }
       });
-      this.setState((prevState) => ({
-        isLoading: false,
-        coinItemData: [...prevState.coinItemData, ...data],
-        hasMore: data.length > 0
-      }));
+      setLoading(false);
+      setCoinItemData((prevData) => [...prevData, ...data]);
+      setHasMore(data.length > 0);
     } catch (e) {
       if (coinGecko.isCancel(e)) return;
     }
   };
 
-  componentDidMount = () => {
-    this.getCoinItemData();
-  };
+  useEffect(() => {
+    getCoinItemData(props.currency);
+  }, [props.currency]);
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.currency !== this.props.currency) {
-      this.getCoinItemData(this.props.currency);
-    }
-  };
-
-  lastListElementRef = (node, observer) => {
-    if (this.state.isLoading) return;
+  const lastListElementRef = (node, observer) => {
+    if (loading) return;
     if (observer.current) {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && this.state.hasMore) {
-        this.setState({
-          pageNumber: this.state.pageNumber + 1
-        });
-
-        this.getCoinItemData();
+      if (entry.isIntersecting && hasMore) {
+        setPageNumber((prevPageNumber) => prevPageNumber + 1);
+        getCoinItemData();
       }
     });
     if (node) observer.current.observe(node);
   };
 
-  render() {
-    return (
-      <ScrollableDiv>
-        <Table>
-          <TableHead>
-            <TableRowHead>
-              <TableHeading>#</TableHeading>
-              <TableHeading>Name</TableHeading>
-              <TableHeading>Price</TableHeading>
-              <TableHeading>1h%</TableHeading>
-              <TableHeading>24h%</TableHeading>
-              <TableHeading>7d%</TableHeading>
-              <TableHeading>24h Volume/Market Cap</TableHeading>
-              <TableHeading>Circulating/Total Supply</TableHeading>
-              <TableHeading>Last 7d</TableHeading>
-            </TableRowHead>
-          </TableHead>
-          <TableBody>
-            <CoinsTableRow
-              coinItemData={this.state.coinItemData}
-              currency={this.props.currency}
-              lastListElementRef={this.lastListElementRef}
-            />
-          </TableBody>
-        </Table>
-        {this.state.isLoading && <Loading type="spin" height={50} width={30} />}
-      </ScrollableDiv>
-    );
-  }
-}
+  return (
+    <ScrollableDiv>
+      <Table>
+        <TableHead>
+          <TableRowHead>
+            <TableHeading>#</TableHeading>
+            <TableHeading>Name</TableHeading>
+            <TableHeading>Price</TableHeading>
+            <TableHeading>1h%</TableHeading>
+            <TableHeading>24h%</TableHeading>
+            <TableHeading>7d%</TableHeading>
+            <TableHeading>24h Volume/Market Cap</TableHeading>
+            <TableHeading>Circulating/Total Supply</TableHeading>
+            <TableHeading>Last 7d</TableHeading>
+          </TableRowHead>
+        </TableHead>
+        <TableBody>
+          <CoinsTableRow
+            coinItemData={coinItemData}
+            currency={props.currency}
+            lastListElementRef={lastListElementRef}
+          />
+        </TableBody>
+      </Table>
+      {loading && <Loading type="spin" height={50} width={30} />}
+    </ScrollableDiv>
+  );
+};
