@@ -7,13 +7,15 @@ export const MarketDataList = styled.ul`
   border-radius: 12px;
   padding: 1em;
   list-style: none;
+  @media ${devices.tablet} {
+    background: ${({ theme }) => theme.foreground};
+  }
   @media ${devices.laptop} {
     margin: 2em 0;
     display: flex;
     flex-direction: column;
     padding-left: 2em;
     height: 100%;
-    background: unset;
   }
 `;
 

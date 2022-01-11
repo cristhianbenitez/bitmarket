@@ -71,7 +71,7 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
-export const CoinName = styled.h2`
+export const CoinName = styled.p`
   font-weight: 400;
   font-size: 1.2rem;
 `;
@@ -91,7 +91,7 @@ export const ImageContainer = styled.div`
   border-radius: 12px;
 `;
 
-export const InfoContainer = styled.div`
+export const InfoContainer = styled.section`
   & > div,
   p {
     font-size: 0.7rem;

@@ -22,17 +22,36 @@ import {
   StyledCoinsSelect,
   BodyContent
 } from './Modal.styles';
+import coinGecko from 'api/coinGecko';
 
 const initialState = {
-  isOpen: false,
   coinId: '',
   purchasedAmount: 0,
-  date: ISOCurrentDate()
+  date: ISOCurrentDate(),
+  isLoading: true,
+  supportedCoins: []
 };
 export class Modal extends Component {
   ref = React.createRef(null);
   state = initialState;
-
+  getSupportedCoins = async () => {
+    this.setState({ isLoading: true });
+    const { data } = await coinGecko.get(`/coins/markets`, {
+      params: {
+        vs_currency: 'usd',
+        per_page: '250'
+      }
+    });
+    this.setState({
+      isLoading: false,
+      supportedCoins: data.map(({ name, id, image, symbol }) => ({
+        name,
+        id,
+        image,
+        symbol
+      }))
+    });
+  };
   toggle = () =>
     this.setState((prevState) => ({
       isOpen: !prevState.isOpen
@@ -40,6 +59,7 @@ export class Modal extends Component {
 
   clear = () => {
     this.setState(initialState);
+    this.props.toggleModal();
   };
 
   handleClickOutside = (event) => {
@@ -76,6 +96,7 @@ export class Modal extends Component {
     }
   };
   componentDidMount() {
+    this.getSupportedCoins();
     document.addEventListener('mousedown', this.handleClickOutside);
   }
 
@@ -85,12 +106,7 @@ export class Modal extends Component {
   render() {
     const currentCurrency = localStorage.selection;
 
-    const coinsDetails = this.props.supportedCoins.map((coin) => ({
-      name: coin.name,
-      id: coin.id
-    }));
-
-    const resultOfSelection = this.props.supportedCoins.filter(
+    const resultOfSelection = this.state.supportedCoins.filter(
       ({ id }) => id === this.state.coinId
     );
     const coinInformation = resultOfSelection[0];
@@ -98,61 +114,53 @@ export class Modal extends Component {
     const minimizedImage = coinInformation?.image.replace('large', 'small');
 
     return (
-      <>
-        <ModalButton onClick={this.toggle}>Add Asset</ModalButton>
-        {this.state.isOpen && (
-          <ModalOverlay ref={this.ref}>
-            <ModalContainer>
-              <CloseButton onClick={this.clear}>&times;</CloseButton>
-              <ModalContent>
-                <ModalHeader>
-                  <ModalTitle>Select Coins</ModalTitle>
-                </ModalHeader>
-                <form onSubmit={this.handleSubmit}>
-                  <ModalBody>
-                    <BodyContent>
-                      <CoinImageContainer>
-                        <CoinImage
-                          src={minimizedImage}
-                          alt={coinInformation?.id}
-                        />
-                      </CoinImageContainer>
-                      <CoinNameText>
-                        {coinInformation?.name}
-                        {`(${coinInformation?.symbol?.toUpperCase()})`}
-                      </CoinNameText>
-                    </BodyContent>
-                    <BodyContent>
-                      <ModalAutocomplete
-                        data={coinsDetails}
-                        handleChange={this.handleDropdownChange}
-                      />
-                      <StyledCurrency
-                        customInput={StyledInput}
-                        isNumericString={true}
-                        thousandSeparator={true}
-                        decimalScale={2}
-                        prefix={getSymbolFromCurrency(currentCurrency)}
-                        value={this.state.purchasedAmount}
-                        onValueChange={this.handleAmountChange}
-                      />
-                      <StyledInput
-                        type="date"
-                        onChange={this.handleDateChange}
-                        value={this.state.date}
-                      />
-                    </BodyContent>
-                  </ModalBody>
-                  <ModalFooter>
-                    <StyledButton onClick={this.clear}>Close</StyledButton>
-                    <StyledButton type="submit">Save and Continue</StyledButton>
-                  </ModalFooter>
-                </form>
-              </ModalContent>
-            </ModalContainer>
-          </ModalOverlay>
-        )}
-      </>
+      <ModalOverlay ref={this.ref}>
+        <ModalContainer>
+          <CloseButton onClick={this.clear}>&times;</CloseButton>
+          <ModalContent>
+            <ModalHeader>
+              <ModalTitle>Select Coins</ModalTitle>
+            </ModalHeader>
+            <form onSubmit={this.handleSubmit}>
+              <ModalBody>
+                <BodyContent>
+                  <CoinImageContainer>
+                    <CoinImage src={minimizedImage} alt={coinInformation?.id} />
+                  </CoinImageContainer>
+                  <CoinNameText>
+                    {coinInformation?.name}
+                    {`(${coinInformation?.symbol?.toUpperCase()})`}
+                  </CoinNameText>
+                </BodyContent>
+                <BodyContent>
+                  <ModalAutocomplete
+                    data={this.state.supportedCoins}
+                    handleChange={this.handleDropdownChange}
+                  />
+                  <StyledCurrency
+                    customInput={StyledInput}
+                    isNumericString={true}
+                    thousandSeparator={true}
+                    decimalScale={2}
+                    prefix={getSymbolFromCurrency(currentCurrency)}
+                    value={this.state.purchasedAmount}
+                    onValueChange={this.handleAmountChange}
+                  />
+                  <StyledInput
+                    type="date"
+                    onChange={this.handleDateChange}
+                    value={this.state.date}
+                  />
+                </BodyContent>
+              </ModalBody>
+              <ModalFooter>
+                <StyledButton onClick={this.clear}>Close</StyledButton>
+                <StyledButton type="submit">Save and Continue</StyledButton>
+              </ModalFooter>
+            </form>
+          </ModalContent>
+        </ModalContainer>
+      </ModalOverlay>
     );
   }
 }

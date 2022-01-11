@@ -2,19 +2,6 @@ import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
 import { devices } from 'utils';
 
-export const ModalButton = styled.button.attrs({
-  type: 'button'
-})`
-  background: #06d554;
-  color: ${({ theme }) => theme.general};
-  box-shadow: none;
-  border: none;
-  border-radius: 12px;
-  padding: 1.5em 0;
-  width: 95%;
-  max-width: 380px;
-`;
-
 export const ModalOverlay = styled.div`
   position: fixed;
   z-index: 999;
@@ -106,6 +93,7 @@ export const BodyContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     align-items: center;
   }
   &:last-child {
@@ -125,6 +113,9 @@ export const BodyContent = styled.div`
   }
   @media ${devices.laptop} {
     max-width: 700px;
+    &:first-child {
+      max-width: 160px;
+    }
   }
 `;
 
@@ -133,7 +124,7 @@ export const CoinImage = styled.img`
   min-width: 100%;
 `;
 
-export const CoinNameText = styled.h2`
+export const CoinNameText = styled.p`
   font-weight: 300;
   font-size: 1rem;
   color: ${({ theme }) => theme.general};
@@ -153,6 +144,8 @@ export const StyledInput = styled.input`
   color: ${({ theme }) => theme.general};
   border-radius: 12px;
   margin-bottom: 1em;
+  width: 100%;
+
   &:focus {
     outline: #06d554 solid 2px;
   }

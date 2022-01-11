@@ -28,72 +28,40 @@ import { CenterDiv, Loading } from 'assets';
 export class AssetsListRow extends Component {
   state = {
     isLoading: true,
-    assetData: {},
-    priceData: 0
+    marketData: {}
   };
 
-  getData = async () => {
+  getMarketData = async (id) => {
     this.setState({ isLoading: true });
-    const id = this.props.id;
-    const purchasedDate = this.props.purchaseDate
-      .split('-')
-      .reverse()
-      .join('-');
-    const [assetData, priceData] = await Promise.all([
-      coinGecko.get(`/coins/${id}`, {
-        params: {
-          market_data: 'true',
-          localization: 'false',
-          tickers: 'false',
-          interval: 'daily',
-          community_data: 'false',
-          developer_data: 'false',
-          sparkline: 'false'
-        }
-      }),
-      coinGecko.get(`/coins/${id}/history`, {
-        params: {
-          date: purchasedDate,
-          localization: 'false'
-        }
-      })
-    ]);
-
-    const historicPriceData = priceData.data.market_data.current_price.usd;
-
+    const { data } = await coinGecko.get(`/coins/${id}`, {
+      params: {
+        market_data: 'true',
+        localization: 'false',
+        tickers: 'false',
+        interval: 'daily',
+        community_data: 'false',
+        developer_data: 'false',
+        sparkline: 'false'
+      }
+    });
     this.setState({
       isLoading: false,
-      assetData: assetData.data,
-      priceData: historicPriceData
+      marketData: data.market_data
     });
   };
 
-  componentDidMount = () => {
-    this.getData();
-  };
-
+  componentDidMount() {
+    this.getMarketData(this.props.asset.id);
+  }
   render() {
-    if (this.state.isLoading)
-      return (
-        <CenterDiv>
-          <Loading type="spin" />
-        </CenterDiv>
-      );
+    if (this.state.isLoading) return '';
 
-    const { currency } = this.props;
-
+    const { name, symbol, image, purchasedAmount, purchasedDate, uniqueId } =
+      this.props.asset;
+    const { currency, removeAsset } = this.props;
+    const { marketData } = this.state;
     const currencySymbol = getSymbolFromCurrency(currency);
-
-    const {
-      name,
-      symbol,
-      market_data: marketData,
-      image
-    } = this.state.assetData;
-
-    const purchaseDateLocale = new Date(
-      this.props.purchaseDate
-    ).toLocaleDateString();
+    const purchaseDateLocale = new Date(purchasedDate).toLocaleDateString();
 
     const marketvsvolumePercentage = calculatePercentage(
       marketData.market_cap.usd,
@@ -110,19 +78,21 @@ export class AssetsListRow extends Component {
 
     const currentPrice = marketData.current_price?.[currency];
 
-    const purchasedPrice = this.state.priceData;
-
     return (
       <ListWrapper>
         <ListHead>
           <ImageContainer>
-            <Image src={image.small} alt={name} />
+            <Image src={image} alt={name} />
           </ImageContainer>
           <CoinName>
             {name}
             <CoinSymbol>({symbol})</CoinSymbol>
           </CoinName>
-          <DeleteButton onClick={() => this.props.removeAsset(this.props.id)}>
+          <DeleteButton
+            onClick={() => {
+              removeAsset(uniqueId);
+            }}
+          >
             &times;
           </DeleteButton>
         </ListHead>
@@ -172,7 +142,7 @@ export class AssetsListRow extends Component {
                 Coin Amount:
                 <GreenText>
                   {currencyFormat(
-                    this.props.coinAmount,
+                    purchasedAmount,
                     getSymbolFromCurrency(symbol)
                   )}
                 </GreenText>
@@ -181,17 +151,17 @@ export class AssetsListRow extends Component {
                 Amount Value:
                 <GreenText>
                   {currencyFormat(
-                    this.props.coinAmount * currentPrice,
+                    purchasedAmount * currentPrice,
                     currencySymbol
                   )}
                 </GreenText>
               </SmallText>
               <SmallText>
                 Price change since purchase:
-                <GreenText price={currentPrice - purchasedPrice}>
-                  <ArrowIcon price={currentPrice - purchasedPrice} />
+                <GreenText price={currentPrice - purchasedAmount}>
+                  <ArrowIcon price={currentPrice - purchasedAmount} />
                   {currencyFormat(
-                    currentPrice - purchasedPrice,
+                    currentPrice - purchasedAmount,
                     currencySymbol
                   )}
                 </GreenText>

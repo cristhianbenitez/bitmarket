@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.main``;
-export const NavbarContainer = styled.div`
+export const NavbarContainer = styled.nav`
   padding: 0.8em 0.5em;
   background: #2c2d33;
   position: fixed;

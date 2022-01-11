@@ -82,7 +82,7 @@ export const RightContent = styled(StyledDiv)`
   }
 `;
 
-export const Subtitle = styled.h3`
+export const Subtitle = styled.h1`
   text-align: start;
   font-weight: 400;
   margin-bottom: 1.8em;
