@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { GlobalStyle, Wrapper } from './App.styles';
-import { Coins, Portfolio, CoinInformation } from 'pages';
-import { SubNavbar, Navbar, lightTheme, darkTheme } from 'components';
+import { Content, GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
+import { Coins, Portfolio, Summary } from 'pages';
+import {
+  SubNavbar,
+  Navbar,
+  MobileHeader,
+  lightTheme,
+  darkTheme
+} from 'components';
 import { ThemeProvider } from 'styled-components';
 
 class App extends Component {
@@ -31,35 +37,40 @@ class App extends Component {
   }
 
   render() {
-    const themeMode = this.state.theme === 'dark' ? lightTheme : darkTheme;
+    const themeMode = this.state.theme === 'dark' ? darkTheme : lightTheme;
 
     return (
-      <ThemeProvider theme={themeMode}>
-        <Wrapper onScroll={this.handleScroll}>
+      <Wrapper>
+        <ThemeProvider theme={themeMode}>
           <GlobalStyle />
           <Router>
-            <Navbar
-              changeCurrency={this.changeCurrency}
-              themeToggler={this.themeToggler}
-            />
-            <SubNavbar />
-            <Routes>
-              <Route
-                path="/portfolio"
-                element={<Portfolio currency={this.state.currency} />}
-              ></Route>
-              <Route
-                path="/"
-                element={<Coins currency={this.state.currency} />}
+            <NavbarContainer>
+              <Navbar
+                changeCurrency={this.changeCurrency}
+                themeToggler={this.themeToggler}
               />
-              <Route
-                path="/coin/:id"
-                element={<CoinInformation currency={this.state.currency} />}
-              />
-            </Routes>
+            </NavbarContainer>
+            <Content>
+              <MobileHeader />
+              <SubNavbar />
+              <Routes>
+                <Route
+                  path="/portfolio"
+                  element={<Portfolio currency={this.state.currency} />}
+                ></Route>
+                <Route
+                  path="/"
+                  element={<Coins currency={this.state.currency} />}
+                />
+                <Route
+                  path="/coin/:id"
+                  element={<Summary currency={this.state.currency} />}
+                />
+              </Routes>
+            </Content>
           </Router>
-        </Wrapper>
-      </ThemeProvider>
+        </ThemeProvider>
+      </Wrapper>
     );
   }
 }

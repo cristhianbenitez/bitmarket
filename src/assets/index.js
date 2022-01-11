@@ -15,7 +15,8 @@ export const PriceArrow = styled(({ price, ...restProps }) => (
 export const DropdownArrow = styled(({ isOpen, theme, ...restProps }) => (
   <Arrow {...restProps} />
 ))`
-  width: 11px;
+  width: 10px;
+
   transform: ${({ isOpen }) => isOpen && 'rotate(180deg)'};
   #arrow {
     fill: ${({ theme }) =>

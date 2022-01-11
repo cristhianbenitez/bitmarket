@@ -1,22 +1,20 @@
 import React from 'react';
 
 import coinGecko from 'api/coinGecko';
-import { formattedNumber } from 'utils';
+import { calculatePercentage, formattedNumber } from 'utils';
 import {
   BitcoinIcon,
-  BitcoinPercentage,
+  PercentageFiller,
   BulletCircle,
   EthereumIcon,
-  EthereumPercentage,
-  LoadingText,
   PercentageBar,
+  Separator,
   Subnav,
   SubnavItem,
-  SubnavText,
-  TotalVolumePercentage,
+  Text,
+  ItemContainer,
   Wrapper
 } from './SubNavbar.styles';
-import { CenterDiv } from 'components/CoinsTableRow/CoinsTableRow.styles';
 import { Loading } from 'assets';
 
 export class SubNavbar extends React.Component {
@@ -40,58 +38,61 @@ export class SubNavbar extends React.Component {
   render() {
     if (this.state.isLoading) return <Loading type="spin" width="20px" />;
 
-    const totalMarketCap = formattedNumber(
-      this.state.globalData.total_market_cap.usd,
-      '($ 0.00a)'
-    );
-    const totalVolume = formattedNumber(
-      this.state.globalData.total_volume.usd,
-      '($ 0.00a)'
-    );
-    const ethereumMarketCapPercentage = Math.floor(
-      this.state.globalData.market_cap_percentage.eth
-    );
-    const bitcoinMarketCapPercentage = Math.floor(
-      this.state.globalData.market_cap_percentage.btc
+    const {
+      total_market_cap,
+      total_volume,
+      market_cap_percentage,
+      active_cryptocurrencies,
+      markets
+    } = this.state?.globalData;
+
+    const totalMarketCap = formattedNumber(total_market_cap.usd, '($0.00a)');
+    const totalVolume = formattedNumber(total_volume.usd, '($0.00a)');
+    const ethereumMarketCapPercentage = Math.floor(market_cap_percentage.eth);
+    const bitcoinMarketCapPercentage = Math.floor(market_cap_percentage.btc);
+
+    const { percentageA: totalVolumePercentage } = calculatePercentage(
+      total_volume.usd,
+      total_market_cap.usd
     );
 
     return (
       <Subnav>
         <Wrapper>
           <SubnavItem>
-            <SubnavText>Coins</SubnavText>{' '}
-            {this.state.globalData.active_cryptocurrencies}
+            <Text>Coins</Text> {active_cryptocurrencies}
           </SubnavItem>
           <SubnavItem>
-            <SubnavText>Exchange</SubnavText> {this.state.globalData.markets}
-          </SubnavItem>
-          <BulletCircle />
-          <SubnavItem> {totalMarketCap}</SubnavItem>
-          <BulletCircle />
-          <SubnavItem>
-            {totalVolume}
-            <PercentageBar>
-              <TotalVolumePercentage percentage="25%" />
-            </PercentageBar>
+            <Text>Exchange</Text>
+            {markets}
           </SubnavItem>
           <SubnavItem>
-            <BitcoinIcon />
-            {bitcoinMarketCapPercentage}%
-            <PercentageBar>
-              <BitcoinPercentage
-                percentage={`${bitcoinMarketCapPercentage}%`}
-              />
-            </PercentageBar>
+            <BulletCircle />
+            {totalMarketCap}
           </SubnavItem>
-          <SubnavItem>
-            <EthereumIcon />
-            {ethereumMarketCapPercentage}%
-            <PercentageBar>
-              <EthereumPercentage
-                percentage={`${ethereumMarketCapPercentage}%`}
-              />
-            </PercentageBar>
-          </SubnavItem>
+          <Separator>
+            <ItemContainer>
+              <BulletCircle />
+              {totalVolume}
+              <PercentageBar>
+                <PercentageFiller percentage={totalVolumePercentage} />
+              </PercentageBar>
+            </ItemContainer>
+            <ItemContainer>
+              <BitcoinIcon />
+              {bitcoinMarketCapPercentage}%
+              <PercentageBar>
+                <PercentageFiller percentage={bitcoinMarketCapPercentage} />
+              </PercentageBar>
+            </ItemContainer>
+            <ItemContainer>
+              <EthereumIcon />
+              {ethereumMarketCapPercentage}%
+              <PercentageBar>
+                <PercentageFiller percentage={ethereumMarketCapPercentage} />
+              </PercentageBar>
+            </ItemContainer>
+          </Separator>
         </Wrapper>
       </Subnav>
     );

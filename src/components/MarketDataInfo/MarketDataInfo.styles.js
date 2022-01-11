@@ -1,25 +1,44 @@
 import { ReactComponent as Plus } from 'assets/Icons/Plus.svg';
 import styled from 'styled-components';
+import { devices } from 'utils';
 
 export const MarketDataList = styled.ul`
-  margin: 2em 0;
-  margin-left: 3em;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: space-between;
+  background: #2c2d33;
+  border-radius: 12px;
+  padding: 1em;
+  list-style: none;
+  @media ${devices.laptop} {
+    margin: 2em 0;
+    display: flex;
+    flex-direction: column;
+    padding-left: 2em;
+    height: 100%;
+    background: unset;
+  }
 `;
 
 export const MarketDataText = styled.p`
-  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
   text-align: start;
+  padding-left: 0rem;
 `;
 
 export const MarketDataItem = styled.li`
+  font-size: 0.7rem;
   display: flex;
   align-items: center;
-  margin-right: 1em;
+  margin-bottom: 1em;
+  width: 100%;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &:nth-child(3) {
+    margin-bottom: 2em;
+  }
+  @media ${devices.laptopL} {
+    font-size: 0.9rem;
+  }
 `;
 
 export const MarketDataTitle = styled.span`
@@ -28,5 +47,10 @@ export const MarketDataTitle = styled.span`
 `;
 
 export const PlusIcon = styled(Plus)`
-  padding-right: 1em;
+  height: 17.5px;
+  max-height: 20px;
+  padding-right: 0.8em;
+  @media ${devices.laptopL} {
+    padding-right: 0.5em;
+  }
 `;

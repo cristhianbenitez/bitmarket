@@ -1,100 +1,140 @@
 import styled from 'styled-components';
 import NumberFormat from 'react-number-format';
+import { devices } from 'utils';
 
 export const ModalButton = styled.button.attrs({
   type: 'button'
 })`
-  padding: 1.5em 13em;
   background: #06d554;
   color: ${({ theme }) => theme.general};
   box-shadow: none;
   border: none;
   border-radius: 12px;
+  padding: 1.5em 0;
+  width: 95%;
+  max-width: 380px;
 `;
 
 export const ModalOverlay = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: fixed;
-  z-index: 1;
+  z-index: 999;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
+  padding: 1em;
+  @media (min-width: 500px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   overflow: auto;
   background: ${({ theme }) => theme.background};
   border-radius: 12px;
-  display: flex;
-  justify-content: center;
-  padding: 1em 0 2em 3em;
+  padding: 1em 0;
+  @media (min-width: 500px) {
+    margin-top: 5em;
+  }
+  @media ${devices.laptop} {
+    max-width: 800px;
+  }
 `;
 
 export const ModalContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  margin-right: 3em;
+  padding: 0em 2.8em;
+  overflow: auto;
 `;
 
 export const ModalHeader = styled.div`
   text-align: center;
-`;
-
-export const ModalBody = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding: 2em 0 2em 1em;
+  align-items: center;
+  margin: 1em 0;
 `;
 
 export const ModalTitle = styled.p`
+  margin: 0 auto;
   font-size: 1.25rem;
   font-weight: 400;
 `;
 
-export const CloseButton = styled.span`
+export const ModalBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 500px) {
+    flex-direction: row;
+    justify-content: center;
+  }
+`;
+
+export const CloseButton = styled.div`
+  cursor: pointer;
+  z-index: 999;
   color: #06d554;
-  font-size: 3.5em;
+  font-size: 3em;
+  margin-top: 0;
   font-weight: bold;
-  padding: 0;
-  margin: 0;
-  margin-top: -0.5em;
+  height: 0;
+  display: flex;
+  justify-content: end;
+  padding-right: 0.5em;
   &:hover,
   &:focus {
     color: #ffffff;
     text-decoration: none;
     cursor: pointer;
   }
+  @media ${devices.desktop} {
+    padding-right: 0.2em;
+  }
 `;
 
-export const LeftContent = styled.div`
-  background: ${({ theme }) => theme.foreground};
-  border-radius: 6px;
-  padding: 1.5em 1.5em;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 2em;
-`;
-export const RightContent = styled.div`
-  padding-right: 1em;
-  width: 500px;
+export const BodyContent = styled.div`
+  margin: 0 auto;
+  &:first-child {
+    background: ${({ theme }) => theme.foreground};
+    border-radius: 6px;
+    padding: 1.5em 2em;
+    margin: 0 4em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &:last-child {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4em;
+    width: 60vw;
+  }
+  @media (min-width: 500px) {
+    &:first-child {
+      padding: 1em 2em;
+      margin: 0 2em;
+    }
+    &:last-child {
+      margin-top: 0;
+    }
+  }
+  @media ${devices.laptop} {
+    max-width: 700px;
+  }
 `;
 
 export const CoinImage = styled.img`
   object-fit: cover;
-  width: 100%;
+  min-width: 100%;
 `;
 
 export const CoinNameText = styled.h2`
-  margin-top: 0.25em;
-  font-weight: 400;
+  font-weight: 300;
   font-size: 1rem;
   color: ${({ theme }) => theme.general};
 `;
@@ -102,18 +142,17 @@ export const CoinNameText = styled.h2`
 export const CoinImageContainer = styled.div`
   background: ${({ theme }) => theme.background};
   padding: 1em;
+  margin-bottom: 0.25em;
   border-radius: 12px;
-  margin-bottom: 0;
 `;
 
 export const StyledInput = styled.input`
   background: ${({ theme }) => theme.foreground};
-  width: 100%;
   padding: 1.5em 1em;
   border: none;
   color: ${({ theme }) => theme.general};
-  box-sizing: border-box;
   border-radius: 12px;
+  margin-bottom: 1em;
   &:focus {
     outline: #06d554 solid 2px;
   }
@@ -133,28 +172,35 @@ export const StyledCurrency = styled(NumberFormat)`
   background: ${({ theme }) => theme.foreground};
   color: ${({ theme }) => theme.general};
   border-radius: 12px;
-  margin-bottom: 1em;
 `;
 
-export const ModalButtons = styled.div`
+export const ModalFooter = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  @media (min-width: 500px) {
+    margin: 0 auto;
+    margin-top: 1.5em;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 70%;
+  }
 `;
 
 export const StyledButton = styled.button`
   border: none;
   box-shadow: none;
-  margin: 0 auto;
-  padding: 1.125em 2em;
   border-radius: 8px;
   color: ${({ theme }) => theme.general};
+  width: 60vw;
+  padding: 1.5em 1em;
+  margin-bottom: 1em;
   &:hover {
     cursor: pointer;
   }
   &:first-child {
-    width: 80%;
-    margin-left: 4em;
-    margin-right: 2em;
+    margin-top: 1em;
     color: ${({ theme }) => theme.general};
     background: ${({ theme }) => theme.foreground};
     &:hover,
@@ -164,13 +210,28 @@ export const StyledButton = styled.button`
     }
   }
   &:nth-child(2) {
-    width: 80%;
-    margin-right: 4em;
     background: #06d554;
     &:hover,
     &:focus {
       color: ${({ theme }) => theme.general};
       background-color: ${({ theme }) => theme.foreground};
+    }
+  }
+
+  @media (min-width: 500px) {
+    display: flex;
+    margin: 0 auto;
+    &:first-child,
+    &:nth-child(2) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    &:first-child {
+      margin: 0 auto;
+      margin-right: 2em;
+    }
+    &:nth-child(2) {
     }
   }
 `;

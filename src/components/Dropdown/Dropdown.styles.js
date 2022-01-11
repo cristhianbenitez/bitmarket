@@ -1,27 +1,35 @@
 import styled from 'styled-components';
-import DollarSign from 'assets/Icons/DollarSign.svg';
+import { ReactComponent as DollarSign } from 'assets/Icons/DollarSign.svg';
+import { devices } from 'utils';
 
 export const Input = styled.input`
-  width: 100%;
-  height: 32px;
-  box-sizing: border-box;
-  color: ${({ theme }) => theme.general};
-  background: transparent;
-  border-radius: 8px;
-  padding: 2.1em 0.5em;
-  border: none;
-  text-transform: uppercase;
-  &:focus {
-    outline: none;
+  display: none;
+  @media ${devices.tablet} {
+    display: block;
+    width: 100%;
+    padding: 0 auto;
+    background: transparent;
+    border: none;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.general};
+    height: 25px;
+    &:focus {
+      outline: none;
+    }
   }
 `;
 
 export const DropDownContainer = styled.div`
-  width: 100px;
-  background: ${({ theme }) => theme.background};
-  border-radius: 6px;
-  margin-right: 1.5em;
-  padding: 0 0.5em;
+  display: none;
+  @media ${devices.tablet} {
+    display: block;
+    width: 90px;
+    background: ${({ theme }) => theme.background};
+    border-radius: 6px;
+    margin-right: 1.5em;
+    padding: 0.65em 0.5em;
+    height: 100%;
+  }
 `;
 
 export const DropDownHeader = styled.div`
@@ -36,8 +44,8 @@ export const DropDownList = styled.ul`
   list-style: none;
   position: absolute;
   background: ${({ theme }) => theme.foreground};
-  max-width: 100%;
-  width: 100%;
+  width: 80px;
+  margin-right: 0.3em;
   max-height: 220px;
   border-radius: 6px;
   border: none;
@@ -47,25 +55,28 @@ export const DropDownList = styled.ul`
   max-width: 100px;
   padding: 0;
   margin-top: 0.5em;
-
+  right: 72px;
   &::-webkit-scrollbar {
     width: 6px;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: #2c2f36;
     outline: 1px solid #2c2f36;
     border-radius: 4px;
   }
+
+  @media ${devices.desktop} {
+    top: 60px;
+    right: 147px;
+  }
 `;
 export const ListItem = styled.li`
   color: ${({ theme }) => theme.general};
   background: ${({ theme }) => theme.foreground};
-  padding: 0.5em 0;
+  padding: 0.3em 0;
   width: 100%;
-  box-sizing: border-box;
+  font-size: 0.8rem;
   text-transform: uppercase;
-
   cursor: pointer;
   overflow: auto;
   &:hover {
@@ -73,9 +84,11 @@ export const ListItem = styled.li`
   }
 `;
 
-export const DollarIcon = styled.img.attrs({
-  src: `${DollarSign}`
-})``;
+export const DollarIcon = styled(DollarSign)`
+  height: 100%;
+  min-width: 20px;
+  margin-right: 0.2em;
+`;
 
 export const SelectionContainer = styled.div`
   display: flex;
@@ -85,5 +98,6 @@ export const ArrowsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 0.5em;
+  margin: 0 0.2em;
+  background: transparent;
 `;

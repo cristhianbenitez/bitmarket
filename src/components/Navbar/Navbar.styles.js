@@ -1,47 +1,134 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ReactComponent as ThemeIcon } from 'assets/Icons/ThemeIcon.svg';
+import { Link } from 'react-router-dom';
+import { ReactComponent as Summary } from 'assets/Icons/Summary.svg';
+import { ReactComponent as Coins } from 'assets/Icons/Coins.svg';
+import { ReactComponent as Portfolio } from 'assets/Icons/Portfolio.svg';
+import { devices } from 'utils';
 
 export const Wrapper = styled.nav`
-  padding: 1em 4em;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-between;
-  background: ${({ theme }) => theme.foreground};
+  justify-content: center;
   align-items: center;
+  max-width: 1920px;
+  @media ${devices.tablet} {
+    justify-content: space-between;
+  }
 `;
 
 export const Container = styled.div`
   display: flex;
+  justify-content: space-around;
+  width: 100%;
+  align-items: center;
+  margin: 0 auto;
+  @media ${devices.tablet} {
+    justify-content: center;
+    width: unset;
+    margin: 0;
+  }
+`;
+export const Separator = styled.div`
+  display: flex;
+`;
+
+export const StyledButton = styled(({ currentPage, ...rest }) => (
+  <Link {...rest} />
+))`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-`;
-
-export const StyledButton = styled.div`
-  font-size: 1.35rem;
-  line-height: 30px;
-  padding: 0.4em 2em;
-  margin-right: 0.5em;
-  border-radius: 6px;
+  align-items: center;
+  font-size: 0.7rem;
   text-decoration: none;
-  color: ${({ theme }) => theme.general};
-  background: ${({ currentPage, theme }) => currentPage && theme.background};
+  background: transparent;
+  color: ${({ currentPage, theme }) =>
+    currentPage ? '#00FF5F' : theme.general};
+  fill: ${({ currentPage, theme }) =>
+    currentPage ? '#00FF5F' : theme.general};
+
+  @media ${devices.tablet} {
+    cursor: pointer;
+    line-height: 30px;
+    color: ${({ theme }) => theme.general};
+    font-size: 1rem;
+    background: ${({ currentPage, theme }) => currentPage && theme.background};
+    flex-direction: row;
+    padding: 0.5em 2em;
+    border-radius: 6px;
+  }
+
+  @media ${devices.desktop} {
+    font-size: 1.3rem;
+  }
 `;
 
-export const CoinsButton = styled.div``;
+const IconStyle = css`
+  margin-bottom: 0.5em;
+  max-width: 100%;
 
-export const PortfolioButton = styled.div``;
+  @media ${devices.tablet} {
+    display: none;
+  }
+`;
+
+export const PortfolioIcon = styled(Portfolio)`
+  ${IconStyle}
+  #portfolio-icon {
+    fill: inherit;
+  }
+`;
+
+export const CoinsIcon = styled(Coins)`
+  ${IconStyle}
+  #coins-icon {
+    fill: inherit;
+  }
+`;
+
+export const SummaryButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
+  color: ${({ currentPage, theme }) =>
+    currentPage ? '#00FF5F' : theme.general};
+  fill: ${({ currentPage, theme }) =>
+    currentPage ? '#00FF5F' : theme.general};
+
+  @media ${devices.tablet} {
+    display: none;
+  }
+`;
+
+export const SummaryIcon = styled(Summary)`
+  ${IconStyle}
+  #summary-icon {
+    fill: inherit;
+  }
+`;
 
 export const ThemeButton = styled(ThemeIcon)`
-  cursor: pointer;
-  margin: 0;
-  background: ${({ theme }) => theme.background};
-  padding: 0.8em 1em;
-  border-radius: 6px;
-
-  #scan-icon {
-    #left {
-      fill: ${({ theme }) => theme.general};
-    }
-    #right {
-      fill: #707070;
+  display: none;
+  @media ${devices.tablet} {
+    display: block;
+    cursor: pointer;
+    margin: 0;
+    background: ${({ theme }) => theme.background};
+    padding: 0.7em;
+    width: 20px;
+    height: 100%;
+    border-radius: 6px;
+    box-sizing: content-box;
+    #scan-icon {
+      #left {
+        fill: ${({ theme }) => theme.general};
+      }
+      #right {
+        fill: #707070;
+      }
     }
   }
 `;

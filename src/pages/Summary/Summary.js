@@ -9,13 +9,14 @@ import {
   Container,
   LeftContent,
   LeftLink,
+  Link,
   MiddleContent,
   MiddleLink,
   RightContent,
   RightLink,
   Subtitle,
   TopPageContent
-} from './CoinInformation.styles';
+} from './Summary.styles';
 
 import {
   CoinPricesData,
@@ -29,14 +30,14 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { Loading, CenterDiv } from 'assets';
 
-class CoinInformation extends Component {
+class Summary extends Component {
   state = {
     isLoading: true,
     hasError: false,
     coinInfo: []
   };
 
-  getCoinInformation = async () => {
+  getSummary = async () => {
     const id = this.props.params.id;
     this.setState({ isLoading: true });
     try {
@@ -64,7 +65,7 @@ class CoinInformation extends Component {
   };
 
   componentDidMount = () => {
-    this.getCoinInformation();
+    this.getSummary();
   };
   render() {
     if (this.state.hasError)
@@ -130,24 +131,24 @@ class CoinInformation extends Component {
           <BottomPageContent>
             <DescriptionInfo text={description.en} />
             <CoinLinksContainer>
-              <LeftLink>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[0]}`}
                   extraIcon
                 />
-              </LeftLink>
-              <MiddleLink>
+              </Link>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[1]}`}
                   extraIcon
                 />
-              </MiddleLink>
-              <RightLink>
+              </Link>
+              <Link>
                 <LinkContainer
                   urlLink={`${links.blockchain_site[2]}`}
                   extraIcon
                 />
-              </RightLink>
+              </Link>
             </CoinLinksContainer>
             <IntervalDropdown />
             <CurrencyConverter
@@ -162,4 +163,4 @@ class CoinInformation extends Component {
   }
 }
 
-export const WrappedCoinInformation = withRouter(CoinInformation);
+export const WrappedSummary = withRouter(Summary);

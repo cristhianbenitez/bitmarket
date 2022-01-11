@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import coinGecko from 'api/coinGecko';
 import { SearchResults } from 'components';
 import {
-  Container,
   SearchIcon,
-  StyledForm,
-  StyledInput
+  SearchBox,
+  StyledInput,
+  IconText,
+  IconContainer
 } from './SearchInput.styles';
 
 export class SearchInput extends Component {
@@ -72,11 +73,13 @@ export class SearchInput extends Component {
     const { query, isOpen, isLoading, searchResult } = this.state;
     const regex = new RegExp(`^${query}`, 'i');
     const suggestions = searchResult.sort().filter((v) => regex.test(v.name));
-
     return (
-      <Container>
-        <StyledForm>
-          <SearchIcon />
+      <>
+        <SearchBox>
+          <IconContainer>
+            <SearchIcon onClick={this.handleClick} />
+            <IconText>Search</IconText>
+          </IconContainer>
           <StyledInput
             id="search-input"
             autoComplete="off"
@@ -86,7 +89,7 @@ export class SearchInput extends Component {
             placeholder="Search..."
             value={this.state.query}
           />
-        </StyledForm>
+        </SearchBox>
 
         {isOpen && query.length > 0 && !isLoading && (
           <SearchResults
@@ -94,7 +97,7 @@ export class SearchInput extends Component {
             handleSelectItem={() => this.handleSelectItem}
           />
         )}
-      </Container>
+      </>
     );
   }
 }

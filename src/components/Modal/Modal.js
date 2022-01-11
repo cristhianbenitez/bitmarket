@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
-import { ModalAutocomplete } from 'components';
 import { ISOCurrentDate } from 'utils';
+import { ModalAutocomplete } from 'components';
 
 import {
   CloseButton,
@@ -12,15 +12,15 @@ import {
   ModalHeader,
   ModalBody,
   ModalTitle,
-  RightContent,
-  LeftContent,
   CoinImageContainer,
   CoinImage,
   CoinNameText,
-  ModalButtons,
+  ModalFooter,
   StyledCurrency,
   StyledButton,
-  StyledInput
+  StyledInput,
+  StyledCoinsSelect,
+  BodyContent
 } from './Modal.styles';
 
 const initialState = {
@@ -103,13 +103,14 @@ export class Modal extends Component {
         {this.state.isOpen && (
           <ModalOverlay ref={this.ref}>
             <ModalContainer>
+              <CloseButton onClick={this.clear}>&times;</CloseButton>
               <ModalContent>
                 <ModalHeader>
                   <ModalTitle>Select Coins</ModalTitle>
                 </ModalHeader>
                 <form onSubmit={this.handleSubmit}>
                   <ModalBody>
-                    <LeftContent>
+                    <BodyContent>
                       <CoinImageContainer>
                         <CoinImage
                           src={minimizedImage}
@@ -120,13 +121,12 @@ export class Modal extends Component {
                         {coinInformation?.name}
                         {`(${coinInformation?.symbol?.toUpperCase()})`}
                       </CoinNameText>
-                    </LeftContent>
-                    <RightContent>
+                    </BodyContent>
+                    <BodyContent>
                       <ModalAutocomplete
                         data={coinsDetails}
                         handleChange={this.handleDropdownChange}
                       />
-
                       <StyledCurrency
                         customInput={StyledInput}
                         isNumericString={true}
@@ -141,15 +141,14 @@ export class Modal extends Component {
                         onChange={this.handleDateChange}
                         value={this.state.date}
                       />
-                    </RightContent>
+                    </BodyContent>
                   </ModalBody>
-                  <ModalButtons>
+                  <ModalFooter>
                     <StyledButton onClick={this.clear}>Close</StyledButton>
                     <StyledButton type="submit">Save and Continue</StyledButton>
-                  </ModalButtons>
+                  </ModalFooter>
                 </form>
               </ModalContent>
-              <CloseButton onClick={this.clear}>&times;</CloseButton>
             </ModalContainer>
           </ModalOverlay>
         )}

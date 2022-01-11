@@ -1,46 +1,92 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { ReactComponent as Bitcoin } from 'assets/Icons/Bitcoin.svg';
-import { ReactComponent as Ethereum } from 'assets/Icons/Ethereum.svg';
+import { ReactComponent as BtcIcon } from 'assets/Icons/Bitcoin.svg';
+import { ReactComponent as EthIcon } from 'assets/Icons/Ethereum.svg';
+import { devices } from 'utils';
+
+export const Subnav = styled.div`
+  background: none;
+  @media ${devices.tablet} {
+    display: flex;
+    background: ${({ theme }) => theme.foreground};
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.8em 2em;
+    border-radius: 0 0 6px 6px;
+  }
+  @media ${devices.desktop} {
+  }
+`;
 
 export const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
-
-export const Subnav = styled.div`
-  background: ${({ theme }) => theme.foreground};
-  width: fit-content;
+  justify-content: space-between;
   margin: 0 auto;
-  padding: 0.75em 2em;
-  border-radius: 0 0 6px 6px;
+  width: 100%;
 `;
 
 export const SubnavItem = styled.div`
-  padding-right: 1em;
-  margin: 0 0.5em;
-  display: flex;
-  font-size: 0.65rem;
-  align-items: center;
-  justify-content: center;
+  display: none;
+  @media (min-width: 670px) {
+    display: flex;
+    padding-right: 1em;
+    align-items: center;
+    margin: 0 0.5em;
+    font-size: 0.7rem;
+  }
+  @media ${devices.desktop} {
+    padding-right: 3em;
+  }
 `;
 
-export const SubnavText = styled.span`
+export const Separator = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  padding: 0.75em 2em;
+  background: #2c2d33;
+  @media ${devices.tablet} {
+    background: transparent;
+    padding: 0;
+  }
+`;
+
+const itemStyles = css`
+  display: flex;
+  align-items: center;
+  font-size: 0.7rem;
+  @media ${devices.tablet} {
+    padding-right: 1em;
+  }
+  @media ${devices.desktop} {
+    padding-right: 3em;
+  }
+`;
+
+export const ItemContainer = styled.div`
+  ${itemStyles}
+`;
+
+export const Text = styled.span`
+  font-size: inherit;
   padding-right: 1em;
 `;
 
 export const BulletCircle = styled.div`
-  width: 7px;
-  height: 7px;
-  border-radius: 100%;
-  background: ${({ theme }) => theme.general};
-  margin-right: 0.5em;
+  display: none;
+  @media ${devices.tablet} {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background: ${({ theme }) => theme.general};
+    margin-right: 0.5em;
+  }
 `;
 
 export const PercentageBar = styled.div`
-  width: 45px;
-  height: 5px;
+  width: 40px;
   height: 9px;
   background: #2172e5;
   border-radius: 12px;
@@ -48,42 +94,22 @@ export const PercentageBar = styled.div`
   margin-left: 0.5em;
 `;
 
-export const TotalVolumePercentage = styled.div`
+export const PercentageFiller = styled.div`
   background: ${({ theme }) => theme.general};
   z-index: 2;
   border-radius: 12px;
   height: 100%;
-  width: ${(props) => props.percentage};
+  width: ${(props) => `${props.percentage}%`};
 `;
 
-export const BitcoinPercentage = styled.div`
-  background: ${({ theme }) => theme.general};
-  z-index: 2;
-  border-radius: 12px;
-  height: 100%;
-  width: ${(props) => props.percentage};
+const IconsStyles = css`
+  width: 10px;
+  margin-right: 0.3em;
+`;
+export const BitcoinIcon = styled(BtcIcon)`
+  ${IconsStyles}
 `;
 
-export const EthereumPercentage = styled.div`
-  background: ${({ theme }) => theme.general};
-  z-index: 2;
-  border-radius: 12px;
-  height: 100%;
-  width: ${(props) => props.percentage};
-`;
-
-export const BitcoinIcon = styled(Bitcoin)`
-  width: 12px;
-  padding: 0 0.5em;
-`;
-
-export const EthereumIcon = styled(Ethereum)`
-  width: 8px;
-  padding: 0 0.5em;
-`;
-
-export const LoadingText = styled.p`
-  font-size: 0.7rem;
-  padding: 0;
-  margin: 0;
+export const EthereumIcon = styled(EthIcon)`
+  ${IconsStyles}
 `;

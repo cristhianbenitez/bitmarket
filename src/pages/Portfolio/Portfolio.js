@@ -43,6 +43,7 @@ export class Portfolio extends Component {
     });
     localStorage.setItem('assets', JSON.stringify(updatedAssets));
   };
+
   componentDidMount = () => {
     this.getSupportedCoins();
     if (localStorage.assets && this.state.assets) {
