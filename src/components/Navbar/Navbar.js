@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'helpers';
 
 import { Dropdown, SearchInput } from 'components';
 import {

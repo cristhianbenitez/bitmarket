@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import coinGecko from 'api/coinGecko';
-import { withRouter } from 'helpers';
 
 import {
   Background,

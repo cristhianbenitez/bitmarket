@@ -1,7 +1,7 @@
 export * from './Themes/Themes';
 export { CoinPricesData } from './CoinPricesData/CoinPricesData';
-export { default as MobileHeader } from './MobileHeader/MobileHeader';
-export { default as Charts } from './Charts/Charts';
+export { MobileHeader } from './MobileHeader/MobileHeader';
+export { Charts } from './Charts/Charts';
 export { ChartsLegend } from './ChartsLegend/ChartsLegend';
 export { CoinInfo } from './CoinInfo/CoinInfo';
 export { CoinsTable } from './CoinsTable/CoinsTable';
