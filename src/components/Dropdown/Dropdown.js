@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import coinGecko from 'api/coinGecko';
 
 import {
@@ -13,88 +13,82 @@ import {
 } from './Dropdown.styles';
 import { DropdownArrow } from 'assets';
 
-export class Dropdown extends React.Component {
-  state = {
-    isOpen: false,
-    isLoading: false,
-    selection: '',
-    options: [],
-    suggestions: []
-  };
+export const Dropdown = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selection, setSelection] = useState('');
+  const [options, setOptions] = useState([]);
 
-  toggle = () =>
-    this.setState((prevState) => ({
-      isOpen: !prevState.isOpen
-    }));
-
-  getSupportedCurrencies = async () => {
-    this.setState({ isLoading: true });
-    const { data } = await coinGecko.get('/simple/supported_vs_currencies');
-    this.setState({ isLoading: false, options: data });
-  };
-
-  handleOnClick = (item) => {
-    this.setState({ selection: item });
-    this.props.changeCurrency(item);
-    localStorage.setItem('selection', item);
-    this.toggle();
-  };
-
-  onTextChange = ({ target: { value } }) => {
-    const updatedState = {
-      isOpen: true,
-      selection: value
-    };
-    if (value.length) {
-      const regex = new RegExp(`^${value}`, 'i');
-      const filteredSuggestions = this.state.options
-        .filter((v) => regex.test(v))
-        .sort();
-      this.setState({ ...updatedState, suggestions: filteredSuggestions });
-    } else {
-      this.setState({ ...updatedState });
+  const getSupportedCurrencies = async () => {
+    setLoading(true);
+    try {
+      const { data } = await coinGecko.get('/simple/supported_vs_currencies');
+      setOptions(data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(true);
     }
   };
 
-  componentDidMount = () => {
-    this.getSupportedCurrencies();
-    const currentSelection = localStorage.getItem('selection') || 'usd';
-    this.setState({ selection: currentSelection });
-    this.props.changeCurrency(currentSelection);
+  const handleItemSelection = (item) => {
+    setSelection(item);
+    setIsOpen(false);
+    // props.changeCurrency(item);
+    // localStorage.setItem('selection', item);
   };
 
-  render() {
-    return (
-      <DropDownContainer>
-        <DropDownHeader
-          tabIndex={0}
-          role="button"
-          onKeyPress={this.toggle}
-          onClick={this.toggle}
-        >
-          <DollarIcon />
-          <SelectionContainer>
-            <Input
-              autoComplete="off"
-              value={this.state.selection}
-              onChange={this.onTextChange}
-              type="text"
-            />
-            <ArrowsContainer>
-              <DropdownArrow isOpen={this.state.isOpen} />
-            </ArrowsContainer>
-          </SelectionContainer>
-        </DropDownHeader>
-        {this.state.isOpen && this.state.suggestions.length > 0 && (
-          <DropDownList>
-            {this.state.suggestions.map((item, index) => (
-              <ListItem key={index} onClick={() => this.handleOnClick(item)}>
-                <span>{item}</span>
-              </ListItem>
-            ))}
-          </DropDownList>
-        )}
-      </DropDownContainer>
-    );
+  const onTextChange = ({ target: { value } }) => {
+    setSelection(value);
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+  };
+
+  const handleClick = async () => {
+    if (!isOpen && !options.length) {
+      await getSupportedCurrencies();
+    }
+    setIsOpen(!isOpen);
+  };
+
+  let suggestions = options;
+  if (selection.length) {
+    const regex = new RegExp(`^${selection}`, 'i');
+    suggestions = [
+      ...options.filter((v) => regex.test(v)),
+      ...options.filter((v) => !regex.test(v)).sort()
+    ];
   }
-}
+  return (
+    <DropDownContainer>
+      <DropDownHeader
+        tabIndex={0}
+        role="button"
+        onKeyPress={handleClick}
+        onClick={handleClick}
+      >
+        <DollarIcon />
+        <SelectionContainer>
+          <Input
+            autoComplete="off"
+            value={selection}
+            onChange={onTextChange}
+            type="text"
+          />
+          <ArrowsContainer onClick={handleClick}>
+            <DropdownArrow isOpen={isOpen} />
+          </ArrowsContainer>
+        </SelectionContainer>
+      </DropDownHeader>
+      {isOpen && options.length > 0 && (
+        <DropDownList>
+          {suggestions.map((item, index) => (
+            <ListItem key={index} onClick={() => handleItemSelection(item)}>
+              <span>{item}</span>
+            </ListItem>
+          ))}
+        </DropDownList>
+      )}
+    </DropDownContainer>
+  );
+};

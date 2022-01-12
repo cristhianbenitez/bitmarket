@@ -1,22 +1,21 @@
 import React, { Component } from 'react';
 import { Header, Title } from './MobileHeader.styles';
-import { withRouter } from 'helpers';
+import { useLocation } from 'react-router-dom';
 
-class MobileHeader extends Component {
-  render() {
-    const pageName = (location) => {
-      let name;
-      if (location === '/') name = 'Coins';
-      if (location === '/portfolio') name = location.slice(1);
-      if (location.slice(0, 5) === '/coin') name = 'Summary';
-      return name;
-    };
-    return (
-      <Header>
-        <Title>{pageName(this.props.location.pathname)}</Title>
-      </Header>
-    );
-  }
-}
+export const MobileHeader = () => {
+  const { pathname } = useLocation();
 
-export default withRouter(MobileHeader);
+  const pageName = (location) => {
+    let name;
+    if (location === '/') name = 'Coins';
+    if (location === '/portfolio') name = location.slice(1);
+    if (location.slice(0, 5) === '/coin') name = 'Summary';
+    return name;
+  };
+
+  return (
+    <Header>
+      <Title>{pageName(pathname)}</Title>
+    </Header>
+  );
+};
