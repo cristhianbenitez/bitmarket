@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Modal, AssetsListRow } from 'components';
 import {
@@ -10,88 +10,88 @@ import {
 } from './Portfolio.styles';
 import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
+import { Loading } from 'assets';
 
-export class Portfolio extends Component {
-  state = {
-    isLoading: false,
-    isModalOpen: false,
-    assets: []
-  };
+export const Portfolio = (props) => {
+  const [error, setError] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [assets, setAssets] = useState([]);
 
-  addAsset = async (asset) => {
-    this.setState({ isLoading: true });
-    const { coinId, purchasedAmount, date } = asset;
-    const purchasedDate = date.split('-').reverse().join('-');
-    const { data } = await coinGecko.get(`/coins/${coinId}/history`, {
-      params: {
-        date: purchasedDate,
-        localization: 'false'
-      }
-    });
-    const uniqueId = uuid().slice(0, 8);
-    const historicPriceData = data.market_data.current_price.usd;
-    const { image, name, symbol, id } = data;
-    const assetInformation = {
-      uniqueId,
-      name,
-      symbol,
-      id,
-      image: image.small,
-      purchasedDate,
-      purchasedAmount,
-      historicPriceData
-    };
-    this.setState((prevState) => ({
-      isLoading: false,
-      assets: [...prevState.assets, assetInformation]
-    }));
-    localStorage.setItem('assets', JSON.stringify(this.state.assets));
-  };
-
-  toggleModal = () =>
-    this.setState((prevState) => ({ isModalOpen: !prevState.isModalOpen }));
-
-  removeAsset = (coinId) => {
-    const assets = Object.assign(this.state.assets);
-    const filteredAssets = assets.filter((asset) => asset.uniqueId !== coinId);
-    this.setState({ assets: filteredAssets });
-    localStorage.setItem('assets', JSON.stringify(filteredAssets));
-  };
-
-  componentDidMount = () => {
-    if (localStorage.assets && this.state.assets) {
-      const currAssets = JSON.parse(localStorage.getItem('assets'));
-      this.setState({
-        assets: currAssets
+  const addAsset = async (asset) => {
+    try {
+      const { coinID, purchasedAmount, date } = asset;
+      const purchasedDate = date.split('-').reverse().join('-');
+      const { data } = await coinGecko.get(`/coins/${coinID}/history`, {
+        params: {
+          date: purchasedDate,
+          localization: 'false'
+        }
       });
+      const uniqueId = uuid().slice(0, 8);
+      const historicPriceData = data.market_data.current_price.usd;
+      const { image, name, symbol, id } = data;
+      const assetData = {
+        uniqueId,
+        name,
+        symbol,
+        id,
+        image: image.small,
+        purchasedDate,
+        purchasedAmount,
+        historicPriceData
+      };
+      setAssets((prevAssets) => [...prevAssets, assetData]);
+      localStorage.setItem('assets', JSON.stringify(assets));
+    } catch (error) {
+      setError(true);
     }
   };
 
-  render() {
-    return (
-      <Container>
-        <PageHead>
-          <Button onClick={this.toggleModal}>Add Asset</Button>
-          {this.state.isModalOpen && (
-            <Modal toggleModal={this.toggleModal} addAsset={this.addAsset} />
-          )}
-        </PageHead>
-        <Subtitle>Your statistics</Subtitle>
-        <AssetsList>
-          {this.state.assets.length > 0 &&
-            this.state.assets.map((asset) => {
-              return (
-                <AssetsListRow
-                  key={asset.uniqueId}
-                  asset={asset}
-                  currency={this.props.currency}
-                  removeAsset={this.removeAsset}
-                />
-              );
-            })}
-          {this.props.isLoading && <Loading type="spin" />}
-        </AssetsList>
-      </Container>
+  useEffect(() => {
+    if (localStorage.assets && assets) {
+      const storedAssets = JSON.parse(localStorage.getItem('assets'));
+      setAssets(storedAssets);
+    }
+  }, []);
+
+  const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const removeAsset = (coinID) => {
+    const filteredAssets = Object.assign(assets).filter(
+      (asset) => asset.uniqueId !== coinID
     );
-  }
-}
+    setAssets(filteredAssets);
+    localStorage.setItem('assets', JSON.stringify(filteredAssets));
+  };
+
+  return (
+    <Container>
+      <PageHead>
+        <Button onClick={toggleModal}>Add Asset</Button>
+        {isModalOpen && (
+          <Modal
+            toggleModal={toggleModal}
+            addAsset={addAsset}
+            isOpen={isModalOpen}
+            setIsOpen={setIsModalOpen}
+          />
+        )}
+      </PageHead>
+      <Subtitle>Your statistics</Subtitle>
+      <AssetsList>
+        {!error &&
+          assets.length > 0 &&
+          assets.map((asset) => {
+            return (
+              <AssetsListRow
+                key={asset.uniqueId}
+                asset={asset}
+                currency={props.currency}
+                removeAsset={removeAsset}
+              />
+            );
+          })}
+      </AssetsList>
+    </Container>
+  );
+};
