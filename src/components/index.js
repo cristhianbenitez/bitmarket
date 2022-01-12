@@ -11,7 +11,7 @@ export { Dropdown } from './Dropdown/Dropdown';
 export { IntervalDropdown } from './IntervalDropdown/IntervalDropdown';
 export { LinkContainer } from './LinkContainer/LinkContainer';
 export { MarketDataInfo } from './MarketDataInfo/MarketDataInfo';
-export { WrappedNavbar as Navbar } from './Navbar/Navbar';
+export { Navbar } from './Navbar/Navbar';
 export { SearchInput } from './SearchInput/SearchInput';
 export { SearchResults } from './SearchResults/SearchResults';
 export { SubNavbar } from './SubNavbar/SubNavbar';
