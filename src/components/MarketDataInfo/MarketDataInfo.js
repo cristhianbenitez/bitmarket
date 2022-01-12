@@ -6,7 +6,6 @@ import {
   MarketDataTitle,
   PlusIcon
 } from './MarketDataInfo.styles';
-import getSymbolFromCurrency from 'currency-symbol-map';
 
 export const MarketDataInfo = (props) => {
   const coinSymbol = props.symbol.toUpperCase();

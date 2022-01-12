@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 import {
@@ -9,73 +9,56 @@ import {
   ValueInput
 } from './CurrencyConverter.styles';
 
-export class CurrencyConverter extends Component {
-  state = {
-    currencies: [
-      { currencyValue: 1, currencyName: localStorage.selection },
-      { currencyValue: 1, currencyName: this.props.coinSymbol }
-    ]
+export const CurrencyConverter = (props) => {
+  const [firstValue, setFirstValue] = useState(1);
+  const [secondValue, setSecondValue] = useState(1);
+  const [currencies, setCurrencies] = useState([
+    localStorage.selection,
+    props.coinSymbol
+  ]);
+
+  const handleFirstValueOnChange = (val) => {
+    setFirstValue(val);
   };
 
-  handleFirstValueOnChange = (val) => {
-    this.setState((prevState) => ({
-      currencies: [
-        { currencyValue: val, currencyName: localStorage.selection },
-        prevState.currencies[1]
-      ]
-    }));
+  const handleSecondValueOnChange = (val) => {
+    setSecondValue(val);
   };
-  handleSecondValueOnChange = (val) => {
-    this.setState((prevState) => ({
-      currencies: [
-        prevState.currencies[0],
-        { currencyValue: val, currencyName: this.props.coinSymbol }
-      ]
-    }));
+
+  const handleSwap = () => {
+    setFirstValue(secondValue);
+    setSecondValue(firstValue);
+    setCurrencies(currencies.reverse());
   };
-  handleSwap = (state) => {
-    const swappedState = state.reverse();
-    this.setState({
-      currencies: swappedState
-    });
-  };
-  render() {
-    const rightCurrencyValue = this.state.currencies[0].currencyValue;
-    const convertedValue =
-      this.state.currencies[0].currencyName !== this.props.coinSymbol
-        ? (rightCurrencyValue / this.props.coinPrice).toFixed(6)
-        : rightCurrencyValue * this.props.coinPrice.toFixed(2);
 
-    return (
-      <Container>
-        <CurrencyWrapper>
-          <Currency>{this.state.currencies[0].currencyName}</Currency>
+  const convertedValue =
+    currencies[0].toUpperCase() !== props.coinSymbol
+      ? (firstValue / props.coinPrice).toFixed(6)
+      : firstValue * props.coinPrice.toFixed(2);
 
-          <ValueInput
-            value={this.state.currencies[0].currencyValue}
-            thousandSeparator={true}
-            prefix={getSymbolFromCurrency(
-              this.state.currencies[0].currencyName
-            )}
-            onValueChange={({ value }) => this.handleFirstValueOnChange(value)}
-          />
-        </CurrencyWrapper>
-        <div>
-          <SwapIcon onClick={() => this.handleSwap(this.state.currencies)} />
-        </div>
-        <CurrencyWrapper>
-          <Currency>{this.state.currencies[1].currencyName}</Currency>
-
-          <ValueInput
-            value={convertedValue}
-            thousandSeparator={true}
-            prefix={getSymbolFromCurrency(
-              this.state.currencies[1].currencyName
-            )}
-            onValueChange={({ value }) => this.handleSecondValueOnChange(value)}
-          />
-        </CurrencyWrapper>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container>
+      <CurrencyWrapper>
+        <Currency>{currencies[0]}</Currency>
+        <ValueInput
+          value={firstValue}
+          thousandSeparator={true}
+          prefix={getSymbolFromCurrency(currencies[1])}
+          onValueChange={({ value }) => handleFirstValueOnChange(value)}
+        />
+      </CurrencyWrapper>
+      <>
+        <SwapIcon onClick={handleSwap} />
+      </>
+      <CurrencyWrapper>
+        <Currency>{currencies[1]}</Currency>
+        <ValueInput
+          value={convertedValue}
+          thousandSeparator={true}
+          prefix={getSymbolFromCurrency(currencies[1])}
+          onValueChange={({ value }) => handleSecondValueOnChange(value)}
+        />
+      </CurrencyWrapper>
+    </Container>
+  );
+};
