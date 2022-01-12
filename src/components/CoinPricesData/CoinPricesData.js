@@ -1,5 +1,5 @@
 import { PriceArrow } from 'assets';
-import { displayPositiveNumber } from 'utils';
+import { displayPositiveNumber, formattedNumber } from 'utils';
 import {
   AllTimeContainer,
   CoinPricesDataText,
@@ -16,15 +16,14 @@ export const CoinPricesData = (props) => {
 
   const atlDate = new Date(props.atlDate).toGMTString();
 
-  const priceChangePercentage =
-    (props.priceChange / props.currentPrice) * 100;
+  const priceChangePercentage = (props.priceChange / props.currentPrice) * 100;
 
   return (
     <MiddleContentWrapper>
       <CoinPriceContainer>
         <CoinPrice>
           {props.currencySymbol}
-          {props.currentPrice}
+          {formattedNumber(props.currentPrice, `10,000.00`)}
         </CoinPrice>
         <CoinPriceChange priceChange={priceChangePercentage}>
           <IconContainer>

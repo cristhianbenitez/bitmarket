@@ -11,12 +11,14 @@ import {
   TableRowHead
 } from './CoinsTable.styles';
 import { Loading } from 'assets';
+import { useCurrency } from 'hooks';
 
 export const CoinsTable = (props) => {
   const [loading, setLoading] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [coinItemData, setCoinItemData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
+  const { value } = useCurrency();
 
   const getCoinItemData = async (currency = 'usd') => {
     setLoading(true);
@@ -33,7 +35,6 @@ export const CoinsTable = (props) => {
           price_change_percentage: '1h,24h,7d'
         }
       });
-      setLoading(false);
       setCoinItemData((prevData) => [...prevData, ...data]);
       setHasMore(data.length > 0);
     } catch (e) {
@@ -42,9 +43,16 @@ export const CoinsTable = (props) => {
   };
 
   useEffect(() => {
-    getCoinItemData(props.currency);
-  }, [props.currency]);
-
+    let isMounted = true;
+    getCoinItemData(value).then(() => {
+      if (isMounted) {
+        setLoading(false);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   const lastListElementRef = (node, observer) => {
     if (loading) return;
     if (observer.current) {
@@ -78,7 +86,6 @@ export const CoinsTable = (props) => {
         <TableBody>
           <CoinsTableRow
             coinItemData={coinItemData}
-            currency={props.currency}
             lastListElementRef={lastListElementRef}
           />
         </TableBody>

@@ -26,9 +26,11 @@ import {
   Symbol
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { useCurrency } from 'hooks';
 
 export const CoinsTableRow = (props) => {
   const observer = useRef();
+  const { value } = useCurrency();
 
   return props.coinItemData.map((coinInfo, index) => {
     const {
@@ -53,7 +55,7 @@ export const CoinsTableRow = (props) => {
     const rightSideColors =
       percentageBarColors.right[index % percentageBarColors.right.length];
 
-    const currencySymbol = getSymbolFromCurrency(props.currency);
+    const currencySymbol = getSymbolFromCurrency(value);
     const minimizedImage = image.replace('large', 'small');
 
     return (

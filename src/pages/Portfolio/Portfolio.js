@@ -10,11 +10,12 @@ import {
 } from './Portfolio.styles';
 import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
-
+import { useCurrency } from 'hooks';
 export const Portfolio = (props) => {
   const [error, setError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [assets, setAssets] = useState([]);
+  const { value } = useCurrency();
 
   const addAsset = async (asset) => {
     try {
@@ -85,7 +86,7 @@ export const Portfolio = (props) => {
               <AssetsListRow
                 key={asset.uniqueId}
                 asset={asset}
-                currency={props.currency}
+                currency={value}
                 removeAsset={removeAsset}
               />
             );

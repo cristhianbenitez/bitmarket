@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Charts, CoinsTable } from 'components';
 import coinGecko from 'api/coinGecko';
 import {
@@ -9,34 +9,34 @@ import {
   Subtitle
 } from './Coins.styles';
 import { CenterDiv, Loading } from 'assets';
+import { useCurrency } from 'hooks';
 
-export const Coins = (props) => {
+export const Coins = () => {
   const [loading, setLoading] = useState(true);
   const [coinPrice, setCoinPrice] = useState([]);
   const [volume24h, setVolume24h] = useState([]);
   const [isVisible, setIsVisible] = useState(10);
+  const { value } = useCurrency();
 
-  const getChartData = async (currency) => {
+  const getChartData = async () => {
     setLoading(true);
     const [volume24h, coinPrice] = await Promise.all([
       coinGecko.get('/coins/bitcoin/market_chart', {
-        params: { vs_currency: currency, days: '30', interval: 'daily' }
+        params: { vs_currency: value, days: '30', interval: 'daily' }
       }),
       coinGecko.get('/coins/bitcoin/market_chart', {
-        params: { vs_currency: currency, days: '1', interval: 'hourly' }
+        params: { vs_currency: value, days: '1', interval: 'hourly' }
       })
     ]);
     const formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
-    setLoading(false);
     setCoinPrice(formatData(coinPrice.data.prices));
     setVolume24h(formatData(volume24h.data.total_volumes));
+    setLoading(false);
   };
 
   useEffect(() => {
-    if (props.currency) {
-      getChartData(props.currency);
-    }
-  }, [props.currency]);
+    getChartData();
+  }, [value]);
 
   const show = () => {
     setIsVisible(!isVisible);
@@ -62,7 +62,7 @@ export const Coins = (props) => {
           <Charts
             chartData={coinPrice}
             latestData={latestData}
-            currency={props.currency}
+            currency={value}
             show={show}
             lineChart
           />
@@ -71,7 +71,7 @@ export const Coins = (props) => {
           <Charts
             chartData={volume24h}
             latestData={latestData}
-            currency={props.currency}
+            currency={value}
             show={show}
             barChart
           />
@@ -79,7 +79,7 @@ export const Coins = (props) => {
       </ChartWrapper>
       <Subtitle>Your overview</Subtitle>
       <CoinListContainer>
-        <CoinsTable currency={props.currency} />
+        <CoinsTable currency={value} />
       </CoinListContainer>
     </Container>
   );
