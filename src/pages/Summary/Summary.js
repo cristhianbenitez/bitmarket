@@ -59,7 +59,7 @@ export const Summary = (props) => {
 
   useEffect(() => {
     getSummary();
-  }, []);
+  }, [id]);
 
   const { name, market_data, image, links, symbol, description } = coinInfo;
 
