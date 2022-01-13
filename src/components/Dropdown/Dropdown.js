@@ -12,11 +12,13 @@ import {
   Input
 } from './Dropdown.styles';
 import { DropdownArrow } from 'assets';
+import { useCurrency } from 'hooks';
 
 export const Dropdown = () => {
+  const { value: currency, onChange } = useCurrency();
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [selection, setSelection] = useState('');
+  const [selection, setSelection] = useState(currency);
   const [options, setOptions] = useState([]);
 
   const getSupportedCurrencies = async () => {
@@ -33,6 +35,7 @@ export const Dropdown = () => {
   const handleItemSelection = (item) => {
     setSelection(item);
     setIsOpen(false);
+    onChange(item);
   };
 
   const onTextChange = ({ target: { value } }) => {

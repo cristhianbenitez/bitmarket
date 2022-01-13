@@ -36,7 +36,7 @@ export const Navbar = (props) => {
       </Container>
       <Separator>
         <SearchInput />
-        <Dropdown changeCurrency={props.setCurrency} />
+        <Dropdown />
         <ThemeButton onClick={props.themeToggler} />
       </Separator>
     </Wrapper>

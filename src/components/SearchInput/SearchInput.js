@@ -1,5 +1,8 @@
 import React, { Component, useEffect, useState } from 'react';
-import coinGecko from 'api/coinGecko';
+
+import axios from 'axios';
+import debounce from 'lodash.debounce';
+
 import { SearchResults } from 'components';
 import {
   SearchIcon,
@@ -8,8 +11,6 @@ import {
   IconText,
   IconContainer
 } from './SearchInput.styles';
-import axios from 'axios';
-import debounce from 'lodash.debounce';
 
 export const SearchInput = () => {
   const [text, setText] = useState('');

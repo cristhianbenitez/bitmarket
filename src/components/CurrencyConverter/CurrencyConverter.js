@@ -13,7 +13,7 @@ export const CurrencyConverter = (props) => {
   const [firstValue, setFirstValue] = useState(1);
   const [secondValue, setSecondValue] = useState(1);
   const [currencies, setCurrencies] = useState([
-    localStorage.selection,
+    props.currency,
     props.coinSymbol
   ]);
 
@@ -30,9 +30,8 @@ export const CurrencyConverter = (props) => {
     setSecondValue(firstValue);
     setCurrencies(currencies.reverse());
   };
-
   const convertedValue =
-    currencies[0].toUpperCase() !== props.coinSymbol
+    currencies[0] !== props.coinSymbol
       ? (firstValue / props.coinPrice).toFixed(6)
       : firstValue * props.coinPrice.toFixed(2);
 
@@ -43,7 +42,7 @@ export const CurrencyConverter = (props) => {
         <ValueInput
           value={firstValue}
           thousandSeparator={true}
-          prefix={getSymbolFromCurrency(currencies[1])}
+          prefix={getSymbolFromCurrency(currencies[0])}
           onValueChange={({ value }) => handleFirstValueOnChange(value)}
         />
       </CurrencyWrapper>

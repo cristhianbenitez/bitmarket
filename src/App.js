@@ -1,52 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
 import { Content, GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
 import { Coins, Portfolio, Summary } from 'pages';
-import {
-  SubNavbar,
-  Navbar,
-  MobileHeader,
-  lightTheme,
-  darkTheme
-} from 'components';
-import { ThemeProvider } from 'styled-components';
-import { useLocalStorage } from 'hooks';
+import { SubNavbar, Navbar, MobileHeader, Themes } from 'components';
+import { useLocalStorage, CurrencyProvider } from 'hooks';
 
 const App = () => {
-  const [currency, setCurrency] = useLocalStorage('currency', 'usd');
   const [theme, setTheme] = useLocalStorage('theme', 'dark');
-
-  const themeToggler = () => {
+  const toggleTheme = () =>
     theme === 'dark' ? setTheme('light') : setTheme('dark');
-  };
-
-  const themeMode = theme === 'dark' ? darkTheme : lightTheme;
-
+  const themeMode = theme === 'dark' ? Themes.darkTheme : Themes.lightTheme;
   return (
     <Wrapper>
-      <ThemeProvider theme={themeMode}>
-        <GlobalStyle />
-        <Router>
-          <NavbarContainer>
-            <Navbar setCurrency={setCurrency} themeToggler={themeToggler} />
-          </NavbarContainer>
-          <Content>
-            <MobileHeader />
-            <SubNavbar />
-            <Routes>
-              <Route
-                path="/portfolio"
-                element={<Portfolio currency={currency} />}
-              ></Route>
-              <Route path="/" element={<Coins currency={currency} />} />
-              <Route
-                path="/coin/:id"
-                element={<Summary currency={currency} />}
-              />
-            </Routes>
-          </Content>
-        </Router>
-      </ThemeProvider>
+      <CurrencyProvider>
+        <ThemeProvider theme={themeMode}>
+          <GlobalStyle />
+          <Router>
+            <NavbarContainer>
+              <Navbar themeToggler={toggleTheme} />
+            </NavbarContainer>
+            <Content>
+              <MobileHeader />
+              <SubNavbar />
+              <Routes>
+                <Route path="/portfolio" element={<Portfolio />}></Route>
+                <Route path="/" element={<Coins />} />
+                <Route path="/coin/:id" element={<Summary />} />
+              </Routes>
+            </Content>
+          </Router>
+        </ThemeProvider>
+      </CurrencyProvider>
     </Wrapper>
   );
 };

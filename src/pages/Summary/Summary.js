@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import coinGecko from 'api/coinGecko';
 
+import coinGecko from 'api/coinGecko';
 import {
-  Background,
-  BottomPageContent,
-  CoinLinksContainer,
   Container,
-  LeftContent,
+  CoinLinksContainer,
   Link,
+  TopPageContent,
+  BottomPageContent,
+  LeftContent,
   MiddleContent,
   RightContent,
   Subtitle,
-  TopPageContent
-} from './Summary.styles';
-
+  Background
+} from './Summary.styles.js';
 import {
   CoinPricesData,
   CoinInfo,
@@ -26,11 +25,13 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { Loading, CenterDiv } from 'assets';
 import { useParams } from 'react-router-dom';
+import { useCurrency } from 'hooks';
 
-export const Summary = (props) => {
+export const Summary = () => {
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [coinInfo, setCoinInfo] = useState({});
+  const { value } = useCurrency();
   let { id } = useParams();
 
   const getSummary = async () => {
@@ -60,9 +61,8 @@ export const Summary = (props) => {
 
   const { name, market_data, image, links, symbol, description } = coinInfo;
 
-  const currency = props.currency;
-
-  const currencySymbol = getSymbolFromCurrency(props.currency);
+  const currency = value;
+  const currencySymbol = getSymbolFromCurrency(value);
 
   if (hasError) return <CenterDiv>This Page does not exist</CenterDiv>;
 
@@ -81,7 +81,7 @@ export const Summary = (props) => {
             <CoinInfo
               coinImg={image?.small}
               coinName={name}
-              coinSymbol={symbol.toUpperCase()}
+              coinSymbol={symbol?.toUpperCase()}
               coinLink={links?.homepage[0]}
             />
           </LeftContent>
@@ -135,8 +135,9 @@ export const Summary = (props) => {
           </CoinLinksContainer>
           <IntervalDropdown />
           <CurrencyConverter
-            coinSymbol={symbol.toUpperCase()}
-            coinPrice={market_data.current_price?.[currency]}
+            coinSymbol={symbol}
+            currency={value}
+            coinPrice={market_data?.current_price?.[currency]}
           />
         </BottomPageContent>
       </Container>
