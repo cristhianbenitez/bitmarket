@@ -33,8 +33,6 @@ export const Dropdown = () => {
   const handleItemSelection = (item) => {
     setSelection(item);
     setIsOpen(false);
-    // props.changeCurrency(item);
-    // localStorage.setItem('selection', item);
   };
 
   const onTextChange = ({ target: { value } }) => {
