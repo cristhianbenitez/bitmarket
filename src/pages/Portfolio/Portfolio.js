@@ -10,6 +10,7 @@ import {
 } from './Portfolio.styles';
 import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
+import { Loading } from 'assets';
 
 export const Portfolio = (props) => {
   const [error, setError] = useState(false);
