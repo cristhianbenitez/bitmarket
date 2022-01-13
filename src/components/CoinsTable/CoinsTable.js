@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import coinGecko from 'api/coinGecko';
 import { CoinsTableRow } from 'components';
@@ -19,13 +19,14 @@ export const CoinsTable = (props) => {
   const [coinItemData, setCoinItemData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
   const { value } = useCurrency();
+  const observer = useRef(null);
 
-  const getCoinItemData = async (currency = 'usd') => {
+  const getCoinItemData = async () => {
     setLoading(true);
     try {
       const { data } = await coinGecko.get('/coins/markets', {
         params: {
-          vs_currency: currency,
+          vs_currency: value,
           days: '1',
           order: 'market_cap_desc',
           per_page: '10',
@@ -44,7 +45,7 @@ export const CoinsTable = (props) => {
 
   useEffect(() => {
     let isMounted = true;
-    getCoinItemData(value).then(() => {
+    getCoinItemData().then(() => {
       if (isMounted) {
         setLoading(false);
       }
@@ -52,16 +53,15 @@ export const CoinsTable = (props) => {
     return () => {
       isMounted = false;
     };
-  }, []);
-  const lastListElementRef = (node, observer) => {
+  }, [pageNumber]);
+  const lastListElementRef = (node) => {
     if (loading) return;
     if (observer.current) {
       observer.current.disconnect();
     }
     observer.current = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && hasMore) {
-        setPageNumber((prevPageNumber) => prevPageNumber + 1);
-        getCoinItemData();
+        setPageNumber((prevPageNum) => prevPageNum + 1);
       }
     });
     if (node) observer.current.observe(node);
@@ -84,11 +84,21 @@ export const CoinsTable = (props) => {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          <CoinsTableRow
-            coinItemData={coinItemData}
-            lastListElementRef={lastListElementRef}
-          />
+          {coinItemData.map((coinData, index) => (
+            <CoinsTableRow
+              key={index}
+              index={index}
+              coinData={coinData}
+              lastListElementRef={lastListElementRef}
+              value={value}
+            />
+          ))}
         </TableBody>
+        <TableBody
+          ref={(node) => {
+            lastListElementRef(node);
+          }}
+        />
       </Table>
       {loading && <Loading type="spin" height={50} width={30} />}
     </ScrollableDiv>
