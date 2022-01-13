@@ -1,57 +1,46 @@
-import { DropdownArrow } from 'assets';
-import React from 'react';
+import React, { useState } from 'react';
+
 import {
-  ArrowDownIcon,
-  ArrowsContainer,
-  ArrowUpIcon,
-  DropDownContainer,
   DropDownHeader,
   DropDownList,
   IntervalDropdownWrapper,
   ListItem,
   SelectButton,
-  SelectionContainer,
-  SelectContainer
+  SelectionContainer
 } from './IntervalDropdown.styles';
+import { DropdownArrow } from 'assets';
 
-export class IntervalDropdown extends React.Component {
-  state = {
-    isOpen: false,
-    selection: '',
-    text: '7 Days'
+export const IntervalDropdown = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selection, setSelection] = useState('');
+  const [text, setText] = useState('7 Days');
+
+  const toggle = () => setIsOpen(!isOpen);
+
+  const handleOnClick = ({ currentTarget: { textContent } }) => {
+    setText(textContent);
+    setSelection(textContent);
+    toggle();
   };
 
-  toggle = () =>
-    this.setState((prevState) => ({
-      isOpen: !prevState.isOpen
-    }));
+  const handleSubmitDays = () => {};
 
-  handleOnClick = (e) => {
-    this.setState({
-      text: e.currentTarget.textContent
-    });
-    this.toggle();
-  };
-
-  handleSubmitDays = () => {};
-  render() {
-    return (
-      <IntervalDropdownWrapper>
-        <DropDownHeader onKeyPress={this.toggle} onClick={this.toggle}>
-          <SelectionContainer>{this.state.text}</SelectionContainer>
-          <DropdownArrow isOpen={this.state.isOpen} />
-        </DropDownHeader>
-        <SelectButton onClick={this.handleSubmitDays}>SELECT</SelectButton>
-        {this.state.isOpen && (
-          <DropDownList>
-            {['24 Hours', '7 Days', '30 Days', '1 Year'].map((time, index) => (
-              <ListItem key={index} onClick={this.handleOnClick}>
-                {time}
-              </ListItem>
-            ))}
-          </DropDownList>
-        )}
-      </IntervalDropdownWrapper>
-    );
-  }
-}
+  return (
+    <IntervalDropdownWrapper>
+      <DropDownHeader onKeyPress={toggle} onClick={toggle}>
+        <SelectionContainer>{text}</SelectionContainer>
+        <DropdownArrow isOpen={isOpen} />
+      </DropDownHeader>
+      <SelectButton onClick={handleSubmitDays}>SELECT</SelectButton>
+      {isOpen && (
+        <DropDownList>
+          {['24 Hours', '7 Days', '30 Days', '1 Year'].map((time, index) => (
+            <ListItem key={index} onClick={handleOnClick}>
+              {time}
+            </ListItem>
+          ))}
+        </DropDownList>
+      )}
+    </IntervalDropdownWrapper>
+  );
+};
