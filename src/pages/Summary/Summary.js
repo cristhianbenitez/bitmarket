@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import coinGecko from 'api/coinGecko';
-import { withRouter } from 'helpers';
 
 import {
   Background,
@@ -57,7 +56,7 @@ export const Summary = (props) => {
 
   useEffect(() => {
     getSummary();
-  }, []);
+  }, [id]);
 
   const { name, market_data, image, links, symbol, description } = coinInfo;
 

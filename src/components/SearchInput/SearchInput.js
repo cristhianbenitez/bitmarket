@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import coinGecko from 'api/coinGecko';
 import { SearchResults } from 'components';
 import {
@@ -8,96 +8,86 @@ import {
   IconText,
   IconContainer
 } from './SearchInput.styles';
+import axios from 'axios';
+import debounce from 'lodash.debounce';
 
-export class SearchInput extends Component {
-  state = {
-    query: '',
-    isLoading: true,
-    searchResult: [],
-    hasError: false,
-    isOpen: false,
-    suggestions: []
-  };
+export const SearchInput = () => {
+  const [text, setText] = useState('');
+  const [results, setResults] = useState([]);
+  const [hasError, setHasError] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  getCoinItemData = async () => {
-    this.setState({ isLoading: true });
-    try {
-      const { data } = await coinGecko.get('/coins/markets', {
-        params: {
-          vs_currency: 'usd',
-          per_page: '250'
-        }
-      });
-      this.setState((prevState) => ({
-        isLoading: false,
-        searchResult: [
-          ...prevState.searchResult,
-          ...data.map(({ name, id }) => ({ name, id }))
-        ],
-        hasMore: data.length > 0
-      }));
-    } catch (e) {
-      this.setState({ hasError: false });
+  const getCoinItemData = async (query, callback) => {
+    const parsedQuery = query.replaceAll(' ', '+');
+    if (query && query.length > 0) {
+      try {
+        const { data } = await axios.get(
+          `https://crypto-app-server.herokuapp.com/coins/${parsedQuery}`
+        );
+        callback(data);
+      } catch (e) {
+        setHasError(false);
+      }
     }
-    if (this.state.hasError) return () => cancel();
+    if (hasError) return () => axios.Cancel();
   };
 
-  handleChange = ({ target: { value } }) => {
-    this.setState({ isOpen: true, query: value });
+  const debouncedApiCall = debounce((query, callback) => {
+    getCoinItemData(query, callback);
+  }, 300);
+
+  const handleChange = ({ target: { value } }) => {
+    setIsOpen(true);
+    setText(value);
   };
 
-  handleClick = () => {
-    this.setState((prevState) => ({ isOpen: !prevState.isOpen }));
+  const handleClick = async () => {
+    setIsOpen(!isOpen);
   };
 
-  handleClickOutside = ({ target: { id } }) => {
-    if (this.state.isOpen && id !== 'search-input' && id !== 'search-result') {
-      this.setState({ isOpen: false });
+  const handleClickOutside = ({ target: { id } }) => {
+    if (isOpen && id !== 'search-input' && id !== 'search-result') {
+      setIsOpen(false);
     }
   };
 
-  handleSelectItem() {
-    this.setState({ isOpen: false, query: '' });
-  }
+  const handleSelectItem = () => {
+    setIsOpen(false);
+    setText('');
+  };
 
-  componentDidMount() {
-    this.getCoinItemData();
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
+  useEffect(() => {
+    debouncedApiCall(text, (data) => setResults(data));
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [text]);
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
+  return (
+    <>
+      <SearchBox>
+        <IconContainer>
+          <SearchIcon onClick={handleClick} />
+          <IconText>Search</IconText>
+        </IconContainer>
+        <StyledInput
+          id="search-input"
+          autoComplete="off"
+          onClick={handleClick}
+          onChange={handleChange}
+          type="text"
+          placeholder="Search..."
+          value={text}
+        />
+      </SearchBox>
 
-  render() {
-    const { query, isOpen, isLoading, searchResult } = this.state;
-    const regex = new RegExp(`^${query}`, 'i');
-    const suggestions = searchResult.sort().filter((v) => regex.test(v.name));
-    return (
-      <>
-        <SearchBox>
-          <IconContainer>
-            <SearchIcon onClick={this.handleClick} />
-            <IconText>Search</IconText>
-          </IconContainer>
-          <StyledInput
-            id="search-input"
-            autoComplete="off"
-            onClick={this.handleClick}
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Search..."
-            value={this.state.query}
-          />
-        </SearchBox>
-
-        {isOpen && query.length > 0 && !isLoading && (
-          <SearchResults
-            results={suggestions}
-            handleSelectItem={() => this.handleSelectItem}
-          />
-        )}
-      </>
-    );
-  }
-}
+      {text.length > 0 && isOpen && (
+        <SearchResults
+          results={results}
+          handleSelectItem={() => handleSelectItem}
+        />
+      )}
+    </>
+  );
+};

@@ -4,7 +4,7 @@ import { devices } from 'utils';
 export const Container = styled.div`
   padding: 0 0.5em;
   max-width: 1920px;
-  margin: auto 0;
+  margin: auto;
   transition-property: font-size;
   transition-duration: 4s;
   transition-delay: 2s;
