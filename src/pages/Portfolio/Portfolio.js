@@ -11,7 +11,8 @@ import {
 import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
 import { useCurrency } from 'hooks';
-export const Portfolio = (props) => {
+
+export const Portfolio = () => {
   const [error, setError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [assets, setAssets] = useState([]);

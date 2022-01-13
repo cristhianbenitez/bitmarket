@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+
 import { Charts, CoinsTable } from 'components';
 import coinGecko from 'api/coinGecko';
 import {

@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import coinGecko from 'api/coinGecko';
 
+import coinGecko from 'api/coinGecko';
 import {
-  Background,
-  BottomPageContent,
-  CoinLinksContainer,
   Container,
-  LeftContent,
+  CoinLinksContainer,
   Link,
+  TopPageContent,
+  BottomPageContent,
+  LeftContent,
   MiddleContent,
   RightContent,
   Subtitle,
-  TopPageContent
-} from './Summary.styles';
-import { useParams } from 'react-router-dom';
-import { useCurrency } from 'hooks';
-
+  Background
+} from './Summary.styles.js';
 import {
   CoinPricesData,
   CoinInfo,
@@ -27,8 +24,10 @@ import {
 } from 'components';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { Loading, CenterDiv } from 'assets';
+import { useParams } from 'react-router-dom';
+import { useCurrency } from 'hooks';
 
-export const Summary = (props) => {
+export const Summary = () => {
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [coinInfo, setCoinInfo] = useState({});
@@ -49,7 +48,6 @@ export const Summary = (props) => {
           sparkline: 'false'
         }
       });
-
       setCoinInfo(data);
       setLoading(false);
     } catch (error) {

@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from 'styled-components';
+
 import { Content, GlobalStyle, NavbarContainer, Wrapper } from './App.styles';
 import { Coins, Portfolio, Summary } from 'pages';
 import { SubNavbar, Navbar, MobileHeader, Themes } from 'components';
-import { ThemeProvider } from 'styled-components';
 import { useLocalStorage, CurrencyProvider } from 'hooks';
 
 const App = () => {
