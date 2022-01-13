@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import {
   Root,
   AutoCompleteContainer,
@@ -7,74 +7,62 @@ import {
   Input,
   AutoCompleteItem,
   AutoCompleteItemButton,
-  Label,
   ArrowIcon
 } from './ModalAutocomplete.styles';
 
-export class ModalAutocomplete extends Component {
-  state = {
-    isDropdownVisible: false,
-    text: ''
+export const ModalAutocomplete = (props) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [text, setText] = useState('');
+
+  const onTextChange = ({ target: { value } }) => {
+    setIsVisible(true);
+    setText(value);
   };
 
-  onTextChange = ({ target: { value } }) => {
-    this.setState({ isDropdownVisible: true, text: value });
+  const suggestionSelected = ({ name, id }) => {
+    setIsVisible(false);
+    setText(name);
+    props.handleChange(id);
   };
 
-  suggestionSelected = (value) => {
-    this.setState({
-      isDropdownVisible: false,
-      text: value.name
-    });
-    this.props.handleChange(value.id);
-  };
+  const toggle = () => setIsVisible(!isVisible);
 
-  toggle = () => {
-    this.setState((prevState) => ({
-      isDropdownVisible: !prevState.isDropdownVisible
-    }));
-  };
-
-  render() {
-    let suggestions = [...this.props.data];
-    if (this.state.text?.length) {
-      const regex = new RegExp(`^${this.state.text}`, 'i');
-      suggestions = this.props.data.sort().filter((v) => regex.test(v.name));
-    }
-    return (
-      <Root>
-        <InputContainer onClick={this.toggle}>
-          <Input
-            autoComplete="off"
-            defaultValue={this.state.text}
-            onChange={this.onTextChange}
-            type={'text'}
-            placeholder="Select Coin"
-          />
-          <AutoCompleteIcon
-            isOpen={this.state.isDropdownVisible}
-            onClick={this.toggle}
-          >
-            <ArrowIcon />
-          </AutoCompleteIcon>
-        </InputContainer>
-        {suggestions.length > 0 && this.state.isDropdownVisible && (
-          <AutoCompleteContainer>
-            {suggestions?.map((item) => {
-              return (
-                <AutoCompleteItem key={item.id}>
-                  <AutoCompleteItemButton
-                    key={item.code}
-                    onClick={() => this.suggestionSelected(item)}
-                  >
-                    {item.name}
-                  </AutoCompleteItemButton>
-                </AutoCompleteItem>
-              );
-            })}
-          </AutoCompleteContainer>
-        )}
-      </Root>
-    );
+  let suggestions = [...props.data];
+  if (text.length) {
+    const regex = new RegExp(`^${text}`, 'i');
+    suggestions = props.data.sort().filter((v) => regex.test(v.name));
   }
-}
+  return (
+    <Root>
+      <InputContainer onClick={toggle}>
+        <Input
+          autoComplete="off"
+          name="coinName"
+          onChange={onTextChange}
+          value={text}
+          type="text"
+          placeholder="Select Coin"
+        />
+        <AutoCompleteIcon isOpen={isVisible} onClick={toggle}>
+          <ArrowIcon />
+        </AutoCompleteIcon>
+      </InputContainer>
+      {suggestions.length > 0 && isVisible && (
+        <AutoCompleteContainer>
+          {suggestions?.map((item) => {
+            return (
+              <AutoCompleteItem key={item.id}>
+                <AutoCompleteItemButton
+                  key={item.code}
+                  onClick={() => suggestionSelected(item)}
+                >
+                  {item.name}
+                </AutoCompleteItemButton>
+              </AutoCompleteItem>
+            );
+          })}
+        </AutoCompleteContainer>
+      )}
+    </Root>
+  );
+};

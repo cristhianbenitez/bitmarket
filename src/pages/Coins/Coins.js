@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { Charts, CoinsTable } from 'components';
 import coinGecko from 'api/coinGecko';
 import {
-  Arrow,
-  ArrowsContainer,
   ChartContainer,
   ChartWrapper,
   CoinListContainer,
@@ -12,20 +9,15 @@ import {
   Subtitle
 } from './Coins.styles';
 import { CenterDiv, Loading } from 'assets';
-export class Coins extends Component {
-  state = {
-    isLoading: true,
-    coinPrice: [],
-    volume24h: [],
-    currency: this.props.currency,
-    resultsPerPage: 10,
-    isVisible: false
-  };
 
-  formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
+export const Coins = (props) => {
+  const [loading, setLoading] = useState(true);
+  const [coinPrice, setCoinPrice] = useState([]);
+  const [volume24h, setVolume24h] = useState([]);
+  const [isVisible, setIsVisible] = useState(10);
 
-  getChartData = async (currency) => {
-    this.setState({ isLoading: true });
+  const getChartData = async (currency) => {
+    setLoading(true);
     const [volume24h, coinPrice] = await Promise.all([
       coinGecko.get('/coins/bitcoin/market_chart', {
         params: { vs_currency: currency, days: '30', interval: 'daily' }
@@ -34,71 +26,61 @@ export class Coins extends Component {
         params: { vs_currency: currency, days: '1', interval: 'hourly' }
       })
     ]);
-
-    this.setState({
-      isLoading: false,
-      volume24h: this.formatData(volume24h.data.total_volumes),
-      coinPrice: this.formatData(coinPrice.data.prices)
-    });
+    const formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
+    setLoading(false);
+    setCoinPrice(formatData(coinPrice.data.prices));
+    setVolume24h(formatData(volume24h.data.total_volumes));
   };
 
-  componentDidMount() {
-    if (this.props.currency) {
-      this.getChartData(this.props.currency);
+  useEffect(() => {
+    if (props.currency) {
+      getChartData(props.currency);
     }
-  }
+  }, [props.currency]);
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps.currency !== this.props.currency) {
-      this.getChartData(this.props.currency);
-      this.setState({ currency: this.props.currency });
-    }
+  const show = () => {
+    setIsVisible(!isVisible);
   };
 
-  show = () => {
-    this.setState((prevState) => ({ isVisible: !prevState.isVisible }));
+  const latestData = {
+    latestCoinPrice: coinPrice[coinPrice.length - 1],
+    latestVolume24h: volume24h[volume24h.length - 1]
   };
-  render() {
-    const latestData = {
-      latestCoinPrice: this.state.coinPrice[this.state.coinPrice.length - 1],
-      latestVolume24h: this.state.volume24h[this.state.volume24h.length - 1]
-    };
 
-    if (this.state.isLoading)
-      return (
-        <CenterDiv>
-          <Loading type="spin" />
-        </CenterDiv>
-      );
-
+  if (loading)
     return (
-      <Container>
-        <Subtitle>Your overview</Subtitle>
-        <ChartWrapper isVisible={this.state.isVisible}>
-          <ChartContainer id="line-chart">
-            <Charts
-              chartData={this.state.coinPrice}
-              latestData={latestData}
-              currency={this.props.currency}
-              show={this.show}
-              lineChart
-            />
-          </ChartContainer>
-          <ChartContainer id="bar-chart">
-            <Charts
-              chartData={this.state.volume24h}
-              latestData={latestData}
-              currency={this.props.currency}
-              show={this.show}
-              barChart
-            />
-          </ChartContainer>
-        </ChartWrapper>
-        <Subtitle>Your overview</Subtitle>
-        <CoinListContainer>
-          <CoinsTable currency={this.props.currency} />
-        </CoinListContainer>
-      </Container>
+      <CenterDiv>
+        <Loading type="spin" />
+      </CenterDiv>
     );
-  }
-}
+
+  return (
+    <Container>
+      <Subtitle>Your overview</Subtitle>
+      <ChartWrapper isVisible={isVisible}>
+        <ChartContainer id="line-chart">
+          <Charts
+            chartData={coinPrice}
+            latestData={latestData}
+            currency={props.currency}
+            show={show}
+            lineChart
+          />
+        </ChartContainer>
+        <ChartContainer id="bar-chart">
+          <Charts
+            chartData={volume24h}
+            latestData={latestData}
+            currency={props.currency}
+            show={show}
+            barChart
+          />
+        </ChartContainer>
+      </ChartWrapper>
+      <Subtitle>Your overview</Subtitle>
+      <CoinListContainer>
+        <CoinsTable currency={props.currency} />
+      </CoinListContainer>
+    </Container>
+  );
+};

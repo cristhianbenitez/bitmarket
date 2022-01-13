@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef, useReducer } from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ISOCurrentDate } from 'utils';
 import { ModalAutocomplete } from 'components';
 
 import {
   CloseButton,
-  ModalButton,
   ModalOverlay,
   ModalContainer,
   ModalContent,
@@ -19,148 +18,125 @@ import {
   StyledCurrency,
   StyledButton,
   StyledInput,
-  StyledCoinsSelect,
   BodyContent
 } from './Modal.styles';
 import coinGecko from 'api/coinGecko';
 
-const initialState = {
-  coinId: '',
-  purchasedAmount: 0,
-  date: ISOCurrentDate(),
-  isLoading: true,
-  supportedCoins: []
-};
-export class Modal extends Component {
-  ref = React.createRef(null);
-  state = initialState;
-  getSupportedCoins = async () => {
-    this.setState({ isLoading: true });
-    const { data } = await coinGecko.get(`/coins/markets`, {
-      params: {
-        vs_currency: 'usd',
-        per_page: '250'
-      }
-    });
-    this.setState({
-      isLoading: false,
-      supportedCoins: data.map(({ name, id, image, symbol }) => ({
+export const Modal = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [supportedCoins, setSupportedCoins] = useState([]);
+  const [coinID, setCoinID] = useState('');
+  const [purchasedAmount, setPurchasedAmount] = useState(0);
+  const [date, setDate] = useState(ISOCurrentDate());
+  const ref = useRef();
+
+  const getSupportedCoins = async () => {
+    setLoading(true);
+    try {
+      const { data } = await coinGecko.get(`/coins/markets`, {
+        params: {
+          vs_currency: 'usd',
+          per_page: '250'
+        }
+      });
+      const coins = data.map(({ name, id, image, symbol }) => ({
         name,
         id,
         image,
         symbol
-      }))
-    });
-  };
-  toggle = () =>
-    this.setState((prevState) => ({
-      isOpen: !prevState.isOpen
-    }));
-
-  clear = () => {
-    this.setState(initialState);
-    this.props.toggleModal();
+      }));
+      setLoading(false);
+      setSupportedCoins(coins);
+    } catch (error) {}
   };
 
-  handleClickOutside = (event) => {
-    if (this.state.isOpen && this.ref.current === event.target) {
-      this.toggle();
-      this.clear();
+  const clearState = () => {
+    setCoinID('');
+    setPurchasedAmount(0);
+    setDate(ISOCurrentDate());
+    props.setIsOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (props.isOpen && ref.current === event.target) {
+      props.setIsOpen(false);
+      clearState();
     }
   };
 
-  handleDropdownChange = (value) => {
-    this.setState({
-      coinId: value
-    });
-  };
+  const handleDropdownChange = (value) => setCoinID(value);
+  const handleAmountChange = ({ value }) => setPurchasedAmount(value);
+  const handleDateChange = ({ target: { value } }) => setDate(value);
 
-  handleAmountChange = ({ value }) =>
-    this.setState({
-      purchasedAmount: value
-    });
-
-  handleDateChange = (e) => {
-    this.setState({
-      date: e.target.value
-    });
-  };
-
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const { coinId, purchasedAmount, date } = this.state;
-    if (coinId && purchasedAmount && date) {
-      this.props.addAsset({ coinId, purchasedAmount, date });
-      this.toggle();
-      this.clear();
+    if (coinID && purchasedAmount && date) {
+      props.addAsset({ coinID, purchasedAmount, date });
+      props.setIsOpen(false);
+      clearState();
     }
   };
-  componentDidMount() {
-    this.getSupportedCoins();
-    document.addEventListener('mousedown', this.handleClickOutside);
-  }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
-  }
-  render() {
-    const currentCurrency = localStorage.selection;
+  useEffect(() => {
+    getSupportedCoins();
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-    const resultOfSelection = this.state.supportedCoins.filter(
-      ({ id }) => id === this.state.coinId
-    );
-    const coinInformation = resultOfSelection[0];
+  const currentCurrency = localStorage.selection;
+  const resultOfSelection = supportedCoins.filter(({ id }) => id === coinID);
+  const coinInformation = resultOfSelection[0];
+  const minimizedImage = coinInformation?.image.replace('large', 'small');
 
-    const minimizedImage = coinInformation?.image.replace('large', 'small');
-
-    return (
-      <ModalOverlay ref={this.ref}>
-        <ModalContainer>
-          <CloseButton onClick={this.clear}>&times;</CloseButton>
-          <ModalContent>
-            <ModalHeader>
-              <ModalTitle>Select Coins</ModalTitle>
-            </ModalHeader>
-            <form onSubmit={this.handleSubmit}>
-              <ModalBody>
-                <BodyContent>
-                  <CoinImageContainer>
-                    <CoinImage src={minimizedImage} alt={coinInformation?.id} />
-                  </CoinImageContainer>
-                  <CoinNameText>
-                    {coinInformation?.name}
-                    {`(${coinInformation?.symbol?.toUpperCase()})`}
-                  </CoinNameText>
-                </BodyContent>
-                <BodyContent>
-                  <ModalAutocomplete
-                    data={this.state.supportedCoins}
-                    handleChange={this.handleDropdownChange}
-                  />
-                  <StyledCurrency
-                    customInput={StyledInput}
-                    isNumericString={true}
-                    thousandSeparator={true}
-                    decimalScale={2}
-                    prefix={getSymbolFromCurrency(currentCurrency)}
-                    value={this.state.purchasedAmount}
-                    onValueChange={this.handleAmountChange}
-                  />
-                  <StyledInput
-                    type="date"
-                    onChange={this.handleDateChange}
-                    value={this.state.date}
-                  />
-                </BodyContent>
-              </ModalBody>
-              <ModalFooter>
-                <StyledButton onClick={this.clear}>Close</StyledButton>
-                <StyledButton type="submit">Save and Continue</StyledButton>
-              </ModalFooter>
-            </form>
-          </ModalContent>
-        </ModalContainer>
-      </ModalOverlay>
-    );
-  }
-}
+  return (
+    <ModalOverlay ref={ref}>
+      <ModalContainer>
+        <CloseButton onClick={clearState}>&times;</CloseButton>
+        <ModalContent>
+          <ModalHeader>
+            <ModalTitle>Select Coins</ModalTitle>
+          </ModalHeader>
+          <form onSubmit={handleSubmit}>
+            <ModalBody>
+              <BodyContent>
+                <CoinImageContainer>
+                  <CoinImage src={minimizedImage} alt={coinInformation?.id} />
+                </CoinImageContainer>
+                <CoinNameText>
+                  {coinInformation?.name}
+                  {`(${coinInformation?.symbol?.toUpperCase()})`}
+                </CoinNameText>
+              </BodyContent>
+              <BodyContent>
+                <ModalAutocomplete
+                  data={supportedCoins}
+                  handleChange={handleDropdownChange}
+                />
+                <StyledCurrency
+                  customInput={StyledInput}
+                  isNumericString={true}
+                  thousandSeparator={true}
+                  decimalScale={2}
+                  prefix={getSymbolFromCurrency(currentCurrency)}
+                  value={purchasedAmount}
+                  onValueChange={handleAmountChange}
+                />
+                <StyledInput
+                  type="date"
+                  onChange={handleDateChange}
+                  value={date}
+                />
+              </BodyContent>
+            </ModalBody>
+            <ModalFooter>
+              <StyledButton onClick={clearState}>Close</StyledButton>
+              <StyledButton type="submit">Save and Continue</StyledButton>
+            </ModalFooter>
+          </form>
+        </ModalContent>
+      </ModalContainer>
+    </ModalOverlay>
+  );
+};
