@@ -7,7 +7,7 @@ import { ReactComponent as Portfolio } from 'assets/Icons/Portfolio.svg';
 import { devices } from 'utils';
 
 export const Wrapper = styled.div`
-  margin: auto 0;
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;

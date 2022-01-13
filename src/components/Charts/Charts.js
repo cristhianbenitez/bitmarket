@@ -3,16 +3,10 @@ import { addZero } from 'utils';
 import { ChartsLegend } from 'components';
 import { ChartsWrapper } from './Charts.styles';
 import { chartOptions, smallChartOption } from './ChartsOptions';
-<<<<<<< HEAD
 import { useTheme } from 'styled-components';
 
 export const Charts = (props) => {
   const theme = useTheme();
-=======
-import { withTheme } from 'styled-components';
-
-const Charts = (props) => {
->>>>>>> 95a911647b6efd242ba1d467fb2cd706755589f7
   const chartDataTimes = (time) =>
     Array.isArray(props.chartData) &&
     props.chartData.map((coin) => {
@@ -34,13 +28,8 @@ const Charts = (props) => {
       {
         data: arrOfData,
         fill: false,
-<<<<<<< HEAD
         backgroundColor: theme.barChart,
         borderColor: theme.barChart,
-=======
-        backgroundColor: props.theme.barChart,
-        borderColor: props.theme.barChart,
->>>>>>> 95a911647b6efd242ba1d467fb2cd706755589f7
         borderRadius: '2',
         maxBarThickness: 20
       }
@@ -54,15 +43,9 @@ const Charts = (props) => {
         ctx.save();
         let yAxis = chart.scales.y;
         let gradient = ctx.createLinearGradient(0, 0, 0, yAxis.bottom);
-<<<<<<< HEAD
         gradient.addColorStop(0, theme.chartsGradient.start);
         gradient.addColorStop(0.5, theme.chartsGradient.middle);
         gradient.addColorStop(1, theme.chartsGradient.end);
-=======
-        gradient.addColorStop(0, props.theme.chartsGradient.start);
-        gradient.addColorStop(0.5, props.theme.chartsGradient.middle);
-        gradient.addColorStop(1, props.theme.chartsGradient.end);
->>>>>>> 95a911647b6efd242ba1d467fb2cd706755589f7
         if (chart.data.datasets[0]) {
           chart.data.datasets[0].backgroundColor = gradient;
           ctx.restore();
