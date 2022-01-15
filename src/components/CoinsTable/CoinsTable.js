@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import coinGecko from 'api/coinGecko';
 import { CoinsTableRow } from 'components';
 import {
   ScrollableDiv,
@@ -11,62 +11,42 @@ import {
   TableRowHead
 } from './CoinsTable.styles';
 import { Loading } from 'assets';
-import { useCurrency } from 'hooks';
 
-export const CoinsTable = (props) => {
-  const [loading, setLoading] = useState(true);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [coinItemData, setCoinItemData] = useState([]);
-  const [hasMore, setHasMore] = useState(false);
-  const { value } = useCurrency();
+import {
+  getListOfCoins,
+  incrementPage
+} from 'features/coinsList/coinsListSlice';
+
+export const CoinsTable = () => {
+  const currency = useSelector((state) => state.currency);
   const observer = useRef(null);
-
-  const getCoinItemData = async () => {
-    setLoading(true);
-    try {
-      const { data } = await coinGecko.get('/coins/markets', {
-        params: {
-          vs_currency: value,
-          days: '1',
-          order: 'market_cap_desc',
-          per_page: '10',
-          page: pageNumber,
-          interval: 'hourly',
-          sparkline: true,
-          price_change_percentage: '1h,24h,7d'
-        }
-      });
-      setCoinItemData((prevData) => [...prevData, ...data]);
-      setHasMore(data.length > 0);
-    } catch (e) {
-      if (coinGecko.isCancel(e)) return;
-    }
-  };
+  const { listOfCoins, loading, pageNumber, hasMore } = useSelector(
+    (state) => state.coinsList
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    let isMounted = true;
-    getCoinItemData().then(() => {
-      if (isMounted) {
-        setLoading(false);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [pageNumber]);
-  const lastListElementRef = (node) => {
-    if (loading) return;
-    if (observer.current) {
-      observer.current.disconnect();
-    }
-    observer.current = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && hasMore) {
-        setPageNumber((prevPageNum) => prevPageNum + 1);
-      }
-    });
-    if (node) observer.current.observe(node);
-  };
+    dispatch(getListOfCoins({ currency, pageNumber }));
+  }, [currency, pageNumber]);
 
+  const lastListElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) {
+        observer.current.disconnect();
+      }
+      observer.current = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && hasMore) {
+            dispatch(incrementPage());
+          }
+        },
+        { threshold: 1 }
+      );
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore]
+  );
   return (
     <ScrollableDiv>
       <Table>
@@ -84,21 +64,16 @@ export const CoinsTable = (props) => {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          {coinItemData.map((coinData, index) => (
+          {listOfCoins.map((coinData, index) => (
             <CoinsTableRow
               key={index}
               index={index}
               coinData={coinData}
-              lastListElementRef={lastListElementRef}
-              value={value}
+              value={currency}
             />
           ))}
         </TableBody>
-        <TableBody
-          ref={(node) => {
-            lastListElementRef(node);
-          }}
-        />
+        <TableBody ref={lastListElementRef} />
       </Table>
       {loading && <Loading type="spin" height={50} width={30} />}
     </ScrollableDiv>
