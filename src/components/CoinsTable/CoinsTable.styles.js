@@ -20,8 +20,7 @@ export const ScrollableDiv = styled.div`
     height: 480px;
   }
   @media ${devices.laptopL} {
-    overflow: unset;
-    height: 100%;
+    height: 600px;
   }
 `;
 
@@ -50,9 +49,7 @@ export const TableHead = styled.thead`
   height: 40px;
   @media ${devices.tablet} {
     background: ${({ theme }) => theme.foreground};
-  }
-  @media ${devices.laptopL} {
-    position: unset;
+    top: 0px;
   }
 `;
 export const TableHeading = styled.th`

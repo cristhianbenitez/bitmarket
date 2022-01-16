@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import coinGecko from 'api/coinGecko';
-
+import { useDispatch, useSelector } from 'react-redux';
 import {
   DollarIcon,
   DropDownContainer,
@@ -12,30 +12,22 @@ import {
   Input
 } from './Dropdown.styles';
 import { DropdownArrow } from 'assets';
-import { useCurrency } from 'hooks';
+import {
+  updateCurrency,
+  selectCurrency
+} from 'features/currency/currencySlice';
 
 export const Dropdown = () => {
-  const { value: currency, onChange } = useCurrency();
+  const currency = useSelector(selectCurrency);
+  const { supportedCurrencies } = useSelector((state) => state.generalData);
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [selection, setSelection] = useState(currency);
-  const [options, setOptions] = useState([]);
-
-  const getSupportedCurrencies = async () => {
-    setLoading(true);
-    try {
-      const { data } = await coinGecko.get('/simple/supported_vs_currencies');
-      setOptions(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(true);
-    }
-  };
 
   const handleItemSelection = (item) => {
     setSelection(item);
     setIsOpen(false);
-    onChange(item);
+    dispatch(updateCurrency(String(item)));
   };
 
   const onTextChange = ({ target: { value } }) => {
@@ -45,19 +37,16 @@ export const Dropdown = () => {
     }
   };
 
-  const handleClick = async () => {
-    if (!isOpen && !options.length) {
-      await getSupportedCurrencies();
-    }
+  const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  let suggestions = options;
+  let suggestions = [...supportedCurrencies];
   if (selection.length) {
     const regex = new RegExp(`^${selection}`, 'i');
     suggestions = [
-      ...options.filter((v) => regex.test(v)),
-      ...options.filter((v) => !regex.test(v)).sort()
+      ...supportedCurrencies.filter((v) => regex.test(v)),
+      ...supportedCurrencies.filter((v) => !regex.test(v)).sort()
     ];
   }
   return (
@@ -81,7 +70,7 @@ export const Dropdown = () => {
           </ArrowsContainer>
         </SelectionContainer>
       </DropDownHeader>
-      {isOpen && options.length > 0 && (
+      {isOpen && supportedCurrencies.length > 0 && (
         <DropDownList>
           {suggestions.map((item, index) => (
             <ListItem key={index} onClick={() => handleItemSelection(item)}>
