@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import coinGecko from 'api/coinGecko';
 import { calculatePercentage, formattedNumber } from 'utils';
 import {
   BitcoinIcon,
@@ -16,27 +16,17 @@ import {
   Wrapper
 } from './SubNavbar.styles';
 import { Loading } from 'assets';
+import { getSupportedCurrencies } from 'store/reducers/generalData/generalDataSlice';
 
 export const SubNavbar = () => {
-  const [globalData, setGlobalData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getGlobalData = async () => {
-    setLoading(true);
-    try {
-      const {
-        data: { data }
-      } = await coinGecko.get('/global');
-      setGlobalData(data);
-      setLoading(false);
-    } catch (err) {
-      setLoading(true);
-    }
-  };
+  const { status, globalData, loading } = useSelector(
+    (state) => state.generalData
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getGlobalData();
-  }, []);
+    if (status === 'idle') dispatch(getSupportedCurrencies());
+  }, [status, loading]);
 
   if (loading) return <Loading type="spin" width="20px" />;
 
@@ -48,14 +38,14 @@ export const SubNavbar = () => {
     markets
   } = globalData;
 
-  const totalMarketCap = formattedNumber(total_market_cap.usd, '($0.00a)');
-  const totalVolume = formattedNumber(total_volume.usd, '($0.00a)');
-  const ethereumMarketCapPercentage = Math.floor(market_cap_percentage.eth);
-  const bitcoinMarketCapPercentage = Math.floor(market_cap_percentage.btc);
+  const totalMarketCap = formattedNumber(total_market_cap?.usd, '($0.00a)');
+  const totalVolume = formattedNumber(total_volume?.usd, '($0.00a)');
+  const ethereumMarketCapPercentage = Math.floor(market_cap_percentage?.eth);
+  const bitcoinMarketCapPercentage = Math.floor(market_cap_percentage?.btc);
 
   const { percentageA: totalVolumePercentage } = calculatePercentage(
-    total_volume.usd,
-    total_market_cap.usd
+    total_volume?.usd,
+    total_market_cap?.usd
   );
 
   return (

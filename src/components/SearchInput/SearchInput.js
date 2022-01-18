@@ -1,6 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
-
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import debounce from 'lodash.debounce';
 
 import { SearchResults } from 'components';
@@ -11,30 +9,17 @@ import {
   IconText,
   IconContainer
 } from './SearchInput.styles';
+import { getSearchResults } from 'store/reducers/search/searchSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const SearchInput = () => {
   const [text, setText] = useState('');
-  const [results, setResults] = useState([]);
-  const [hasError, setHasError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const results = useSelector((state) => state.search.results);
+  const dispatch = useDispatch();
 
-  const getCoinItemData = async (query, callback) => {
-    const parsedQuery = query.replaceAll(' ', '+');
-    if (query && query.length > 0) {
-      try {
-        const { data } = await axios.get(
-          `https://crypto-app-server.herokuapp.com/coins/${parsedQuery}`
-        );
-        callback(data);
-      } catch (e) {
-        setHasError(false);
-      }
-    }
-    if (hasError) return () => axios.Cancel();
-  };
-
-  const debouncedApiCall = debounce((query, callback) => {
-    getCoinItemData(query, callback);
+  const debouncedApiCall = debounce((query) => {
+    dispatch(getSearchResults(query));
   }, 300);
 
   const handleChange = ({ target: { value } }) => {
@@ -42,9 +27,7 @@ export const SearchInput = () => {
     setText(value);
   };
 
-  const handleClick = async () => {
-    setIsOpen(!isOpen);
-  };
+  const handleClick = () => setIsOpen(!isOpen);
 
   const handleClickOutside = ({ target: { id } }) => {
     if (isOpen && id !== 'search-input' && id !== 'search-result') {
@@ -58,7 +41,7 @@ export const SearchInput = () => {
   };
 
   useEffect(() => {
-    debouncedApiCall(text, (data) => setResults(data));
+    debouncedApiCall(text);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);

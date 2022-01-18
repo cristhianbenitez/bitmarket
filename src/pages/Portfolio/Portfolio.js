@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Modal, AssetsListRow } from 'components';
 import {
@@ -8,62 +9,21 @@ import {
   Button,
   AssetsList
 } from './Portfolio.styles';
-import coinGecko from 'api/coinGecko';
-import { v4 as uuid } from 'uuid';
-import { useCurrency } from 'hooks';
+import {
+  getAssetData,
+  handleRemove
+} from 'store/reducers/assetsList/assetsListSlice';
 
 export const Portfolio = () => {
-  const [error, setError] = useState(false);
+  const { assets, loading } = useSelector((state) => state.assetsList);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [assets, setAssets] = useState([]);
-  const { value } = useCurrency();
+  const dispatch = useDispatch();
 
-  const addAsset = async (asset) => {
-    try {
-      const { coinID, purchasedAmount, date } = asset;
-      const purchasedDate = date.split('-').reverse().join('-');
-      const { data } = await coinGecko.get(`/coins/${coinID}/history`, {
-        params: {
-          date: purchasedDate,
-          localization: 'false'
-        }
-      });
-      const uniqueId = uuid().slice(0, 8);
-      const historicPriceData = data.market_data.current_price.usd;
-      const { image, name, symbol, id } = data;
-      const assetData = {
-        uniqueId,
-        name,
-        symbol,
-        id,
-        image: image.small,
-        purchasedDate,
-        purchasedAmount,
-        historicPriceData
-      };
-      setAssets((prevAssets) => [...prevAssets, assetData]);
-      localStorage.setItem('assets', JSON.stringify(assets));
-    } catch (error) {
-      setError(true);
-    }
-  };
-
-  useEffect(() => {
-    if (localStorage.assets && assets) {
-      const storedAssets = JSON.parse(localStorage.getItem('assets'));
-      setAssets(storedAssets);
-    }
-  }, []);
+  const addAsset = (asset) => dispatch(getAssetData(asset));
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const removeAsset = (coinID) => {
-    const filteredAssets = Object.assign(assets).filter(
-      (asset) => asset.uniqueId !== coinID
-    );
-    setAssets(filteredAssets);
-    localStorage.setItem('assets', JSON.stringify(filteredAssets));
-  };
+  const removeAsset = (coinID) => dispatch(handleRemove(coinID));
 
   return (
     <Container>
@@ -80,14 +40,13 @@ export const Portfolio = () => {
       </PageHead>
       <Subtitle>Your statistics</Subtitle>
       <AssetsList>
-        {!error &&
+        {!loading &&
           assets.length > 0 &&
           assets.map((asset) => {
             return (
               <AssetsListRow
                 key={asset.uniqueId}
                 asset={asset}
-                currency={value}
                 removeAsset={removeAsset}
               />
             );

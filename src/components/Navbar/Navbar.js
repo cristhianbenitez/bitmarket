@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Dropdown, SearchInput } from 'components';
 import {
@@ -13,8 +14,11 @@ import {
   Separator
 } from './Navbar.styles.js';
 import { useLocation } from 'react-router-dom';
+import { changeTheme } from 'store/reducers/theme/themeSlicer';
 
-export const Navbar = (props) => {
+export const Navbar = () => {
+  const dispatch = useDispatch();
+  const toggleTheme = () => dispatch(changeTheme());
   const { pathname } = useLocation();
   return (
     <Wrapper>
@@ -37,7 +41,7 @@ export const Navbar = (props) => {
       <Separator>
         <SearchInput />
         <Dropdown />
-        <ThemeButton onClick={props.themeToggler} />
+        <ThemeButton onClick={toggleTheme} />
       </Separator>
     </Wrapper>
   );

@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Charts, CoinsTable } from 'components';
-import coinGecko from 'api/coinGecko';
 import {
   ChartContainer,
   ChartWrapper,
@@ -10,42 +9,28 @@ import {
   Subtitle
 } from './Coins.styles';
 import { CenterDiv, Loading } from 'assets';
-import { useCurrency } from 'hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
 export const Coins = () => {
-  const [loading, setLoading] = useState(true);
-  const [coinPrice, setCoinPrice] = useState([]);
-  const [volume24h, setVolume24h] = useState([]);
-  const [isVisible, setIsVisible] = useState(10);
-  const { value } = useCurrency();
-
-  const getChartData = async () => {
-    setLoading(true);
-    const [volume24h, coinPrice] = await Promise.all([
-      coinGecko.get('/coins/bitcoin/market_chart', {
-        params: { vs_currency: value, days: '30', interval: 'daily' }
-      }),
-      coinGecko.get('/coins/bitcoin/market_chart', {
-        params: { vs_currency: value, days: '1', interval: 'hourly' }
-      })
-    ]);
-    const formatData = (data) => data.map(([x, y]) => ({ x, y: y.toFixed(2) }));
-    setCoinPrice(formatData(coinPrice.data.prices));
-    setVolume24h(formatData(volume24h.data.total_volumes));
-    setLoading(false);
-  };
+  const [isVisible, setIsVisible] = useState(false);
+  const currency = useSelector((state) => state.currency);
+  const { loading, volumes24h, prices30d } = useSelector(
+    (state) => state.chartsData
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getChartData();
-  }, [value]);
+    dispatch(getChartsData({ currency }));
+  }, [currency]);
 
   const show = () => {
     setIsVisible(!isVisible);
   };
 
   const latestData = {
-    latestCoinPrice: coinPrice[coinPrice.length - 1],
-    latestVolume24h: volume24h[volume24h.length - 1]
+    latestCoinPrice: prices30d[prices30d.length - 1],
+    latestVolume24h: volumes24h[volumes24h.length - 1]
   };
 
   if (loading)
@@ -61,18 +46,18 @@ export const Coins = () => {
       <ChartWrapper isVisible={isVisible}>
         <ChartContainer id="line-chart">
           <Charts
-            chartData={coinPrice}
+            chartData={prices30d}
             latestData={latestData}
-            currency={value}
+            currency={currency}
             show={show}
             lineChart
           />
         </ChartContainer>
         <ChartContainer id="bar-chart">
           <Charts
-            chartData={volume24h}
+            chartData={volumes24h}
             latestData={latestData}
-            currency={value}
+            currency={currency}
             show={show}
             barChart
           />
@@ -80,7 +65,7 @@ export const Coins = () => {
       </ChartWrapper>
       <Subtitle>Your overview</Subtitle>
       <CoinListContainer>
-        <CoinsTable currency={value} />
+        <CoinsTable currency={currency} />
       </CoinListContainer>
     </Container>
   );
