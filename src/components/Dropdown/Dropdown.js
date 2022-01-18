@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import coinGecko from 'api/coinGecko';
+
 import { useDispatch, useSelector } from 'react-redux';
 import {
   DollarIcon,
@@ -15,7 +15,7 @@ import { DropdownArrow } from 'assets';
 import {
   updateCurrency,
   selectCurrency
-} from 'features/currency/currencySlice';
+} from 'store/reducers/currency/currencySlice';
 
 export const Dropdown = () => {
   const currency = useSelector(selectCurrency);

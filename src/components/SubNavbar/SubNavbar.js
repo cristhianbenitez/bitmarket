@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import coinGecko from 'api/coinGecko';
 import { calculatePercentage, formattedNumber } from 'utils';
 import {
   BitcoinIcon,
@@ -17,7 +16,7 @@ import {
   Wrapper
 } from './SubNavbar.styles';
 import { Loading } from 'assets';
-import { getSupportedCurrencies } from 'features/generalData/generalDataSlice';
+import { getSupportedCurrencies } from 'store/reducers/generalData/generalDataSlice';
 
 export const SubNavbar = () => {
   const { status, globalData, loading } = useSelector(

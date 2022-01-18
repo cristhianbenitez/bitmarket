@@ -15,7 +15,7 @@ import { Loading } from 'assets';
 import {
   getListOfCoins,
   incrementPage
-} from 'features/coinsList/coinsListSlice';
+} from 'store/reducers/coinsList/coinsListSlice';
 
 export const CoinsTable = () => {
   const currency = useSelector((state) => state.currency);
