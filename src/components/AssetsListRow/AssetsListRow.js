@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import coinGecko from 'api/coinGecko';
 
 import {
@@ -23,9 +24,11 @@ import {
 } from './AssetsListRow.styles';
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import { selectCurrency } from 'store/reducers/currency/currencySlice';
 import { CenterDiv, Loading } from 'assets';
 
 export const AssetsListRow = (props) => {
+  const currency = useSelector(selectCurrency);
   const [loading, setLoading] = useState(true);
   const [marketData, setMarketData] = useState({});
 
@@ -49,16 +52,13 @@ export const AssetsListRow = (props) => {
       setLoading(true);
     }
   };
-
   useEffect(() => {
     getMarketData(props.asset.id);
   }, [props.asset.id]);
 
-  if (loading) return <Loading type="spin" />;
-
   const { name, symbol, image, purchasedAmount, purchasedDate, uniqueId } =
     props.asset;
-  const { currency, removeAsset } = props;
+  const { removeAsset } = props;
 
   const currencySymbol = getSymbolFromCurrency(currency);
   const purchaseDateLocale = new Date(purchasedDate).toLocaleDateString();
@@ -77,6 +77,7 @@ export const AssetsListRow = (props) => {
 
   const currentPrice = marketData.current_price?.[currency];
 
+  if (loading) return <Loading type="spin" />;
   return (
     <ListWrapper>
       <ListHead>

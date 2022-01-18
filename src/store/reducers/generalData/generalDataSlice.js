@@ -42,6 +42,4 @@ export const generalDataSlice = createSlice({
   }
 });
 
-export const { dataAdded } = generalDataSlice.actions;
-
 export default generalDataSlice.reducer;

@@ -10,7 +10,7 @@ import {
 } from './Coins.styles';
 import { CenterDiv, Loading } from 'assets';
 import { useDispatch, useSelector } from 'react-redux';
-import { getChartsData } from 'features/chartsData/chartsDataSlice';
+import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
 export const Coins = () => {
   const [isVisible, setIsVisible] = useState(false);

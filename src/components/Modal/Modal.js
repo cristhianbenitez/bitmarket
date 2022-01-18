@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useReducer } from 'react';
+import { useSelector } from 'react-redux';
+
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ISOCurrentDate } from 'utils';
 import { ModalAutocomplete } from 'components';
-
 import {
   CloseButton,
   ModalOverlay,
@@ -21,9 +22,10 @@ import {
   BodyContent
 } from './Modal.styles';
 import coinGecko from 'api/coinGecko';
+import { selectCurrency } from 'store/reducers/currency/currencySlice';
 
 export const Modal = (props) => {
-  const [loading, setLoading] = useState(false);
+  const currency = useSelector(selectCurrency);
   const [supportedCoins, setSupportedCoins] = useState([]);
   const [coinID, setCoinID] = useState('');
   const [purchasedAmount, setPurchasedAmount] = useState(0);
@@ -31,23 +33,19 @@ export const Modal = (props) => {
   const ref = useRef();
 
   const getSupportedCoins = async () => {
-    setLoading(true);
-    try {
-      const { data } = await coinGecko.get(`/coins/markets`, {
-        params: {
-          vs_currency: 'usd',
-          per_page: '250'
-        }
-      });
-      const coins = data.map(({ name, id, image, symbol }) => ({
-        name,
-        id,
-        image,
-        symbol
-      }));
-      setLoading(false);
-      setSupportedCoins(coins);
-    } catch (error) {}
+    const { data } = await coinGecko.get(`/coins/markets`, {
+      params: {
+        vs_currency: 'usd',
+        per_page: '250'
+      }
+    });
+    const coins = data.map(({ name, id, image, symbol }) => ({
+      name,
+      id,
+      image,
+      symbol
+    }));
+    setSupportedCoins(coins);
   };
 
   const clearState = () => {
@@ -85,7 +83,6 @@ export const Modal = (props) => {
     };
   }, []);
 
-  const currentCurrency = localStorage.selection;
   const resultOfSelection = supportedCoins.filter(({ id }) => id === coinID);
   const coinInformation = resultOfSelection[0];
   const minimizedImage = coinInformation?.image.replace('large', 'small');
@@ -119,7 +116,7 @@ export const Modal = (props) => {
                   isNumericString={true}
                   thousandSeparator={true}
                   decimalScale={2}
-                  prefix={getSymbolFromCurrency(currentCurrency)}
+                  prefix={getSymbolFromCurrency(currency)}
                   value={purchasedAmount}
                   onValueChange={handleAmountChange}
                 />

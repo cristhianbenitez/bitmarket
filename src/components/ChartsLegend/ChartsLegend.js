@@ -13,7 +13,7 @@ import {
 export const ChartsLegend = (props) => {
   const latestCoinPrice = formattedNumber(
     props.latestData.latestCoinPrice?.y,
-    `10,000.00`
+    `(10,000.00)`
   );
   const latestVolume24h = formattedNumber(
     props.latestData.latestVolume24h?.y,
