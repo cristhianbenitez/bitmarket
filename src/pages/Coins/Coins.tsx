@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import { Charts, CoinsTable } from 'components';
 import {
@@ -9,18 +10,17 @@ import {
   Subtitle
 } from './Coins.styles';
 import { CenterDiv, Loading } from 'assets';
-import { useDispatch, useSelector } from 'react-redux';
 import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
 export const Coins = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const currency = useSelector((state) => state.currency);
-  const { loading, volumes24h, prices30d } = useSelector(
+  const [isVisible, setIsVisible] = React.useState(false);
+  const currency = useAppSelector((state) => state.currency);
+  const { loading, volumes24h, prices30d } = useAppSelector(
     (state) => state.chartsData
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getChartsData({ currency }));
   }, [currency]);
 
@@ -28,7 +28,7 @@ export const Coins = () => {
     setIsVisible(!isVisible);
   };
 
-  const latestData = {
+  const latestData: {} = {
     latestCoinPrice: prices30d[prices30d.length - 1],
     latestVolume24h: volumes24h[volumes24h.length - 1]
   };
@@ -49,8 +49,7 @@ export const Coins = () => {
             chartData={prices30d}
             latestData={latestData}
             currency={currency}
-            show={show}
-            lineChart
+            type="lineChart"
           />
         </ChartContainer>
         <ChartContainer id="bar-chart">
@@ -58,14 +57,13 @@ export const Coins = () => {
             chartData={volumes24h}
             latestData={latestData}
             currency={currency}
-            show={show}
-            barChart
+            type="barChart"
           />
         </ChartContainer>
       </ChartWrapper>
       <Subtitle>Your overview</Subtitle>
       <CoinListContainer>
-        <CoinsTable currency={currency} />
+        <CoinsTable />
       </CoinListContainer>
     </Container>
   );

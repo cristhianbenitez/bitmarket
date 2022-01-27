@@ -1,6 +1,20 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
+<<<<<<< HEAD
+import { useAppSelector } from 'store/hooks';
+import { Coins, Portfolio, Summary } from 'pages';
+import { SubNavbar, Navbar, MobileHeader, light, dark } from 'components';
+
+import { GlobalStyle, NavbarWrapper, Wrapper } from './App.styles';
+
+export const App = () => {
+  const themeMode = useAppSelector((state) => state.theme);
+  const theme = (themeMode === 'dark' && dark) || light;
+  return (
+    <Wrapper>
+      <ThemeProvider theme={theme}>
+=======
 import { useSelector } from 'react-redux';
 
 import { GlobalStyle, NavbarWrapper, Wrapper } from './App.styles';
@@ -19,6 +33,7 @@ export const App = () => {
   return (
     <Wrapper>
       <ThemeProvider theme={darkTheme}>
+>>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423
         <GlobalStyle />
         <NavbarWrapper>
           <Navbar />

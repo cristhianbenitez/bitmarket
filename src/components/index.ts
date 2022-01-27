@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/components/index.ts
+export * from './Theme/Theme';
+=======
 export * from './Themes/Themes';
+>>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423:src/components/index.js
 export { CoinPricesData } from './CoinPricesData/CoinPricesData';
 export { MobileHeader } from './MobileHeader/MobileHeader';
 export { Charts } from './Charts/Charts';

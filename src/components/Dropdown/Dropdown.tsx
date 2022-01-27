@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { DropdownArrow } from 'assets';
+import {
+  updateCurrency,
+  selectCurrency
+} from 'store/reducers/currency/currencySlice';
 import {
   DollarIcon,
   DropDownContainer,
@@ -11,27 +16,22 @@ import {
   ArrowsContainer,
   Input
 } from './Dropdown.styles';
-import { DropdownArrow } from 'assets';
-import {
-  updateCurrency,
-  selectCurrency
-} from 'store/reducers/currency/currencySlice';
 
 export const Dropdown = () => {
-  const currency = useSelector(selectCurrency);
-  const { supportedCurrencies } = useSelector((state) => state.generalData);
-  const dispatch = useDispatch();
-  const [isOpen, setIsOpen] = useState(false);
-  const [selection, setSelection] = useState(currency);
+  const currency = useAppSelector(selectCurrency);
+  const { supportedCurrencies } = useAppSelector((state) => state.generalData);
+  const dispatch = useAppDispatch();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [selection, setSelection] = React.useState(currency);
 
-  const handleItemSelection = (item) => {
+  const handleItemSelection = (item: string) => {
     setSelection(item);
     setIsOpen(false);
     dispatch(updateCurrency(String(item)));
   };
 
-  const onTextChange = ({ target: { value } }) => {
-    setSelection(value);
+  const onTextChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setSelection(e.target.value);
     if (!isOpen) {
       setIsOpen(true);
     }
