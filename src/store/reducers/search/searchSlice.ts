@@ -1,9 +1,21 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+interface SearchState {
+  status: 'idle' | 'succeeded' | 'failed' | 'loading';
+  results: [];
+  error?: string;
+}
+
+const initialState: SearchState = {
+  status: 'idle',
+  results: [],
+  error: ''
+};
+
 export const getSearchResults = createAsyncThunk(
   'search/coinsSearch',
-  async (query) => {
+  async (query: string) => {
     const parsedQuery = await query.replaceAll(' ', '+');
     if (query && query.length > 0) {
       const { data } = await axios.get(
@@ -17,7 +29,7 @@ export const getSearchResults = createAsyncThunk(
 
 const searchSlice = createSlice({
   name: 'search',
-  initialState: { results: [] },
+  initialState,
   reducers: {},
   extraReducers(builder) {
     builder

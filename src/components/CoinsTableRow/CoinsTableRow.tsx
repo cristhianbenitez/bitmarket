@@ -27,7 +27,13 @@ import {
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
-export const CoinsTableRow = ({ coinData, index, value }) => {
+interface Props {
+  coinData: any;
+  index: number;
+  value: string;
+}
+
+export const CoinsTableRow = ({ coinData, index, value }: Props) => {
   const {
     name,
     id,
@@ -51,7 +57,7 @@ export const CoinsTableRow = ({ coinData, index, value }) => {
     percentageBarColors.right[index % percentageBarColors.right.length];
 
   const currencySymbol = getSymbolFromCurrency(value);
-  const minimizedImage = image.replace('large', 'small');
+  const minimizedImage: string = image.replace('large', 'small');
 
   return (
     <TableRow>
@@ -59,7 +65,7 @@ export const CoinsTableRow = ({ coinData, index, value }) => {
       <TableData>
         <StyledLink to={`coin/${id}`}>
           <NameContainer>
-            <CoinIcon image={minimizedImage} name={name} />
+            <CoinIcon src={minimizedImage} alt={`${name}-icon`} />
             <CoinName>
               {name}
               <Symbol>({symbol})</Symbol>
@@ -137,11 +143,11 @@ export const CoinsTableRow = ({ coinData, index, value }) => {
       <TableData>
         <SmallChartContainer>
           <Charts
-            smallChartData={pricesOfLastSevenDays.price.filter(
-              (_, i) => i % 24 === 0
+            chartData={pricesOfLastSevenDays.price.filter(
+              (_: any, i: number) => i % 24 === 0
             )}
             weeklyChanges={weeklyChanges}
-            smallLineChart
+            type="smallLineChart"
           />
         </SmallChartContainer>
       </TableData>

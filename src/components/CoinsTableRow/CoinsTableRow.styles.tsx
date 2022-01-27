@@ -3,6 +3,12 @@ import { Link } from 'react-router-dom';
 import { PriceArrow } from 'assets';
 import { devices } from 'utils';
 
+interface CustomProps {
+  readonly colors?: string;
+  readonly percentage?: any;
+  readonly price?: any;
+}
+
 export const TableData = styled.td`
   font-size: 0.8rem;
   text-align: start;
@@ -40,7 +46,7 @@ export const ValuesContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const Value = styled.span`
+export const Value = styled.span<CustomProps>`
   display: flex;
   align-items: center;
   color: ${(props) => props.colors};
@@ -48,7 +54,7 @@ export const Value = styled.span`
 
 export const PercentageBarContainer = styled.div``;
 
-export const PercentageBar = styled.div`
+export const PercentageBar = styled.div<CustomProps>`
   width: 95%;
   height: 9px;
   background: ${(props) => props.colors};
@@ -57,7 +63,7 @@ export const PercentageBar = styled.div`
   margin-left: 0.5em;
 `;
 
-export const PercentageBarFill = styled.div`
+export const PercentageBarFill = styled.div<CustomProps>`
   background: #ffb528;
   z-index: 2;
   border-radius: 12px;
@@ -66,7 +72,7 @@ export const PercentageBarFill = styled.div`
   width: ${(props) => `${props.percentage.percentageA}%`};
 `;
 
-export const BulletCircle = styled.div`
+export const BulletCircle = styled.div<CustomProps>`
   width: 7px;
   height: 7px;
   border-radius: 100%;
@@ -75,7 +81,7 @@ export const BulletCircle = styled.div`
   background: ${(props) => props.colors};
 `;
 
-export const PriceChangePercentage = styled.td`
+export const PriceChangePercentage = styled.td<CustomProps>`
   font-size: 0.8rem;
   color: ${(props) => (props.price > 0 ? '#00FC2A' : '#FE1040')};
   padding-right: 1em;
@@ -96,10 +102,7 @@ export const ArrowIcon = styled(PriceArrow)`
   left: 50%; ;
 `;
 
-export const CoinIcon = styled.img.attrs((props) => ({
-  src: `${props.image}`,
-  alt: `${props.name}-icon`
-}))`
+export const CoinIcon = styled.img`
   max-width: 100%;
   max-height: 100%;
   height: 30px;

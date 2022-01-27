@@ -1,23 +1,35 @@
 import { getOrdinalNum } from 'utils';
 
+interface TitleProps {
+  label: string;
+  dataset: {
+    label: string;
+  };
+}
+
+interface LabelContext {
+  formattedValue: string;
+}
+
 const tooltip = {
   displayColors: false,
   displayTitle: false,
   callbacks: {
-    title: (props) => {
-      const day = props[0].label;
-      const lineChartLabel = props[0].dataset.label;
+    title: (props: TitleProps) => {
+      const day = props.label;
+      const lineChartLabel = props.dataset.label;
       if (lineChartLabel === 'Price')
-        return `${lineChartLabel} at ${props[0].label}:00`;
-      else return `24h Volume on the ${getOrdinalNum(day)}`;
+        return `${lineChartLabel} at ${props.label}:00`;
+
+      return `24h Volume on the ${getOrdinalNum(day)}`;
     },
-    label: (context) => {
+    label: (context: LabelContext) => {
       return `$${context.formattedValue}`;
     }
   }
 };
 
-export const chartOptions = {
+export const chartOptions: any = {
   layout: {
     padding: {
       top: 100

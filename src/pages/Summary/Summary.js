@@ -25,7 +25,6 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { Loading, CenterDiv } from 'assets';
 import { useParams } from 'react-router-dom';
-import { useCurrency } from 'hooks';
 
 export const Summary = () => {
   const [loading, setLoading] = useState(true);

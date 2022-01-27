@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
+import { Loading } from 'assets';
+import { getSupportedCurrencies } from 'store/reducers/generalData/generalDataSlice';
 import { calculatePercentage, formattedNumber } from 'utils';
 import {
   BitcoinIcon,
@@ -15,8 +17,6 @@ import {
   ItemContainer,
   Wrapper
 } from './SubNavbar.styles';
-import { Loading } from 'assets';
-import { getSupportedCurrencies } from 'store/reducers/generalData/generalDataSlice';
 
 export const SubNavbar = () => {
   const { status, globalData, loading } = useAppSelector(
@@ -24,7 +24,7 @@ export const SubNavbar = () => {
   );
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (status === 'idle') dispatch(getSupportedCurrencies());
   }, [status, loading]);
 

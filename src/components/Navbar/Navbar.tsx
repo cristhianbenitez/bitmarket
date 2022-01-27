@@ -1,5 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch } from 'store/hooks';
+import { changeTheme } from 'store/reducers/theme/themeSlicer';
 
 import { Dropdown, SearchInput } from 'components';
 import {
@@ -13,13 +15,11 @@ import {
   CoinsIcon,
   Separator
 } from './Navbar.styles';
-import { useLocation } from 'react-router-dom';
-import { changeTheme } from 'store/reducers/theme/themeSlicer';
 
 export const Navbar = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const toggleTheme = () => {
-    // dispatch(changeTheme());
+    dispatch(changeTheme(null));
   };
   const { pathname } = useLocation();
   return (

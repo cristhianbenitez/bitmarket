@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import debounce from 'lodash.debounce';
+import { getSearchResults } from 'store/reducers/search/searchSlice';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import { SearchResults } from 'components';
 import {
@@ -9,27 +11,28 @@ import {
   IconText,
   IconContainer
 } from './SearchInput.styles';
-import { getSearchResults } from 'store/reducers/search/searchSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 export const SearchInput = () => {
-  const [text, setText] = useState('');
-  const [isOpen, setIsOpen] = useState(false);
-  const results = useSelector((state) => state.search.results);
-  const dispatch = useDispatch();
+  const [text, setText] = React.useState('');
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const results = useAppSelector((state) => state.search.results);
+  const dispatch = useAppDispatch();
 
-  const debouncedApiCall = debounce((query) => {
+  const debouncedApiCall = debounce((query: string) => {
     dispatch(getSearchResults(query));
   }, 300);
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setIsOpen(true);
-    setText(value);
+    setText(e.target.value);
   };
 
   const handleClick = () => setIsOpen(!isOpen);
 
-  const handleClickOutside = ({ target: { id } }) => {
+  const handleClickOutside = (e: MouseEvent) => {
+    const id = (e.target as Element).id;
     if (isOpen && id !== 'search-input' && id !== 'search-result') {
       setIsOpen(false);
     }
@@ -40,7 +43,7 @@ export const SearchInput = () => {
     setText('');
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     debouncedApiCall(text);
     document.addEventListener('mousedown', handleClickOutside);
     return () => {

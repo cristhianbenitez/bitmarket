@@ -1,13 +1,26 @@
 import { Bar, Line } from 'react-chartjs-2';
 import { addZero } from 'utils';
 import { ChartsLegend } from 'components';
-import { ChartsWrapper } from './Charts.styles';
-import { chartOptions, smallChartOption } from './ChartsOptions';
 import { useTheme } from 'styled-components';
 
-export const Charts = (props) => {
+import { ChartsWrapper } from './Charts.styles';
+import { chartOptions, smallChartOption } from './ChartsOptions';
+
+interface ChartsProps {
+  type: 'lineChart' | 'barChart' | 'smallLineChart';
+  chartData: {
+    x: number;
+    y: number;
+  }[];
+  latestData?: {};
+  currency?: string;
+  weeklyChanges?: any;
+}
+
+export const Charts = (props: ChartsProps) => {
   const theme = useTheme();
-  const chartDataTimes = (time) =>
+
+  const chartDataTimes = (time: string) =>
     Array.isArray(props.chartData) &&
     props.chartData.map((coin) => {
       const date = new Date(coin.x);
@@ -19,26 +32,9 @@ export const Charts = (props) => {
         : null;
     });
 
-  const arrOfData = props.chartData && props.chartData.map((coin) => coin.y);
-
-  const barChartData = {
-    labels: chartDataTimes('day'),
-
-    datasets: [
-      {
-        data: arrOfData,
-        fill: false,
-        backgroundColor: theme.barChart,
-        borderColor: theme.barChart,
-        borderRadius: '2',
-        maxBarThickness: 20
-      }
-    ]
-  };
-
-  const pluginsConfig = [
+  const pluginsConfig: any = [
     {
-      afterLayout: (chart) => {
+      afterLayout: (chart: any) => {
         let ctx = chart.ctx;
         ctx.save();
         let yAxis = chart.scales.y;
@@ -54,7 +50,23 @@ export const Charts = (props) => {
     }
   ];
 
-  const lineChartData = () => {
+  const arrOfData = props.chartData && props.chartData.map((coin) => coin.y);
+
+  const barChartData: any = {
+    labels: chartDataTimes('day'),
+    datasets: [
+      {
+        data: arrOfData,
+        fill: false,
+        backgroundColor: theme.barChart,
+        borderColor: theme.barChart,
+        borderRadius: '2',
+        maxBarThickness: 20
+      }
+    ]
+  };
+
+  const lineChartData: any = () => {
     return {
       labels: chartDataTimes('hour'),
       datasets: [
@@ -71,12 +83,13 @@ export const Charts = (props) => {
       ]
     };
   };
-  const smallLineChartData = {
-    labels: new Array(props.smallChartData?.length).fill(''),
+
+  const smallLineChartData: any = {
+    labels: new Array(props.chartData?.length).fill(''),
     datasets: [
       {
         label: '',
-        data: props.smallChartData,
+        data: props.chartData,
         fill: false,
         borderColor: props.weeklyChanges > 0 ? '#00FF5F' : '#FE1040',
         tension: 0.5,
@@ -87,7 +100,7 @@ export const Charts = (props) => {
   };
 
   const renderChart = () => {
-    if (props.lineChart)
+    if (props.type === 'lineChart')
       return (
         <Line
           data={lineChartData}
@@ -95,31 +108,24 @@ export const Charts = (props) => {
           plugins={pluginsConfig}
         />
       );
-    if (props.barChart)
+    if (props.type === 'barChart')
       return <Bar data={barChartData} options={chartOptions} />;
-    if (props.smallLineChart)
+    if (props.type === 'smallLineChart')
       return <Line data={smallLineChartData} options={smallChartOption} />;
-    return 'Missing Information';
+    return null;
   };
 
-  if (!props) return;
+  if (!props) return null;
   return (
     <ChartsWrapper>
-      {!props.smallLineChart && (
+      {props.type !== 'smallLineChart' && (
         <ChartsLegend
           latestData={props.latestData}
           currency={props.currency}
-          lineChart={props.lineChart}
-          show={props.show}
+          lineChart={props.type === 'lineChart'}
         />
       )}
       {renderChart()}
     </ChartsWrapper>
   );
-};
-
-Charts.defaultProps = {
-  barChart: false,
-  lineChart: false,
-  smallLineChart: false
 };

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import { CoinsTableRow } from 'components';
 import {
@@ -18,18 +18,18 @@ import {
 } from 'store/reducers/coinsList/coinsListSlice';
 
 export const CoinsTable = () => {
-  const currency = useSelector((state) => state.currency);
-  const observer = useRef(null);
-  const { listOfCoins, loading, pageNumber, hasMore } = useSelector(
+  const currency = useAppSelector((state) => state.currency);
+  const { listOfCoins, loading, pageNumber, hasMore } = useAppSelector(
     (state) => state.coinsList
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const observer = React.useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(getListOfCoins({ currency, pageNumber }));
   }, [currency, pageNumber]);
 
-  const lastListElementRef = useCallback(
+  const lastListElementRef = React.useCallback(
     (node) => {
       if (loading) return;
       if (observer.current) {

@@ -49,6 +49,9 @@
     "styled-components": "^5"
   },
   "devDependencies": {
+    "@types/chart.js": "^2.9.35",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/numeral": "^2.0.2",
     "@types/styled-components": "^5.1.21"
   }
 }

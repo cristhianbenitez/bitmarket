@@ -1,18 +1,33 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
 
-const initialState = {
+interface ListOfCoinsState {
+  listOfCoins: {}[];
+  loading: boolean;
+  pageNumber: number;
+  status: 'idle' | 'succeeded' | 'failed' | 'loading';
+  error?: string;
+  hasMore: boolean;
+}
+
+const initialState: ListOfCoinsState = {
   listOfCoins: [],
   status: 'idle',
   loading: false,
   pageNumber: 1,
-  hasMore: false
+  hasMore: false,
+  error: ''
 };
+
+interface CoinsList {
+  currency: string;
+  pageNumber: number;
+}
 
 export const getListOfCoins = createAsyncThunk(
   'coinsList/getListOfCoins',
-  async ({ currency, pageNumber }) => {
-    const { data } = await coinGecko.get('/coins/markets', {
+  async ({ currency, pageNumber }: CoinsList) => {
+    const { data } = await coinGecko.get<{}[]>('/coins/markets', {
       params: {
         vs_currency: currency,
         days: '1',
@@ -32,7 +47,7 @@ const coinsListSlice = createSlice({
   name: 'coinsList',
   initialState,
   reducers: {
-    incrementPage: (state, payload) => {
+    incrementPage: (state) => {
       state.pageNumber += 1;
     }
   },

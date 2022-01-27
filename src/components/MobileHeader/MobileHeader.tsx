@@ -1,11 +1,11 @@
 import React from 'react';
-import { Header, Title } from './MobileHeader.styles';
 import { useLocation } from 'react-router-dom';
+import { Header, Title } from './MobileHeader.styles';
 
 export const MobileHeader = () => {
   const { pathname } = useLocation();
 
-  const pageName = (location) => {
+  const pageName = (location: string) => {
     let name;
     if (location === '/') name = 'Coins';
     if (location === '/portfolio') name = location.slice(1);

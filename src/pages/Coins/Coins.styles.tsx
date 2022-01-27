@@ -56,8 +56,8 @@ export const ChartWrapper = styled.div`
   align-items: center;
   flex-direction: column;
 
-  ${({ isVisible }) =>
-    isVisible
+  ${(props: { isVisible: boolean }) =>
+    props.isVisible
       ? `#bar-chart { display: none; }`
       : `#line-chart { display: none; }`}
   @media (min-width: 650px) {

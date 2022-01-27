@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
-
 interface GeneralState {
-  supportedCurrencies: [];
+  supportedCurrencies: string[];
   globalData: {};
-  status: string;
+  status: 'idle' | 'succeeded' | 'failed' | 'loading';
+  error?: string;
   loading: boolean;
 }
 
@@ -12,7 +12,8 @@ const initialState: GeneralState = {
   supportedCurrencies: [],
   globalData: {},
   status: 'idle',
-  loading: false
+  loading: false,
+  error: ''
 };
 
 export const getSupportedCurrencies = createAsyncThunk(
