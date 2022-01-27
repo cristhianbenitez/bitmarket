@@ -87,7 +87,7 @@ export const CoinsIcon = styled(Coins)`
   }
 `;
 
-export const SummaryButton = styled.div`
+export const SummaryButton = styled.div<{ currentPage: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: center;

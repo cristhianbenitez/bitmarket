@@ -12,13 +12,15 @@ import {
   PortfolioIcon,
   CoinsIcon,
   Separator
-} from './Navbar.styles.js';
+} from './Navbar.styles';
 import { useLocation } from 'react-router-dom';
 import { changeTheme } from 'store/reducers/theme/themeSlicer';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
-  const toggleTheme = () => dispatch(changeTheme());
+  const toggleTheme = () => {
+    // dispatch(changeTheme());
+  };
   const { pathname } = useLocation();
   return (
     <Wrapper>

@@ -94,7 +94,7 @@ export const PercentageBar = styled.div`
   margin-left: 0.5em;
 `;
 
-export const PercentageFiller = styled.div`
+export const PercentageFiller = styled.div<{ percentage: string | number }>`
   background: ${({ theme }) => theme.general};
   z-index: 2;
   border-radius: 12px;

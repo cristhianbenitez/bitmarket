@@ -1,9 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
 
-const initialState = {
+interface GeneralState {
+  supportedCurrencies: [];
+  globalData: {};
+  status: string;
+  loading: boolean;
+}
+
+const initialState: GeneralState = {
   supportedCurrencies: [],
-  globalData: [],
+  globalData: {},
   status: 'idle',
   loading: false
 };
@@ -37,7 +44,6 @@ export const generalDataSlice = createSlice({
       })
       .addCase(getSupportedCurrencies.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
       });
   }
 });

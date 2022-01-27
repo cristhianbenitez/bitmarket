@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import { calculatePercentage, formattedNumber } from 'utils';
 import {
@@ -19,10 +19,10 @@ import { Loading } from 'assets';
 import { getSupportedCurrencies } from 'store/reducers/generalData/generalDataSlice';
 
 export const SubNavbar = () => {
-  const { status, globalData, loading } = useSelector(
+  const { status, globalData, loading } = useAppSelector(
     (state) => state.generalData
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (status === 'idle') dispatch(getSupportedCurrencies());
@@ -36,10 +36,13 @@ export const SubNavbar = () => {
     market_cap_percentage,
     active_cryptocurrencies,
     markets
-  } = globalData;
+  } = Object.assign(globalData);
 
-  const totalMarketCap = formattedNumber(total_market_cap?.usd, '($0.00a)');
-  const totalVolume = formattedNumber(total_volume?.usd, '($0.00a)');
+  const totalMarketCap: string = formattedNumber(
+    total_market_cap?.usd,
+    '($0.00a)'
+  );
+  const totalVolume: string = formattedNumber(total_volume?.usd, '($0.00a)');
   const ethereumMarketCapPercentage = Math.floor(market_cap_percentage?.eth);
   const bitcoinMarketCapPercentage = Math.floor(market_cap_percentage?.btc);
 
