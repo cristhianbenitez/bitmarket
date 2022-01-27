@@ -8,16 +8,6 @@ interface GeneralState {
   loading: boolean;
 }
 
-<<<<<<< HEAD:src/store/reducers/generalData/generalDataSlice.ts
-=======
-interface GeneralState {
-  supportedCurrencies: [];
-  globalData: {};
-  status: string;
-  loading: boolean;
-}
-
->>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423:src/store/reducers/generalData/generalDataSlice.js
 const initialState: GeneralState = {
   supportedCurrencies: [],
   globalData: {},

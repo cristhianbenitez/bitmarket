@@ -1,10 +1,4 @@
-<<<<<<< HEAD:src/components/Theme/Theme.ts
 export const dark = {
-=======
-import { DefaultTheme } from 'styled-components';
-
-export const darkTheme: DefaultTheme = {
->>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423:src/components/Theme/Themes.ts
   general: '#FFFFFF',
   background: '#1F2128',
   foreground: '#191B1F',

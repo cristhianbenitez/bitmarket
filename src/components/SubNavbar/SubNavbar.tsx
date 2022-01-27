@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/components/SubNavbar/SubNavbar.tsx
 import React from 'react';
-=======
-import React, { useEffect } from 'react';
->>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423:src/components/SubNavbar/SubNavbar.js
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import { Loading } from 'assets';

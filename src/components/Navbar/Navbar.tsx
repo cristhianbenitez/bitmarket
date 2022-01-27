@@ -15,21 +15,11 @@ import {
   CoinsIcon,
   Separator
 } from './Navbar.styles';
-<<<<<<< HEAD:src/components/Navbar/Navbar.tsx
 
 export const Navbar = () => {
   const dispatch = useAppDispatch();
   const toggleTheme = () => {
     dispatch(changeTheme(null));
-=======
-import { useLocation } from 'react-router-dom';
-import { changeTheme } from 'store/reducers/theme/themeSlicer';
-
-export const Navbar = () => {
-  const dispatch = useDispatch();
-  const toggleTheme = () => {
-    // dispatch(changeTheme());
->>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423:src/components/Navbar/Navbar.js
   };
   const { pathname } = useLocation();
   return (
