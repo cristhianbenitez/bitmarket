@@ -49,12 +49,9 @@
     "styled-components": "^5"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@types/chart.js": "^2.9.35",
     "@types/lodash.debounce": "^4.0.6",
     "@types/numeral": "^2.0.2",
-=======
->>>>>>> ce4bb9b221d51f993cf8455ce660d335b07a1423
     "@types/styled-components": "^5.1.21"
   }
 }
