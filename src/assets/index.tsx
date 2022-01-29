@@ -2,7 +2,16 @@ import styled from 'styled-components';
 import { ReactComponent as Arrow } from 'assets/Icons/Arrow.svg';
 import ReactLoading from 'react-loading';
 
-export const PriceArrow = styled(({ price, ...restProps }) => (
+interface PriceArrowProps {
+  price: number | string;
+}
+
+interface DropdownArrowProps {
+  isOpen: boolean;
+  theme: any;
+}
+
+export const PriceArrow = styled(({ price, ...restProps }: PriceArrowProps) => (
   <Arrow {...restProps} />
 ))`
   width: 11px;
@@ -12,9 +21,11 @@ export const PriceArrow = styled(({ price, ...restProps }) => (
   }
 `;
 
-export const DropdownArrow = styled(({ isOpen, theme, ...restProps }) => (
-  <Arrow {...restProps} />
-))`
+export const DropdownArrow = styled(
+  ({ isOpen, theme, ...restProps }: DropdownArrowProps) => (
+    <Arrow {...restProps} />
+  )
+)`
   width: 10px;
 
   transform: ${({ isOpen }) => isOpen && 'rotate(180deg)'};

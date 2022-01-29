@@ -10,7 +10,21 @@ import {
   CoinInfoValue
 } from './ChartsLegend.styles';
 
-export const ChartsLegend = (props) => {
+interface ChartsLegendProps {
+  latestData: {
+    latestCoinPrice: {
+      y: number;
+    };
+    latestVolume24h: {
+      y: number;
+    };
+  };
+  lineChart: boolean;
+  currency: string;
+  changeVisibility?: () => void;
+}
+
+export const ChartsLegend = (props: ChartsLegendProps) => {
   const latestCoinPrice = formattedNumber(
     props.latestData.latestCoinPrice?.y,
     `(10,000.00)`
@@ -34,8 +48,8 @@ export const ChartsLegend = (props) => {
         <CoinInfoDate>{todayDate} </CoinInfoDate>
       </CoinInfo>
       <ArrowsContainer>
-        <Arrow left onClick={props.show} />
-        <Arrow onClick={props.show} />
+        <Arrow left onClick={props.changeVisibility} />
+        <Arrow onClick={props.changeVisibility} />
       </ArrowsContainer>
     </Legend>
   );

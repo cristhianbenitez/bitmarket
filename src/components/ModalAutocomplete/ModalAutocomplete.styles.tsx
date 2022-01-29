@@ -50,7 +50,7 @@ export const ArrowIcon = styled(Arrow)`
   }
 `;
 
-export const AutoCompleteIcon = styled.span`
+export const AutoCompleteIcon = styled.span<{ isOpen: boolean }>`
   transform: ${(props) => (props.isOpen ? 'rotateX(180deg)' : 'none')};
   transform-origin: center;
   display: flex;

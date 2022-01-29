@@ -10,14 +10,16 @@ import {
 } from './IntervalDropdown.styles';
 import { DropdownArrow } from 'assets';
 
-export const IntervalDropdown = (props) => {
+export const IntervalDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selection, setSelection] = useState('');
-  const [text, setText] = useState('7 Days');
+  const [selection, setSelection] = useState<string | null>(null);
+  const [text, setText] = useState<string | null>('7 Days');
 
   const toggle = () => setIsOpen(!isOpen);
 
-  const handleOnClick = ({ currentTarget: { textContent } }) => {
+  const handleOnClick = ({
+    currentTarget: { textContent }
+  }: React.MouseEvent<HTMLLIElement>) => {
     setText(textContent);
     setSelection(textContent);
     toggle();

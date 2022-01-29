@@ -11,10 +11,22 @@ import {
   TextContainer
 } from './CoinPricesData.styles';
 
-export const CoinPricesData = (props) => {
-  const athDate = new Date(props.athDate).toGMTString();
+interface CoinPricesDataProps {
+  athDate: string;
+  athPrice: number;
+  athPriceChange: number;
+  atlDate: string;
+  atlPrice: number;
+  atlPriceChange: number;
+  currencySymbol?: string;
+  currentPrice: number;
+  priceChange: number;
+}
 
-  const atlDate = new Date(props.atlDate).toGMTString();
+export const CoinPricesData = (props: CoinPricesDataProps) => {
+  const athDate = new Date(props.athDate).toUTCString();
+
+  const atlDate = new Date(props.atlDate).toUTCString();
 
   const priceChangePercentage = (props.priceChange / props.currentPrice) * 100;
 

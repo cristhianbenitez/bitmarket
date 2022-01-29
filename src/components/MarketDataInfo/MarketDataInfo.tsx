@@ -7,7 +7,17 @@ import {
   PlusIcon
 } from './MarketDataInfo.styles';
 
-export const MarketDataInfo = (props) => {
+interface MarketDataProps {
+  circulatingSupply: number;
+  currencySymbol?: string;
+  fullyDilutedVal: string;
+  marketCap: number;
+  maxSupply: number;
+  symbol: string;
+  totalVolume: number;
+}
+
+export const MarketDataInfo = (props: MarketDataProps) => {
   const coinSymbol = props.symbol.toUpperCase();
   return (
     <MarketDataList>

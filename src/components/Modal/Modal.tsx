@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef, useReducer } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { selectCurrency } from 'store/reducers/currency/currencySlice';
+import { useAppSelector } from 'store/hooks';
 
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ISOCurrentDate } from 'utils';
@@ -22,15 +23,30 @@ import {
   BodyContent
 } from './Modal.styles';
 import coinGecko from 'api/coinGecko';
-import { selectCurrency } from 'store/reducers/currency/currencySlice';
 
-export const Modal = (props) => {
-  const currency = useSelector(selectCurrency);
-  const [supportedCoins, setSupportedCoins] = useState([]);
-  const [coinID, setCoinID] = useState('');
-  const [purchasedAmount, setPurchasedAmount] = useState(0);
-  const [date, setDate] = useState(ISOCurrentDate());
-  const ref = useRef();
+interface SupportedCoins {
+  name: string;
+  id: string;
+  image: string;
+  symbol: string;
+}
+
+interface Props {
+  isOpen: boolean;
+  toggleModal: () => void;
+  addAsset: (p: any) => void;
+  setIsOpen: (p: boolean) => void;
+}
+
+export const Modal = ({ isOpen, toggleModal, addAsset, setIsOpen }: Props) => {
+  const currency = useAppSelector(selectCurrency);
+  const [supportedCoins, setSupportedCoins] = React.useState<[]>([]);
+  const [coinID, setCoinID] = React.useState('');
+  const [purchasedAmount, setPurchasedAmount] = React.useState<string | number>(
+    0
+  );
+  const [date, setDate] = React.useState(ISOCurrentDate());
+  const ref = React.useRef<HTMLDivElement>(null);
 
   const getSupportedCoins = async () => {
     const { data } = await coinGecko.get(`/coins/markets`, {
@@ -39,12 +55,14 @@ export const Modal = (props) => {
         per_page: '250'
       }
     });
-    const coins = data.map(({ name, id, image, symbol }) => ({
-      name,
-      id,
-      image,
-      symbol
-    }));
+    const coins: [] = data.map(
+      ({ name, id, image, symbol }: SupportedCoins) => ({
+        name,
+        id,
+        image,
+        symbol
+      })
+    );
     setSupportedCoins(coins);
   };
 
@@ -52,30 +70,32 @@ export const Modal = (props) => {
     setCoinID('');
     setPurchasedAmount(0);
     setDate(ISOCurrentDate());
-    props.setIsOpen(false);
+    setIsOpen(false);
   };
 
-  const handleClickOutside = (event) => {
-    if (props.isOpen && ref.current === event.target) {
-      props.setIsOpen(false);
+  const handleClickOutside = (event: any) => {
+    if (isOpen && ref.current === event.target) {
+      setIsOpen(false);
       clearState();
     }
   };
 
-  const handleDropdownChange = (value) => setCoinID(value);
-  const handleAmountChange = ({ value }) => setPurchasedAmount(value);
-  const handleDateChange = ({ target: { value } }) => setDate(value);
+  const handleDropdownChange = (value: string) => setCoinID(value);
+  const handleAmountChange = ({ value }: { value: number | string }) =>
+    setPurchasedAmount(value);
+  const handleDateChange = ({ target }: { target: { value: string } }) =>
+    setDate(target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     if (coinID && purchasedAmount && date) {
-      props.addAsset({ coinID, purchasedAmount, date });
-      props.setIsOpen(false);
+      addAsset({ coinID, purchasedAmount, date });
+      setIsOpen(false);
       clearState();
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     getSupportedCoins();
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -84,7 +104,7 @@ export const Modal = (props) => {
   }, []);
 
   const resultOfSelection = supportedCoins.filter(({ id }) => id === coinID);
-  const coinInformation = resultOfSelection[0];
+  const coinInformation: any = resultOfSelection[0];
   const minimizedImage = coinInformation?.image.replace('large', 'small');
 
   return (

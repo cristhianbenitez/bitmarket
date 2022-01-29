@@ -24,7 +24,7 @@ export const CoinsTable = () => {
   );
   const dispatch = useAppDispatch();
   const observer = React.useRef<IntersectionObserver | null>(null);
-
+  `1`;
   React.useEffect(() => {
     dispatch(getListOfCoins({ currency, pageNumber }));
   }, [currency, pageNumber]);

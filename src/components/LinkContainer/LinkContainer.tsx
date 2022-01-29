@@ -6,8 +6,16 @@ import {
   TabsIcon
 } from './LinkContainer.styles';
 
-export const LinkContainer = ({ urlLink, extraIcon = false }) => {
-  const cleanUrlString = (url) => {
+interface LinkContainerProps {
+  urlLink: string;
+  extraIcon: boolean;
+}
+
+export const LinkContainer = ({
+  urlLink,
+  extraIcon = false
+}: LinkContainerProps) => {
+  const cleanUrlString = (url: string) => {
     const checkLastString =
       url && url[url.length - 1] === '/' ? url.slice(0, -1) : url;
     return `www.${checkLastString.replace(/^https?\:\/\//i, '')}`;

@@ -5,7 +5,11 @@ import {
   ReadMore
 } from './DescriptionInfo.styles';
 
-export const DescriptionInfo = (props) => {
+interface DescriptionInfoProps {
+  text: string;
+}
+
+export const DescriptionInfo = (props: DescriptionInfoProps) => {
   const [showText, setShowText] = useState(true);
 
   let text = `${props.text.slice(0, 251)}...`;

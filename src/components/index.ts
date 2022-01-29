@@ -16,6 +16,6 @@ export { SearchInput } from './SearchInput/SearchInput';
 export { SearchResults } from './SearchResults/SearchResults';
 export { SubNavbar } from './SubNavbar/SubNavbar';
 export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';
-export { Modal } from './Modal/Modal.js';
+export { Modal } from './Modal/Modal';
 export { ModalAutocomplete } from './ModalAutocomplete/ModalAutocomplete';
 export { AssetsListRow } from './AssetsListRow/AssetsListRow';

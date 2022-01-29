@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import {
+  getAssetData,
+  handleRemove
+} from 'store/reducers/assetsList/assetsListSlice';
 
 import { Modal, AssetsListRow } from 'components';
 import {
@@ -9,21 +13,21 @@ import {
   Button,
   AssetsList
 } from './Portfolio.styles';
-import {
-  getAssetData,
-  handleRemove
-} from 'store/reducers/assetsList/assetsListSlice';
 
 export const Portfolio = () => {
-  const { assets, loading } = useSelector((state) => state.assetsList);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
+  const { assets, loading } = useAppSelector((state) => state.assetsList);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const addAsset = (asset) => dispatch(getAssetData(asset));
+  const addAsset = (asset: {
+    coinID: string;
+    purchasedAmount: number;
+    date: string;
+  }) => dispatch(getAssetData(asset));
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
 
-  const removeAsset = (coinID) => dispatch(handleRemove(coinID));
+  const removeAsset = (coinID: string) => dispatch(handleRemove(coinID));
 
   return (
     <Container>
@@ -42,7 +46,7 @@ export const Portfolio = () => {
       <AssetsList>
         {!loading &&
           assets.length > 0 &&
-          assets.map((asset) => {
+          assets.map((asset: any) => {
             return (
               <AssetsListRow
                 key={asset.uniqueId}

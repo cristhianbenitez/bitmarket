@@ -9,7 +9,13 @@ import {
   ValueInput
 } from './CurrencyConverter.styles';
 
-export const CurrencyConverter = (props) => {
+interface CurrencyConverterProps {
+  coinPrice: number;
+  coinSymbol: string;
+  currency: string;
+}
+
+export const CurrencyConverter = (props: CurrencyConverterProps) => {
   const [firstValue, setFirstValue] = useState(1);
   const [secondValue, setSecondValue] = useState(1);
   const [currencies, setCurrencies] = useState([
@@ -17,11 +23,11 @@ export const CurrencyConverter = (props) => {
     props.coinSymbol
   ]);
 
-  const handleFirstValueOnChange = (val) => {
+  const handleFirstValueOnChange = (val: number) => {
     setFirstValue(val);
   };
 
-  const handleSecondValueOnChange = (val) => {
+  const handleSecondValueOnChange = (val: number) => {
     setSecondValue(val);
   };
 
@@ -33,7 +39,7 @@ export const CurrencyConverter = (props) => {
   const convertedValue =
     currencies[0] !== props.coinSymbol
       ? (firstValue / props.coinPrice).toFixed(6)
-      : firstValue * props.coinPrice.toFixed(2);
+      : firstValue * Number(props.coinPrice.toFixed(2));
 
   return (
     <Container>
@@ -43,7 +49,7 @@ export const CurrencyConverter = (props) => {
           value={firstValue}
           thousandSeparator={true}
           prefix={getSymbolFromCurrency(currencies[0])}
-          onValueChange={({ value }) => handleFirstValueOnChange(value)}
+          onValueChange={({ value }) => handleFirstValueOnChange(Number(value))}
         />
       </CurrencyWrapper>
       <>
@@ -55,7 +61,9 @@ export const CurrencyConverter = (props) => {
           value={convertedValue}
           thousandSeparator={true}
           prefix={getSymbolFromCurrency(currencies[1])}
-          onValueChange={({ value }) => handleSecondValueOnChange(value)}
+          onValueChange={({ value }) =>
+            handleSecondValueOnChange(Number(value))
+          }
         />
       </CurrencyWrapper>
     </Container>

@@ -12,9 +12,10 @@ interface ChartsProps {
     x: number;
     y: number;
   }[];
-  latestData?: {};
-  currency?: string;
+  latestData?: any;
+  currency?: any;
   weeklyChanges?: any;
+  changeVisibility?: any;
 }
 
 export const Charts = (props: ChartsProps) => {
@@ -120,6 +121,7 @@ export const Charts = (props: ChartsProps) => {
     <ChartsWrapper>
       {props.type !== 'smallLineChart' && (
         <ChartsLegend
+          changeVisibility={props.changeVisibility}
           latestData={props.latestData}
           currency={props.currency}
           lineChart={props.type === 'lineChart'}

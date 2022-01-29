@@ -1,6 +1,20 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
+import getSymbolFromCurrency from 'currency-symbol-map';
+import { Loading, CenterDiv } from 'assets';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { getSummaryData } from 'store/reducers/summary/summaryDataSlice';
 import coinGecko from 'api/coinGecko';
+import {
+  CoinPricesData,
+  CoinInfo,
+  DescriptionInfo,
+  IntervalDropdown,
+  MarketDataInfo,
+  LinkContainer,
+  CurrencyConverter
+} from 'components';
+
 import {
   Container,
   CoinLinksContainer,
@@ -12,58 +26,27 @@ import {
   RightContent,
   Subtitle,
   Background
-} from './Summary.styles.js';
-import {
-  CoinPricesData,
-  CoinInfo,
-  DescriptionInfo,
-  IntervalDropdown,
-  MarketDataInfo,
-  LinkContainer,
-  CurrencyConverter
-} from 'components';
-import getSymbolFromCurrency from 'currency-symbol-map';
-import { Loading, CenterDiv } from 'assets';
-import { useParams } from 'react-router-dom';
+} from './Summary.styles';
 
 export const Summary = () => {
-  const [loading, setLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const [coinInfo, setCoinInfo] = useState({});
-  const { value } = useCurrency();
-  let { id } = useParams();
+  const value = useAppSelector((state) => state.currency);
+  let { id } = useParams<string>();
+  const { loading, summaryData, error } = useAppSelector(
+    (state) => state.summaryData
+  );
+  const dispatch = useAppDispatch();
 
-  const getSummary = async () => {
-    setLoading(true);
-    try {
-      const { data } = await coinGecko.get(`/coins/${id}`, {
-        params: {
-          market_data: 'true',
-          localization: 'false',
-          tickers: 'false',
-          interval: 'daily',
-          community_data: 'false',
-          developer_data: 'false',
-          sparkline: 'false'
-        }
-      });
-      setCoinInfo(data);
-      setLoading(false);
-    } catch (error) {
-      setHasError(true);
-    }
-  };
-
-  useEffect(() => {
-    getSummary();
+  React.useEffect(() => {
+    if (id) dispatch(getSummaryData(id));
   }, [id]);
 
-  const { name, market_data, image, links, symbol, description } = coinInfo;
+  const { name, market_data, image, links, symbol, description }: any =
+    summaryData;
 
   const currency = value;
   const currencySymbol = getSymbolFromCurrency(value);
 
-  if (hasError) return <CenterDiv>This Page does not exist</CenterDiv>;
+  if (error) return <CenterDiv>This Page does not exist</CenterDiv>;
 
   if (loading)
     return (

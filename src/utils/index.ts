@@ -19,7 +19,7 @@ export const getOrdinalNum = (n: any) => {
   );
 };
 
-export const formattedNumber = (num: number | string, format: string) => {
+export const formattedNumber = (num: number | string, format?: string) => {
   return numeral(num).format(format).toUpperCase();
 };
 

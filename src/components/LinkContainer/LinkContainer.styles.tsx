@@ -3,7 +3,7 @@ import { ReactComponent as LinkChain } from 'assets/Icons/LinkChain.svg';
 import { ReactComponent as LinkTabs } from 'assets/Icons/LinkTabs.svg';
 import { devices } from 'utils';
 
-export const CoinLinkContainer = styled.div`
+export const CoinLinkContainer = styled.div<{ extraIcon: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -38,9 +38,11 @@ export const IconContainer = styled.div`
   padding: 0 2em;
 `;
 
-export const ChainIcon = styled(({ extraIcon, ...restProps }) => (
-  <LinkChain {...restProps} />
-))`
+export const ChainIcon = styled(
+  ({ extraIcon, ...restProps }: { extraIcon: boolean }) => (
+    <LinkChain {...restProps} />
+  )
+)`
   margin: ${({ extraIcon }) => (extraIcon ? '0' : '0 1em')};
 
   #link-icon {

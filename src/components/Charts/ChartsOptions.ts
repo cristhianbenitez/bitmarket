@@ -15,11 +15,11 @@ const tooltip = {
   displayColors: false,
   displayTitle: false,
   callbacks: {
-    title: (props: TitleProps) => {
-      const day = props.label;
-      const lineChartLabel = props.dataset.label;
-      if (lineChartLabel === 'Price')
-        return `${lineChartLabel} at ${props.label}:00`;
+    title: (props: any) => {
+      const { label, dataset }: TitleProps = props[0];
+      const day = label;
+      const lineChartLabel = dataset.label;
+      if (lineChartLabel === 'Price') return `${lineChartLabel} at ${label}:00`;
 
       return `24h Volume on the ${getOrdinalNum(day)}`;
     },

@@ -2,7 +2,20 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
 
-const initialState = {
+interface AssetProps {
+  coinID: string;
+  purchasedAmount: number;
+  date: string;
+}
+
+interface AssetState {
+  assets: any;
+  marketData: object;
+  status: 'idle' | 'succeeded' | 'failed' | 'loading';
+  error?: string;
+  loading: boolean;
+}
+const initialState: AssetState = {
   assets: [],
   marketData: {},
   status: 'idle',
@@ -11,7 +24,7 @@ const initialState = {
 
 export const getAssetData = createAsyncThunk(
   'assets/assetData',
-  async (asset) => {
+  async (asset: AssetProps) => {
     const { coinID, purchasedAmount, date } = asset;
     const purchasedDate = date.split('-').reverse().join('-');
     const { data } = await coinGecko.get(`/coins/${coinID}/history`, {
@@ -36,16 +49,11 @@ export const getAssetData = createAsyncThunk(
 
 const assetsListSlice = createSlice({
   name: 'assets',
-  initialState: {
-    assets: [],
-    marketData: {},
-    status: 'idle',
-    loading: false
-  },
+  initialState,
   reducers: {
     handleRemove: (state, { payload }) => {
       const filteredAssets = Object.assign(state.assets).filter(
-        (asset) => asset.uniqueId !== payload
+        (asset: any) => asset.uniqueId !== payload
       );
       state.assets = filteredAssets;
     }

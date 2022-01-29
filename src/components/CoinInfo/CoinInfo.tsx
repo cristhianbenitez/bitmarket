@@ -9,7 +9,14 @@ import {
   TopContent
 } from './CoinInfo.styles';
 
-export const CoinInfo = (props) => {
+interface CoinInfoProps {
+  coinImg: string;
+  coinName: string;
+  coinSymbol: string;
+  coinLink: string;
+}
+
+export const CoinInfo = (props: CoinInfoProps) => {
   return (
     <CoinInfoContainer>
       <TopContent>
@@ -21,7 +28,7 @@ export const CoinInfo = (props) => {
         </CoinNameText>
       </TopContent>
       <BottomContent>
-        <LinkContainer urlLink={props.coinLink} />
+        <LinkContainer urlLink={props.coinLink} extraIcon={false} />
       </BottomContent>
     </CoinInfoContainer>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import coinGecko from 'api/coinGecko';
 
@@ -25,14 +25,29 @@ import {
 import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { selectCurrency } from 'store/reducers/currency/currencySlice';
-import { CenterDiv, Loading } from 'assets';
+import { Loading } from 'assets';
 
-export const AssetsListRow = (props) => {
+interface Assets {
+  id: string;
+  name: string;
+  symbol: string;
+  image: string;
+  purchasedAmount: number;
+  purchasedDate: string;
+  uniqueId: string;
+}
+
+interface Props {
+  asset: Assets;
+  removeAsset: (p: string) => void;
+}
+
+export const AssetsListRow = ({ asset, removeAsset }: Props) => {
   const currency = useSelector(selectCurrency);
-  const [loading, setLoading] = useState(true);
-  const [marketData, setMarketData] = useState({});
+  const [loading, setLoading] = React.useState(true);
+  const [marketData, setMarketData] = React.useState<any>([]);
 
-  const getMarketData = async (id) => {
+  const getMarketData = async (id: string) => {
     try {
       setLoading(true);
       const { data } = await coinGecko.get(`/coins/${id}`, {
@@ -52,13 +67,13 @@ export const AssetsListRow = (props) => {
       setLoading(true);
     }
   };
-  useEffect(() => {
-    getMarketData(props.asset.id);
-  }, [props.asset.id]);
+
+  React.useEffect(() => {
+    getMarketData(asset.id);
+  }, [asset.id]);
 
   const { name, symbol, image, purchasedAmount, purchasedDate, uniqueId } =
-    props.asset;
-  const { removeAsset } = props;
+    asset;
 
   const currencySymbol = getSymbolFromCurrency(currency);
   const purchaseDateLocale = new Date(purchasedDate).toLocaleDateString();
@@ -75,7 +90,7 @@ export const AssetsListRow = (props) => {
 
   const priceChangeIn24h = marketData.price_change_24h_in_currency?.[currency];
 
-  const currentPrice = marketData.current_price?.[currency];
+  const currentPrice: number = marketData.current_price?.[currency];
 
   if (loading) return <Loading type="spin" />;
   return (

@@ -6,6 +6,7 @@ import generalDataSlice from './generalData/generalDataSlice';
 import themeSlicer from './theme/themeSlicer';
 import assetsListSlice from './assetsList/assetsListSlice';
 import searchSlice from './search/searchSlice';
+import summaryDataSlice from './summary/summaryDataSlice';
 
 export const rootReducer = combineReducers({
   currency: currencySlice,
@@ -14,5 +15,6 @@ export const rootReducer = combineReducers({
   chartsData: chartsDataSlice,
   generalData: generalDataSlice,
   assetsList: assetsListSlice,
-  search: searchSlice
+  search: searchSlice,
+  summaryData: summaryDataSlice
 });

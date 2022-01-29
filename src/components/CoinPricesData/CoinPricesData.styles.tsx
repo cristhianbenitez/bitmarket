@@ -34,7 +34,7 @@ export const CoinPrice = styled.p`
   }
 `;
 
-export const CoinPriceChange = styled.p`
+export const CoinPriceChange = styled.p<{ priceChange: number }>`
   ${CenterItem}
   color: ${(props) => (props.priceChange < 0 ? '#FE1040' : '#00FC2A')};
 `;

@@ -10,27 +10,36 @@ import {
   ArrowIcon
 } from './ModalAutocomplete.styles';
 
-export const ModalAutocomplete = (props) => {
+interface Props {
+  data: [];
+  handleChange: (p: string) => void;
+}
+
+export const ModalAutocomplete = ({ data, handleChange }: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [text, setText] = useState('');
 
-  const onTextChange = ({ target: { value } }) => {
+  const onTextChange = ({
+    target: { value }
+  }: React.ChangeEvent<HTMLInputElement>) => {
     setIsVisible(true);
     setText(value);
   };
 
-  const suggestionSelected = ({ name, id }) => {
+  const suggestionSelected = ({ name, id }: { name: string; id: string }) => {
     setIsVisible(false);
     setText(name);
-    props.handleChange(id);
+    handleChange(id);
   };
 
   const toggle = () => setIsVisible(!isVisible);
 
-  let suggestions = [...props.data];
+  let suggestions: any = [...data];
   if (text.length) {
     const regex = new RegExp(`^${text}`, 'i');
-    suggestions = props.data.sort().filter((v) => regex.test(v.name));
+    suggestions = data
+      .sort()
+      .filter((v: { name: string }) => regex.test(v.name));
   }
   return (
     <Root>
@@ -49,7 +58,7 @@ export const ModalAutocomplete = (props) => {
       </InputContainer>
       {suggestions.length > 0 && isVisible && (
         <AutoCompleteContainer>
-          {suggestions?.map((item) => {
+          {suggestions?.map((item: any) => {
             return (
               <AutoCompleteItem key={item.id}>
                 <AutoCompleteItemButton

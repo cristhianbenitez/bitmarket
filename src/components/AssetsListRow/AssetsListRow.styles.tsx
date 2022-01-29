@@ -145,8 +145,10 @@ export const Subtitle = styled.p`
   align-items: center;
 `;
 
-export const GreenText = styled.span`
-  color: ${(props) => (props.price <= 0 ? '#FE1040' : '#00fc2a')};
+export const GreenText = styled.span<{ price?: number }>`
+  color: #00fc2a;
+  color: ${(props) =>
+    props.price && (props.price <= 0 ? '#FE1040' : '#00fc2a')};
   margin-left: 1em;
   display: flex;
   align-items: center;
@@ -167,7 +169,7 @@ export const PercentageBar = styled.div`
   margin: 0 0.5em;
 `;
 
-export const FillPercentage = styled.div`
+export const FillPercentage = styled.div<{ percentage: string | number }>`
   background: #00fc2a;
   border-radius: 12px;
   height: 100%;

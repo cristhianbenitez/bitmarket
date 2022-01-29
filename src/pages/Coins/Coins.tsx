@@ -1,5 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { CenterDiv, Loading } from 'assets';
+import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
 import { Charts, CoinsTable } from 'components';
 import {
@@ -9,8 +11,6 @@ import {
   Container,
   Subtitle
 } from './Coins.styles';
-import { CenterDiv, Loading } from 'assets';
-import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
 export const Coins = () => {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -24,13 +24,13 @@ export const Coins = () => {
     dispatch(getChartsData({ currency }));
   }, [currency]);
 
-  const show = () => {
+  const changeVisibility = () => {
     setIsVisible(!isVisible);
   };
 
   const latestData: {} = {
-    latestCoinPrice: prices30d[prices30d.length - 1],
-    latestVolume24h: volumes24h[volumes24h.length - 1]
+    latestCoinPrice: prices30d[prices30d?.length - 1],
+    latestVolume24h: volumes24h[volumes24h?.length - 1]
   };
 
   if (loading)
@@ -50,6 +50,7 @@ export const Coins = () => {
             latestData={latestData}
             currency={currency}
             type="lineChart"
+            changeVisibility={changeVisibility}
           />
         </ChartContainer>
         <ChartContainer id="bar-chart">
@@ -58,6 +59,7 @@ export const Coins = () => {
             latestData={latestData}
             currency={currency}
             type="barChart"
+            changeVisibility={changeVisibility}
           />
         </ChartContainer>
       </ChartWrapper>
