@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Root,
   AutoCompleteContainer,
@@ -16,8 +16,8 @@ interface Props {
 }
 
 export const ModalAutocomplete = ({ data, handleChange }: Props) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [text, setText] = useState('');
+  const [isVisible, setIsVisible] = React.useState(false);
+  const [text, setText] = React.useState('');
 
   const onTextChange = ({
     target: { value }

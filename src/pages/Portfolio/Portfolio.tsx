@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import {
   getAssetData,
@@ -16,7 +16,7 @@ import {
 
 export const Portfolio = () => {
   const { assets, loading } = useAppSelector((state) => state.assetsList);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const addAsset = (asset: {

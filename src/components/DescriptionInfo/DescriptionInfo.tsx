@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Description,
   DescriptionInfoContainer,
@@ -10,7 +10,7 @@ interface DescriptionInfoProps {
 }
 
 export const DescriptionInfo = (props: DescriptionInfoProps) => {
-  const [showText, setShowText] = useState(true);
+  const [showText, setShowText] = React.useState(true);
 
   let text = `${props.text.slice(0, 251)}...`;
   if (!showText) text = props.text;

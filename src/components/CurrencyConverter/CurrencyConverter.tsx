@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 import {
@@ -16,9 +16,9 @@ interface CurrencyConverterProps {
 }
 
 export const CurrencyConverter = (props: CurrencyConverterProps) => {
-  const [firstValue, setFirstValue] = useState(1);
-  const [secondValue, setSecondValue] = useState(1);
-  const [currencies, setCurrencies] = useState([
+  const [firstValue, setFirstValue] = React.useState(1);
+  const [secondValue, setSecondValue] = React.useState(1);
+  const [currencies, setCurrencies] = React.useState([
     props.currency,
     props.coinSymbol
   ]);

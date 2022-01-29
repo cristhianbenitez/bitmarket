@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
   DropDownHeader,
@@ -11,9 +11,9 @@ import {
 import { DropdownArrow } from 'assets';
 
 export const IntervalDropdown = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selection, setSelection] = useState<string | null>(null);
-  const [text, setText] = useState<string | null>('7 Days');
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [selection, setSelection] = React.useState<string | null>(null);
+  const [text, setText] = React.useState<string | null>('7 Days');
 
   const toggle = () => setIsOpen(!isOpen);
 
