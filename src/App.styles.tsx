@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const Layout = styled.main``;
+
 export const NavbarWrapper = styled.nav`
   padding: 0.8em 0.5em;
   background: #2c2d33;

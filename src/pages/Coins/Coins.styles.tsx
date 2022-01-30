@@ -74,10 +74,11 @@ export const ChartWrapper = styled.div`
 export const CoinListContainer = styled.div`
   margin-top: 1.25em;
   padding: 1.5em 1em;
-  margin-bottom: 6em;
+  margin-bottom: 1em;
   border-radius: 6px;
   background: #171821;
   @media ${devices.tablet} {
     background: ${({ theme }) => theme.foreground};
+    margin-bottom: 4em;
   }
 `;

@@ -19,3 +19,4 @@ export { CurrencyConverter } from './CurrencyConverter/CurrencyConverter';
 export { Modal } from './Modal/Modal';
 export { ModalAutocomplete } from './ModalAutocomplete/ModalAutocomplete';
 export { AssetsListRow } from './AssetsListRow/AssetsListRow';
+export { Footer } from './Footer/Footer';

@@ -5,7 +5,7 @@ import { useAppSelector } from 'store/hooks';
 import { Coins, Portfolio, Summary } from 'pages';
 import { SubNavbar, Navbar, MobileHeader, light, dark } from 'components';
 
-import { GlobalStyle, NavbarWrapper, Wrapper } from './App.styles';
+import { GlobalStyle, NavbarWrapper, Wrapper, Layout } from './App.styles';
 
 export const App = () => {
   const themeMode = useAppSelector((state) => state.theme);
@@ -17,7 +17,7 @@ export const App = () => {
         <NavbarWrapper>
           <Navbar />
         </NavbarWrapper>
-        <>
+        <Layout>
           <MobileHeader />
           <SubNavbar />
           <Routes>
@@ -25,7 +25,7 @@ export const App = () => {
             <Route path="/" element={<Coins />} />
             <Route path="/coin/:id" element={<Summary />} />
           </Routes>
-        </>
+        </Layout>
       </ThemeProvider>
     </Wrapper>
   );
