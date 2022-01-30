@@ -9,7 +9,7 @@ import { GlobalStyle, NavbarWrapper, Wrapper } from './App.styles';
 
 export const App = () => {
   const themeMode = useAppSelector((state) => state.theme);
-  const theme = (themeMode === 'dark' && dark) || light;
+  const theme = themeMode === 'dark' ? dark : light;
   return (
     <Wrapper>
       <ThemeProvider theme={theme}>
