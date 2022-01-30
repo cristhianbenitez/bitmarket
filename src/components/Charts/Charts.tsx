@@ -100,20 +100,24 @@ export const Charts = (props: ChartsProps) => {
     ]
   };
 
-  const renderChart = () => {
-    if (props.type === 'lineChart')
-      return (
-        <Line
-          data={lineChartData}
-          options={chartOptions}
-          plugins={pluginsConfig}
-        />
-      );
-    if (props.type === 'barChart')
-      return <Bar data={barChartData} options={chartOptions} />;
-    if (props.type === 'smallLineChart')
-      return <Line data={smallLineChartData} options={smallChartOption} />;
-    return null;
+  const renderChart = (chartType: string) => {
+    switch (chartType) {
+      case 'lineChart':
+        return (
+          <Line
+            data={lineChartData}
+            options={chartOptions}
+            plugins={pluginsConfig}
+          />
+        );
+      case 'barChart':
+        return <Bar data={barChartData} options={chartOptions} />;
+      case 'smallLineChart':
+        return <Line data={smallLineChartData} options={smallChartOption} />;
+
+      default:
+        return null;
+    }
   };
 
   if (!props) return null;
@@ -127,7 +131,7 @@ export const Charts = (props: ChartsProps) => {
           lineChart={props.type === 'lineChart'}
         />
       )}
-      {renderChart()}
+      {renderChart(props.type)}
     </ChartsWrapper>
   );
 };
