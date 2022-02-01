@@ -22,7 +22,8 @@ export const Input = styled.input`
 export const DropDownContainer = styled.div`
   display: none;
   @media ${devices.tablet} {
-    display: block;
+    display: flex;
+    justify-content: center;
     width: 90px;
     background: ${({ theme }) => theme.background};
     border-radius: 6px;
@@ -45,7 +46,6 @@ export const DropDownList = styled.ul`
   position: absolute;
   background: ${({ theme }) => theme.foreground};
   width: 80px;
-  margin-right: 0.3em;
   max-height: 220px;
   border-radius: 6px;
   border: none;
@@ -54,8 +54,7 @@ export const DropDownList = styled.ul`
   z-index: 999;
   max-width: 100px;
   padding: 0;
-  margin-top: 0.5em;
-  right: 72px;
+  margin-top: 2.7em;
   &::-webkit-scrollbar {
     width: 6px;
   }
@@ -64,12 +63,8 @@ export const DropDownList = styled.ul`
     outline: 1px solid #2c2f36;
     border-radius: 4px;
   }
-
-  @media ${devices.desktop} {
-    top: 60px;
-    right: 147px;
-  }
 `;
+
 export const ListItem = styled.li`
   color: ${({ theme }) => theme.general};
   background: ${({ theme }) => theme.foreground};
