@@ -29,7 +29,7 @@ const tooltip = {
   }
 };
 
-export const chartOptions: any = {
+export const chartOptions = {
   layout: {
     padding: {
       top: 100

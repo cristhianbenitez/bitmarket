@@ -28,7 +28,7 @@ export const Coins = () => {
     setIsVisible(!isVisible);
   };
 
-  const latestData: {} = {
+  const latestData = {
     latestCoinPrice: prices30d[prices30d?.length - 1],
     latestVolume24h: volumes24h[volumes24h?.length - 1]
   };

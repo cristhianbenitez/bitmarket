@@ -1,6 +1,6 @@
 import React from 'react';
 import { selectCurrency } from 'store/reducers/currency/currencySlice';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ISOCurrentDate } from 'utils';
@@ -23,6 +23,7 @@ import {
   BodyContent
 } from './Modal.styles';
 import coinGecko from 'api/coinGecko';
+import { getAssetData } from 'store/reducers/assetsList/assetsListSlice';
 
 interface SupportedCoins {
   name: string;
@@ -33,20 +34,22 @@ interface SupportedCoins {
 
 interface Props {
   isOpen: boolean;
-  toggleModal: () => void;
-  addAsset: (p: any) => void;
   setIsOpen: (p: boolean) => void;
 }
 
-export const Modal = ({ isOpen, toggleModal, addAsset, setIsOpen }: Props) => {
+export const Modal = ({ isOpen, setIsOpen }: Props) => {
   const currency = useAppSelector(selectCurrency);
   const [supportedCoins, setSupportedCoins] = React.useState<[]>([]);
   const [coinID, setCoinID] = React.useState('');
-  const [purchasedAmount, setPurchasedAmount] = React.useState<string | number>(
-    0
-  );
+  const [purchasedAmount, setPurchasedAmount] = React.useState<number>(0);
   const [date, setDate] = React.useState(ISOCurrentDate());
   const ref = React.useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+  const addAsset = (asset: {
+    coinID: string;
+    purchasedAmount: number;
+    date: string;
+  }) => dispatch(getAssetData(asset));
 
   const getSupportedCoins = async () => {
     const { data } = await coinGecko.get(`/coins/markets`, {
@@ -81,8 +84,9 @@ export const Modal = ({ isOpen, toggleModal, addAsset, setIsOpen }: Props) => {
   };
 
   const handleDropdownChange = (value: string) => setCoinID(value);
-  const handleAmountChange = ({ value }: { value: number | string }) =>
-    setPurchasedAmount(value);
+  const handleAmountChange = ({ value }: { value: number | string }) => {
+    setPurchasedAmount(Number(value));
+  };
   const handleDateChange = ({ target }: { target: { value: string } }) =>
     setDate(target.value);
 

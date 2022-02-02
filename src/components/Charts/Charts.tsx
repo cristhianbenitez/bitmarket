@@ -4,36 +4,46 @@ import { ChartsLegend } from 'components';
 import { useTheme } from 'styled-components';
 
 import { ChartsWrapper } from './Charts.styles';
-import { chartOptions, smallChartOption } from './ChartsOptions';
-
+import { chartOptions } from './ChartsOptions';
+interface ILatestData {
+  latestCoinPrice: {
+    x: number;
+    y: number;
+  };
+  latestVolume24h: {
+    x: number;
+    y: number;
+  };
+}
 interface ChartsProps {
-  type: 'lineChart' | 'barChart' | 'smallLineChart';
+  type: 'lineChart' | 'barChart';
   chartData: {
     x: number;
     y: number;
   }[];
-  latestData?: any;
-  currency?: any;
-  weeklyChanges?: any;
-  changeVisibility?: any;
+  latestData?: ILatestData;
+  currency?: string;
+  weeklyChanges?: number;
+  changeVisibility?: () => void;
 }
 
 export const Charts = (props: ChartsProps) => {
   const theme = useTheme();
 
+  const latestPrices = {
+    Volume24h: props.latestData?.latestVolume24h?.y as number,
+    CoinPrice: props.latestData?.latestCoinPrice?.y as number
+  };
+
   const chartDataTimes = (time: string) =>
-    Array.isArray(props.chartData) &&
     props.chartData.map((coin) => {
       const date = new Date(coin.x);
-
-      return time === 'day'
-        ? date.getDate()
-        : time === 'hour'
-        ? addZero(date.getHours())
-        : null;
+      if (time === 'day') return date.getDate();
+      if (time === 'hour') return addZero(date.getHours());
+      return null;
     });
 
-  const pluginsConfig: any = [
+  const pluginsConfig = [
     {
       afterLayout: (chart: any) => {
         let ctx = chart.ctx;
@@ -53,7 +63,7 @@ export const Charts = (props: ChartsProps) => {
 
   const arrOfData = props.chartData && props.chartData.map((coin) => coin.y);
 
-  const barChartData: any = {
+  const barChartData = {
     labels: chartDataTimes('day'),
     datasets: [
       {
@@ -61,38 +71,21 @@ export const Charts = (props: ChartsProps) => {
         fill: false,
         backgroundColor: theme.barChart,
         borderColor: theme.barChart,
-        borderRadius: '2',
+        borderRadius: 2,
         maxBarThickness: 20
       }
     ]
   };
 
-  const lineChartData: any = () => {
-    return {
-      labels: chartDataTimes('hour'),
-      datasets: [
-        {
-          label: 'Price',
-          data: arrOfData,
-          fill: true,
-          borderColor: theme.lineChart,
-          borderRadius: '5',
-          tension: 0.5,
-          pointBackgroundColor: 'transparent',
-          pointBorderColor: 'transparent'
-        }
-      ]
-    };
-  };
-
-  const smallLineChartData: any = {
-    labels: new Array(props.chartData?.length).fill(''),
+  const lineChartData = {
+    labels: chartDataTimes('hour'),
     datasets: [
       {
-        label: '',
-        data: props.chartData,
-        fill: false,
-        borderColor: props.weeklyChanges > 0 ? '#00FF5F' : '#FE1040',
+        label: 'Price',
+        data: arrOfData,
+        fill: true,
+        borderColor: theme.lineChart,
+        borderRadius: '5',
         tension: 0.5,
         pointBackgroundColor: 'transparent',
         pointBorderColor: 'transparent'
@@ -107,30 +100,25 @@ export const Charts = (props: ChartsProps) => {
           <Line
             data={lineChartData}
             options={chartOptions}
+            //@ts-expect-error (charts.js error non-relevant)
             plugins={pluginsConfig}
           />
         );
       case 'barChart':
         return <Bar data={barChartData} options={chartOptions} />;
-      case 'smallLineChart':
-        return <Line data={smallLineChartData} options={smallChartOption} />;
-
       default:
         return null;
     }
   };
 
-  if (!props) return null;
   return (
     <ChartsWrapper>
-      {props.type !== 'smallLineChart' && (
-        <ChartsLegend
-          changeVisibility={props.changeVisibility}
-          latestData={props.latestData}
-          currency={props.currency}
-          lineChart={props.type === 'lineChart'}
-        />
-      )}
+      <ChartsLegend
+        changeVisibility={props.changeVisibility}
+        latestPrices={latestPrices}
+        currency={props.currency!}
+        lineChart={props.type === 'lineChart'}
+      />
       {renderChart(props.type)}
     </ChartsWrapper>
   );

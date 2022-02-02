@@ -9,12 +9,13 @@ interface AssetProps {
 }
 
 interface AssetState {
-  assets: any;
+  assets: {}[];
   marketData: object;
   status: 'idle' | 'succeeded' | 'failed' | 'loading';
   error?: string;
   loading: boolean;
 }
+
 const initialState: AssetState = {
   assets: [],
   marketData: {},

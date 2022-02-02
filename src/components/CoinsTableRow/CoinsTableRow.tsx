@@ -5,7 +5,7 @@ import {
   formattedNumber,
   percentageBarColors
 } from 'utils';
-import { Charts } from 'components';
+import { SmallChart } from 'components';
 import {
   BulletCircle,
   CoinIcon,
@@ -28,9 +28,24 @@ import {
 import getSymbolFromCurrency from 'currency-symbol-map';
 
 interface Props {
-  coinData: any;
+  coinData: CoinData;
   index: number;
   value: string;
+}
+interface CoinData {
+  name: string;
+  id: string;
+  image: string;
+  symbol: string;
+  current_price: number;
+  market_cap: number;
+  total_volume: number;
+  circulating_supply: number;
+  total_supply: number;
+  price_change_percentage_1h_in_currency: number;
+  price_change_percentage_24h_in_currency: number;
+  price_change_percentage_7d_in_currency: number;
+  sparkline_in_7d?: any;
 }
 
 export const CoinsTableRow = ({ coinData, index, value }: Props) => {
@@ -142,12 +157,11 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
       </TableData>
       <TableData>
         <SmallChartContainer>
-          <Charts
+          <SmallChart
             chartData={pricesOfLastSevenDays.price.filter(
               (_: any, i: number) => i % 24 === 0
             )}
             weeklyChanges={weeklyChanges}
-            type="smallLineChart"
           />
         </SmallChartContainer>
       </TableData>

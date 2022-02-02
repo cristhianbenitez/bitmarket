@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
 
 interface ListOfCoinsState {
-  listOfCoins: {}[];
+  listOfCoins: any[];
   loading: boolean;
   pageNumber: number;
   status: 'idle' | 'succeeded' | 'failed' | 'loading';
@@ -27,7 +27,7 @@ interface CoinsList {
 export const getListOfCoins = createAsyncThunk(
   'coinsList/getListOfCoins',
   async ({ currency, pageNumber }: CoinsList) => {
-    const { data } = await coinGecko.get<{}[]>('/coins/markets', {
+    const { data } = await coinGecko.get('/coins/markets', {
       params: {
         vs_currency: currency,
         days: '1',

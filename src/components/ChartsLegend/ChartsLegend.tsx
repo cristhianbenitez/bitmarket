@@ -11,13 +11,9 @@ import {
 } from './ChartsLegend.styles';
 
 interface ChartsLegendProps {
-  latestData: {
-    latestCoinPrice: {
-      y: number;
-    };
-    latestVolume24h: {
-      y: number;
-    };
+  latestPrices: {
+    Volume24h: number;
+    CoinPrice: number;
   };
   lineChart: boolean;
   currency: string;
@@ -26,11 +22,11 @@ interface ChartsLegendProps {
 
 export const ChartsLegend = (props: ChartsLegendProps) => {
   const latestCoinPrice = formattedNumber(
-    props.latestData.latestCoinPrice?.y,
+    props.latestPrices.CoinPrice,
     `(10,000.00)`
   );
   const latestVolume24h = formattedNumber(
-    props.latestData.latestVolume24h?.y,
+    props.latestPrices.Volume24h,
     '(0.000a)'
   );
   const currencySymbol = getSymbolFromCurrency(props.currency);

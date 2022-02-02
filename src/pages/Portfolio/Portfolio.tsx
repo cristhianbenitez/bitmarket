@@ -14,32 +14,29 @@ import {
   AssetsList
 } from './Portfolio.styles';
 
+interface AssetProps {
+  historicPriceData: number;
+  id: string;
+  image: string;
+  name: string;
+  purchasedAmount: string;
+  purchasedDate: string;
+  symbol: string;
+  uniqueId: string;
+}
+[];
+
 export const Portfolio = () => {
   const { assets, loading } = useAppSelector((state) => state.assetsList);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
-  const dispatch = useAppDispatch();
-
-  const addAsset = (asset: {
-    coinID: string;
-    purchasedAmount: number;
-    date: string;
-  }) => dispatch(getAssetData(asset));
-
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const removeAsset = (coinID: string) => dispatch(handleRemove(coinID));
+  const toggleModal = () => setIsModalOpen(true);
 
   return (
     <Container>
       <PageHead>
         <Button onClick={toggleModal}>Add Asset</Button>
         {isModalOpen && (
-          <Modal
-            toggleModal={toggleModal}
-            addAsset={addAsset}
-            isOpen={isModalOpen}
-            setIsOpen={setIsModalOpen}
-          />
+          <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
         )}
       </PageHead>
       <Subtitle>Your statistics</Subtitle>
@@ -47,13 +44,7 @@ export const Portfolio = () => {
         {!loading &&
           assets.length > 0 &&
           assets.map((asset: any) => {
-            return (
-              <AssetsListRow
-                key={asset.uniqueId}
-                asset={asset}
-                removeAsset={removeAsset}
-              />
-            );
+            return <AssetsListRow key={asset.uniqueId} asset={asset} />;
           })}
       </AssetsList>
     </Container>

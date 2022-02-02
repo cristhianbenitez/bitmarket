@@ -63,7 +63,7 @@ export const CoinsTable = () => {
           </TableRowHead>
         </TableHead>
         <TableBody>
-          {listOfCoins.map((coinData, index) => (
+          {listOfCoins.map((coinData, index: number) => (
             <CoinsTableRow
               key={index}
               index={index}

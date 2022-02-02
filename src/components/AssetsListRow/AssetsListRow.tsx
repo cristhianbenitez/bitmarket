@@ -26,6 +26,8 @@ import { calculatePercentage, currencyFormat } from 'utils';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { selectCurrency } from 'store/reducers/currency/currencySlice';
 import { Loading } from 'assets';
+import { useAppDispatch } from 'store/hooks';
+import { handleRemove } from 'store/reducers/assetsList/assetsListSlice';
 
 interface Assets {
   id: string;
@@ -39,13 +41,14 @@ interface Assets {
 
 interface Props {
   asset: Assets;
-  removeAsset: (p: string) => void;
 }
 
-export const AssetsListRow = ({ asset, removeAsset }: Props) => {
+export const AssetsListRow = ({ asset }: { asset: Assets }) => {
   const currency = useSelector(selectCurrency);
   const [loading, setLoading] = React.useState(true);
   const [marketData, setMarketData] = React.useState<any>([]);
+  const dispatch = useAppDispatch();
+  const removeAsset = (coinID: string) => dispatch(handleRemove(coinID));
 
   const getMarketData = async (id: string) => {
     try {
