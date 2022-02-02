@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import useOnClickOutside from 'use-onclickoutside';
 
 import { DropdownArrow } from 'assets';
 import {
@@ -23,6 +24,9 @@ export const Dropdown = () => {
   const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
   const [selection, setSelection] = React.useState(currency);
+  const ref = React.useRef(null);
+
+  useOnClickOutside(ref, () => setIsOpen(false));
 
   const handleItemSelection = (item: string) => {
     setSelection(item);
@@ -51,12 +55,7 @@ export const Dropdown = () => {
   }
   return (
     <DropDownContainer>
-      <DropDownHeader
-        tabIndex={0}
-        role="button"
-        onKeyPress={handleClick}
-        onClick={handleClick}
-      >
+      <DropDownHeader ref={ref} onKeyPress={handleClick} onClick={handleClick}>
         <DollarIcon />
         <SelectionContainer>
           <Input

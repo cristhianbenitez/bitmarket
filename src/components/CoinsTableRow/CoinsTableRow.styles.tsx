@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import { PriceArrow } from 'assets';
 import { devices } from 'utils';
 
-interface CustomProps {
-  readonly colors?: string;
-  readonly percentage?: any;
-  readonly price?: any;
+interface IPercentage {
+  [key: string]: string;
 }
 
 export const TableData = styled.td`
@@ -46,7 +44,7 @@ export const ValuesContainer = styled.div`
   justify-content: space-between;
 `;
 
-export const Value = styled.span<CustomProps>`
+export const Value = styled.span<{ colors: string }>`
   display: flex;
   align-items: center;
   color: ${(props) => props.colors};
@@ -54,7 +52,7 @@ export const Value = styled.span<CustomProps>`
 
 export const PercentageBarContainer = styled.div``;
 
-export const PercentageBar = styled.div<CustomProps>`
+export const PercentageBar = styled.div<{ colors: string }>`
   width: 95%;
   height: 9px;
   background: ${(props) => props.colors};
@@ -63,7 +61,10 @@ export const PercentageBar = styled.div<CustomProps>`
   margin-left: 0.5em;
 `;
 
-export const PercentageBarFill = styled.div<CustomProps>`
+export const PercentageBarFill = styled.div<{
+  colors: string;
+  percentage: IPercentage;
+}>`
   background: #ffb528;
   z-index: 2;
   border-radius: 12px;
@@ -72,7 +73,7 @@ export const PercentageBarFill = styled.div<CustomProps>`
   width: ${(props) => `${props.percentage.percentageA}%`};
 `;
 
-export const BulletCircle = styled.div<CustomProps>`
+export const BulletCircle = styled.div<{ colors: string }>`
   width: 7px;
   height: 7px;
   border-radius: 100%;
@@ -81,7 +82,9 @@ export const BulletCircle = styled.div<CustomProps>`
   background: ${(props) => props.colors};
 `;
 
-export const PriceChangePercentage = styled.td<CustomProps>`
+export const PriceChangePercentage = styled.td<{
+  price: number;
+}>`
   font-size: 0.8rem;
   color: ${(props) => (props.price > 0 ? '#00FC2A' : '#FE1040')};
   padding-right: 1em;

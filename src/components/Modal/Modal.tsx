@@ -1,6 +1,7 @@
 import React from 'react';
 import { selectCurrency } from 'store/reducers/currency/currencySlice';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import useOnClickOutside from 'use-onclickoutside';
 
 import getSymbolFromCurrency from 'currency-symbol-map';
 import { ISOCurrentDate } from 'utils';
@@ -43,13 +44,22 @@ export const Modal = ({ isOpen, setIsOpen }: Props) => {
   const [coinID, setCoinID] = React.useState('');
   const [purchasedAmount, setPurchasedAmount] = React.useState<number>(0);
   const [date, setDate] = React.useState(ISOCurrentDate());
-  const ref = React.useRef<HTMLDivElement>(null);
+  const ref = React.useRef(null);
   const dispatch = useAppDispatch();
   const addAsset = (asset: {
     coinID: string;
     purchasedAmount: number;
     date: string;
   }) => dispatch(getAssetData(asset));
+  useOnClickOutside(ref, () => {
+    setIsOpen(false);
+    clearState();
+  });
+
+  useOnClickOutside(ref, () => {
+    setIsOpen(false);
+    clearState();
+  });
 
   const getSupportedCoins = async () => {
     const { data } = await coinGecko.get(`/coins/markets`, {
@@ -76,13 +86,6 @@ export const Modal = ({ isOpen, setIsOpen }: Props) => {
     setIsOpen(false);
   };
 
-  const handleClickOutside = (event: any) => {
-    if (isOpen && ref.current === event.target) {
-      setIsOpen(false);
-      clearState();
-    }
-  };
-
   const handleDropdownChange = (value: string) => setCoinID(value);
   const handleAmountChange = ({ value }: { value: number | string }) => {
     setPurchasedAmount(Number(value));
@@ -99,21 +102,13 @@ export const Modal = ({ isOpen, setIsOpen }: Props) => {
     }
   };
 
-  React.useEffect(() => {
-    getSupportedCoins();
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
   const resultOfSelection = supportedCoins.filter(({ id }) => id === coinID);
   const coinInformation: any = resultOfSelection[0];
   const minimizedImage = coinInformation?.image.replace('large', 'small');
 
   return (
-    <ModalOverlay ref={ref}>
-      <ModalContainer>
+    <ModalOverlay>
+      <ModalContainer ref={ref}>
         <CloseButton onClick={clearState}>&times;</CloseButton>
         <ModalContent>
           <ModalHeader>

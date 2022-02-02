@@ -8,7 +8,7 @@ interface PriceArrowProps {
 
 interface DropdownArrowProps {
   isOpen: boolean;
-  theme: any;
+  theme: string;
 }
 
 export const PriceArrow = styled(({ price, ...restProps }: PriceArrowProps) => (

@@ -8,7 +8,6 @@ export { CoinsTable } from './CoinsTable/CoinsTable';
 export { CoinsTableRow } from './CoinsTableRow/CoinsTableRow';
 export { DescriptionInfo } from './DescriptionInfo/DescriptionInfo';
 export { Dropdown } from './Dropdown/Dropdown';
-export { IntervalDropdown } from './IntervalDropdown/IntervalDropdown';
 export { LinkContainer } from './LinkContainer/LinkContainer';
 export { MarketDataInfo } from './MarketDataInfo/MarketDataInfo';
 export { Navbar } from './Navbar/Navbar';

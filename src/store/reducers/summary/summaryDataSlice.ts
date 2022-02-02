@@ -1,8 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import coinGecko from 'api/coinGecko';
 
 interface SummaryState {
-  summaryData: any[];
+  summaryData: any;
   status: 'idle' | 'succeeded' | 'failed' | 'loading';
   error?: string;
   loading: boolean;
@@ -42,10 +42,13 @@ export const summaryDataSlice = createSlice({
       .addCase(getSummaryData.pending, (state, action) => {
         state.status = 'loading';
       })
-      .addCase(getSummaryData.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
-        state.summaryData = payload;
-      })
+      .addCase(
+        getSummaryData.fulfilled,
+        (state, action: PayloadAction<{}[]>) => {
+          state.status = 'succeeded';
+          state.summaryData = action.payload;
+        }
+      )
       .addCase(getSummaryData.rejected, (state, action) => {
         state.status = 'failed';
       });

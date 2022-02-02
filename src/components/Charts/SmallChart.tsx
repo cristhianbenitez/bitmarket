@@ -3,10 +3,8 @@ import { Line } from 'react-chartjs-2';
 import { smallChartOption } from './ChartsOptions';
 
 interface SmallChartProps {
-  chartData: {
-    x: number;
-    y: number;
-  }[];
+  chartData: number[];
+  chartLabel: string[];
   weeklyChanges: number;
 }
 export const SmallChart = (props: SmallChartProps) => {

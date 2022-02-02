@@ -9,7 +9,8 @@ import {
   SearchBox,
   StyledInput,
   IconText,
-  IconContainer
+  IconContainer,
+  SearchContainer
 } from './SearchInput.styles';
 
 export const SearchInput = () => {
@@ -52,7 +53,7 @@ export const SearchInput = () => {
   }, [text]);
 
   return (
-    <>
+    <SearchContainer>
       <SearchBox>
         <IconContainer>
           <SearchIcon onClick={handleClick} />
@@ -75,6 +76,6 @@ export const SearchInput = () => {
           handleSelectItem={() => handleSelectItem}
         />
       )}
-    </>
+    </SearchContainer>
   );
 };

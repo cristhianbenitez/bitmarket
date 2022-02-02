@@ -8,6 +8,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin: auto;
+  margin-top: 2em;
   @media ${devices.laptop} {
     flex-direction: row;
   }

@@ -2,10 +2,17 @@ import styled from 'styled-components';
 import { ReactComponent as Search } from 'assets/Icons/Search.svg';
 import { devices } from 'utils';
 
+export const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const SearchBox = styled.div`
   margin-right: 1.5em;
   display: none;
-  @media (min-width: 500px) {
+  @media (min-width: 700px) {
     padding: 0.6em 0.5em;
     background: ${({ theme }) => theme.background};
     border-radius: 6px;

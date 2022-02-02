@@ -45,7 +45,7 @@ interface CoinData {
   price_change_percentage_1h_in_currency: number;
   price_change_percentage_24h_in_currency: number;
   price_change_percentage_7d_in_currency: number;
-  sparkline_in_7d?: any;
+  sparkline_in_7d: { price: number[] };
 }
 
 export const CoinsTableRow = ({ coinData, index, value }: Props) => {
@@ -62,7 +62,7 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
     price_change_percentage_1h_in_currency: hourlyChanges,
     price_change_percentage_24h_in_currency: dailyChanges,
     price_change_percentage_7d_in_currency: weeklyChanges,
-    sparkline_in_7d: pricesOfLastSevenDays
+    sparkline_in_7d: LastSevenDaysPrices
   } = coinData;
 
   const leftSideColors =
@@ -73,6 +73,12 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
 
   const currencySymbol = getSymbolFromCurrency(value);
   const minimizedImage: string = image.replace('large', 'small');
+
+  const DailyPrice = LastSevenDaysPrices.price.filter(
+    (a: number, i: number) => i % 24 === 0
+  );
+
+  const chartLabel: string[] = new Array(DailyPrice?.length).fill('');
 
   return (
     <TableRow>
@@ -158,9 +164,8 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
       <TableData>
         <SmallChartContainer>
           <SmallChart
-            chartData={pricesOfLastSevenDays.price.filter(
-              (_: any, i: number) => i % 24 === 0
-            )}
+            chartData={DailyPrice}
+            chartLabel={chartLabel}
             weeklyChanges={weeklyChanges}
           />
         </SmallChartContainer>
