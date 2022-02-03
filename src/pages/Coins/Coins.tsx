@@ -15,7 +15,7 @@ import {
 export const Coins = () => {
   const [isVisible, setIsVisible] = React.useState(false);
   const currency = useAppSelector((state) => state.currency);
-  const { loading, volumes24h, prices30d } = useAppSelector(
+  const { isLoading, volumes24h, prices30d } = useAppSelector(
     (state) => state.chartsData
   );
   const dispatch = useAppDispatch();
@@ -33,7 +33,7 @@ export const Coins = () => {
     latestVolume24h: volumes24h[volumes24h?.length - 1]
   };
 
-  if (loading)
+  if (isLoading)
     return (
       <CenterDiv>
         <Loading type="spin" />

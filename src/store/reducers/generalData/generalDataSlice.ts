@@ -3,17 +3,15 @@ import coinGecko from 'api/coinGecko';
 interface GeneralState {
   supportedCurrencies: string[];
   globalData: {};
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
-  error?: string;
-  loading: boolean;
+  hasError: boolean;
+  isLoading: boolean;
 }
 
 const initialState: GeneralState = {
   supportedCurrencies: [],
   globalData: {},
-  status: 'idle',
-  loading: false,
-  error: ''
+  isLoading: false,
+  hasError: false
 };
 
 export const getSupportedCurrencies = createAsyncThunk(
@@ -36,15 +34,16 @@ export const generalDataSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getSupportedCurrencies.pending, (state, action) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
       .addCase(getSupportedCurrencies.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
+        state.isLoading = false;
         state.globalData = payload.globalData;
         state.supportedCurrencies = payload.supportedCurrencies;
       })
       .addCase(getSupportedCurrencies.rejected, (state, action) => {
-        state.status = 'failed';
+        state.isLoading = true;
+        state.hasError = true;
       });
   }
 });

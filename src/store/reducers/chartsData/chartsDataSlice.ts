@@ -10,17 +10,15 @@ interface ChartsState {
     x: number;
     y: number;
   }[];
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
-  error?: string;
-  loading: boolean;
+  hasError: boolean;
+  isLoading: boolean;
 }
 
 const initialState: ChartsState = {
   volumes24h: [],
   prices30d: [],
-  status: 'idle',
-  loading: false,
-  error: ''
+  isLoading: true,
+  hasError: false
 };
 
 export const getChartsData = createAsyncThunk(
@@ -51,16 +49,16 @@ export const chartsDataSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getChartsData.pending, (state, action) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
       .addCase(getChartsData.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
+        state.isLoading = false;
         state.prices30d = payload.prices30d;
         state.volumes24h = payload.volumes24h;
       })
       .addCase(getChartsData.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.isLoading = true;
+        state.hasError = true;
       });
   }
 });

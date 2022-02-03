@@ -16,7 +16,7 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  blacklist: ['chartsData', 'search', 'coinsList', 'generalData']
+  blacklist: ['chartsData', 'search', 'coinsList', 'generalData', 'summaryData']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

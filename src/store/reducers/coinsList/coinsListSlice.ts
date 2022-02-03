@@ -3,20 +3,18 @@ import coinGecko from 'api/coinGecko';
 
 interface ListOfCoinsState {
   listOfCoins: any[];
-  loading: boolean;
+  isLoading: boolean;
   pageNumber: number;
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
-  error?: string;
+  hasError: boolean;
   hasMore: boolean;
 }
 
 const initialState: ListOfCoinsState = {
   listOfCoins: [],
-  status: 'idle',
-  loading: false,
+  isLoading: false,
   pageNumber: 1,
   hasMore: false,
-  error: ''
+  hasError: false
 };
 
 interface CoinsList {
@@ -54,16 +52,16 @@ const coinsListSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getListOfCoins.pending, (state) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
       .addCase(getListOfCoins.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
+        state.isLoading = false;
         state.listOfCoins = [...state.listOfCoins, ...payload];
         state.hasMore = payload.length > 0;
       })
       .addCase(getListOfCoins.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.isLoading = true;
+        state.hasError = true;
       });
   }
 });

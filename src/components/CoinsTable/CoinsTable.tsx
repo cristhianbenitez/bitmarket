@@ -19,7 +19,7 @@ import {
 
 export const CoinsTable = () => {
   const currency = useAppSelector((state) => state.currency);
-  const { listOfCoins, loading, pageNumber, hasMore } = useAppSelector(
+  const { listOfCoins, isLoading, pageNumber, hasMore } = useAppSelector(
     (state) => state.coinsList
   );
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ export const CoinsTable = () => {
 
   const lastListElementRef = React.useCallback(
     (node) => {
-      if (loading) return;
+      if (isLoading) return;
       if (observer.current) {
         observer.current.disconnect();
       }
@@ -44,7 +44,7 @@ export const CoinsTable = () => {
       );
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore]
+    [isLoading, hasMore]
   );
   return (
     <ScrollableDiv>
@@ -74,7 +74,7 @@ export const CoinsTable = () => {
         </TableBody>
         <TableBody ref={lastListElementRef} />
       </Table>
-      {loading && <Loading type="spin" height={50} width={30} />}
+      {isLoading && <Loading type="spin" height={50} width={30} />}
     </ScrollableDiv>
   );
 };

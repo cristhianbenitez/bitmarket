@@ -1,9 +1,5 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-import {
-  getAssetData,
-  handleRemove
-} from 'store/reducers/assetsList/assetsListSlice';
+import { useAppSelector } from 'store/hooks';
 
 import { Modal, AssetsListRow } from 'components';
 import {
@@ -14,20 +10,8 @@ import {
   AssetsList
 } from './Portfolio.styles';
 
-interface AssetProps {
-  historicPriceData: number;
-  id: string;
-  image: string;
-  name: string;
-  purchasedAmount: string;
-  purchasedDate: string;
-  symbol: string;
-  uniqueId: string;
-}
-[];
-
 export const Portfolio = () => {
-  const { assets, loading } = useAppSelector((state) => state.assetsList);
+  const { assets, isLoading } = useAppSelector((state) => state.assetsList);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
   const toggleModal = () => setIsModalOpen(true);
 
@@ -41,7 +25,7 @@ export const Portfolio = () => {
       </PageHead>
       <Subtitle>Your statistics</Subtitle>
       <AssetsList>
-        {!loading &&
+        {!isLoading &&
           assets.length > 0 &&
           assets.map((asset: any) => {
             return <AssetsListRow key={asset.uniqueId} asset={asset} />;

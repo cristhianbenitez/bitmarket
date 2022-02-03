@@ -2,15 +2,15 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 interface SearchState {
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
+  isLoading: boolean;
   results: [];
-  error?: string;
+  hasError: boolean;
 }
 
 const initialState: SearchState = {
-  status: 'idle',
   results: [],
-  error: ''
+  isLoading: false,
+  hasError: false
 };
 
 export const getSearchResults = createAsyncThunk(
@@ -34,15 +34,15 @@ const searchSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getSearchResults.pending, (state) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
       .addCase(getSearchResults.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.isLoading = false;
         state.results = action.payload;
       })
       .addCase(getSearchResults.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.isLoading = true;
+        state.hasError = true;
       });
   }
 });

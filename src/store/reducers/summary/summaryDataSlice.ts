@@ -3,16 +3,14 @@ import coinGecko from 'api/coinGecko';
 
 interface SummaryState {
   summaryData: any;
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
-  error?: string;
-  loading: boolean;
+  isLoading: boolean;
+  hasError: boolean;
 }
 
 const initialState: SummaryState = {
   summaryData: [],
-  status: 'idle',
-  loading: false,
-  error: ''
+  isLoading: true,
+  hasError: false
 };
 
 export const getSummaryData = createAsyncThunk(
@@ -40,17 +38,15 @@ export const summaryDataSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getSummaryData.pending, (state, action) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
-      .addCase(
-        getSummaryData.fulfilled,
-        (state, action: PayloadAction<{}[]>) => {
-          state.status = 'succeeded';
-          state.summaryData = action.payload;
-        }
-      )
+      .addCase(getSummaryData.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.summaryData = action.payload;
+      })
       .addCase(getSummaryData.rejected, (state, action) => {
-        state.status = 'failed';
+        state.hasError = true;
+        state.isLoading = true;
       });
   }
 });

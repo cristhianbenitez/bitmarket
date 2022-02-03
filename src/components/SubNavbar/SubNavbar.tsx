@@ -19,16 +19,16 @@ import {
 } from './SubNavbar.styles';
 
 export const SubNavbar = () => {
-  const { status, globalData, loading } = useAppSelector(
+  const { isLoading, globalData } = useAppSelector(
     (state) => state.generalData
   );
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    if (status === 'idle') dispatch(getSupportedCurrencies());
-  }, [status, loading]);
+    dispatch(getSupportedCurrencies());
+  }, []);
 
-  if (loading) return <Loading type="spin" width="20px" />;
+  if (isLoading) return <Loading type="spin" width="20px" />;
 
   const {
     total_market_cap,

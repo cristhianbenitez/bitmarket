@@ -11,16 +11,15 @@ interface AssetProps {
 interface AssetState {
   assets: {}[];
   marketData: object;
-  status: 'idle' | 'succeeded' | 'failed' | 'loading';
-  error?: string;
-  loading: boolean;
+  hasError: boolean;
+  isLoading: boolean;
 }
 
 const initialState: AssetState = {
   assets: [],
   marketData: {},
-  status: 'idle',
-  loading: false
+  isLoading: false,
+  hasError: false
 };
 
 export const getAssetData = createAsyncThunk(
@@ -62,15 +61,15 @@ const assetsListSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getAssetData.pending, (state) => {
-        state.status = 'loading';
+        state.isLoading = true;
       })
       .addCase(getAssetData.fulfilled, (state, { payload }) => {
-        state.status = 'succeeded';
+        state.isLoading = false;
         state.assets = [...state.assets, payload];
       })
       .addCase(getAssetData.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+        state.isLoading = true;
+        state.hasError = true;
       });
   }
 });

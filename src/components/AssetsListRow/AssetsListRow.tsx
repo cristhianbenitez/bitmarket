@@ -45,14 +45,14 @@ interface Props {
 
 export const AssetsListRow = ({ asset }: { asset: Assets }) => {
   const currency = useSelector(selectCurrency);
-  const [loading, setLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [marketData, setMarketData] = React.useState<any>([]);
   const dispatch = useAppDispatch();
   const removeAsset = (coinID: string) => dispatch(handleRemove(coinID));
 
   const getMarketData = async (id: string) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       const { data } = await coinGecko.get(`/coins/${id}`, {
         params: {
           market_data: 'true',
@@ -64,10 +64,10 @@ export const AssetsListRow = ({ asset }: { asset: Assets }) => {
           sparkline: 'false'
         }
       });
-      setLoading(false);
+      setIsLoading(false);
       setMarketData(data.market_data);
     } catch (error) {
-      setLoading(true);
+      setIsLoading(true);
     }
   };
 
@@ -95,7 +95,7 @@ export const AssetsListRow = ({ asset }: { asset: Assets }) => {
 
   const currentPrice: number = marketData.current_price?.[currency];
 
-  if (loading) return <Loading type="spin" />;
+  if (isLoading) return <Loading type="spin" />;
   return (
     <ListWrapper>
       <ListHead>
