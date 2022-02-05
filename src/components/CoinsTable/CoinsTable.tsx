@@ -65,7 +65,7 @@ export const CoinsTable = () => {
         <TableBody>
           {listOfCoins.map((coinData, index: number) => (
             <CoinsTableRow
-              key={index}
+              key={coinData.id}
               index={index}
               coinData={coinData}
               value={currency}
