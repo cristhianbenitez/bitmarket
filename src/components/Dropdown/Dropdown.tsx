@@ -54,8 +54,8 @@ export const Dropdown = () => {
     ];
   }
   return (
-    <DropDownContainer>
-      <DropDownHeader ref={ref} onKeyPress={handleClick} onClick={handleClick}>
+    <DropDownContainer ref={ref}>
+      <DropDownHeader onKeyPress={handleClick} onClick={handleClick}>
         <DollarIcon />
         <SelectionContainer>
           <Input
