@@ -23,7 +23,8 @@ import {
   ValuesContainer,
   CenterDiv,
   CoinName,
-  Symbol
+  Symbol,
+  CurrencySymbol
 } from './CoinsTableRow.styles';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
@@ -71,7 +72,8 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
   const rightSideColors =
     percentageBarColors.right[index % percentageBarColors.right.length];
 
-  const currencySymbol = getSymbolFromCurrency(value);
+  const currencySymbol = getSymbolFromCurrency(value) || value.toUpperCase();
+
   const minimizedImage: string = image.replace('large', 'small');
 
   const DailyPrice = LastSevenDaysPrices.price.filter(
@@ -95,8 +97,8 @@ export const CoinsTableRow = ({ coinData, index, value }: Props) => {
         </StyledLink>
       </TableData>
       <TableData>
-        {currencySymbol}
-        {current_price}
+        <CurrencySymbol>{currencySymbol}</CurrencySymbol>
+        <span>{current_price}</span>
       </TableData>
       <PriceChangePercentage price={hourlyChanges}>
         <CenterDiv>

@@ -151,3 +151,7 @@ export const SmallChartContainer = styled.div`
   width: 12em;
   height: 50px;
 `;
+
+export const CurrencySymbol = styled.span`
+  padding-right: 2px;
+`;
