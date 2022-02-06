@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { devices } from 'utils';
 
-export const List = styled.ul`
+export const StyledList = styled.ul`
   position: absolute;
   border: none;
   background: ${({ theme }) => theme.foreground};
@@ -12,7 +12,7 @@ export const List = styled.ul`
   max-height: 200px;
   overflow-y: auto;
   z-index: 999;
-  top: 60px;
+  top: 70px;
   right: 200px;
   &::-webkit-scrollbar {
     width: 6px;
@@ -51,4 +51,8 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
     color: ${({ theme }) => theme.general};
   }
+`;
+
+export const NoResults = styled.li`
+  padding: 1em 0;
 `;

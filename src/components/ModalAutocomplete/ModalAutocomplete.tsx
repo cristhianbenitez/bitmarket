@@ -1,4 +1,5 @@
 import React from 'react';
+import { useGetSearchResultsQuery } from 'store/services/search';
 import {
   Root,
   AutoCompleteContainer,
@@ -9,15 +10,26 @@ import {
   AutoCompleteItemButton,
   ArrowIcon
 } from './ModalAutocomplete.styles';
-
+import { v4 as uuid } from 'uuid';
+export interface ItemInterface {
+  id: string;
+  large: string;
+  market_cap_rank: number | null;
+  name: string;
+  symbol: string;
+  thumb: string;
+}
 interface Props {
-  data: [];
-  handleChange: (p: string) => void;
+  handleItemSelected: (item: ItemInterface) => void;
 }
 
-export const ModalAutocomplete = ({ data, handleChange }: Props) => {
+export const ModalAutocomplete = ({ handleItemSelected }: Props) => {
   const [isVisible, setIsVisible] = React.useState(false);
   const [text, setText] = React.useState('');
+  const { data } = useGetSearchResultsQuery(text, {
+    skip: text.length < 1
+  });
+  const results = data?.coins ?? [];
 
   const onTextChange = ({
     target: { value }
@@ -26,21 +38,14 @@ export const ModalAutocomplete = ({ data, handleChange }: Props) => {
     setText(value);
   };
 
-  const suggestionSelected = ({ name, id }: { name: string; id: string }) => {
+  const suggestionSelected = (item: ItemInterface) => {
     setIsVisible(false);
-    setText(name);
-    handleChange(id);
+    setText(item.name);
+    handleItemSelected(item);
   };
 
   const toggle = () => setIsVisible(!isVisible);
 
-  let suggestions: any = [...data];
-  if (text.length) {
-    const regex = new RegExp(`^${text}`, 'i');
-    suggestions = data
-      .sort()
-      .filter((v: { name: string }) => regex.test(v.name));
-  }
   return (
     <Root>
       <InputContainer onClick={toggle}>
@@ -56,20 +61,15 @@ export const ModalAutocomplete = ({ data, handleChange }: Props) => {
           <ArrowIcon />
         </AutoCompleteIcon>
       </InputContainer>
-      {suggestions.length > 0 && isVisible && (
+      {results.length > 0 && isVisible && (
         <AutoCompleteContainer>
-          {suggestions?.map((item: any) => {
-            return (
-              <AutoCompleteItem key={item.id}>
-                <AutoCompleteItemButton
-                  key={item.code}
-                  onClick={() => suggestionSelected(item)}
-                >
-                  {item.name}
-                </AutoCompleteItemButton>
-              </AutoCompleteItem>
-            );
-          })}
+          {results?.map((item: ItemInterface) => (
+            <AutoCompleteItem key={uuid()}>
+              <AutoCompleteItemButton onClick={() => suggestionSelected(item)}>
+                {item.name}
+              </AutoCompleteItemButton>
+            </AutoCompleteItem>
+          ))}
         </AutoCompleteContainer>
       )}
     </Root>

@@ -1,8 +1,5 @@
 import React from 'react';
-import debounce from 'lodash.debounce';
-import { getSearchResults } from 'store/reducers/search/searchSlice';
-import { useAppDispatch, useAppSelector } from 'store/hooks';
-
+import useOnClickOutside from 'use-onclickoutside';
 import { SearchResults } from 'components';
 import {
   SearchIcon,
@@ -12,16 +9,21 @@ import {
   IconContainer,
   SearchContainer
 } from './SearchInput.styles';
+import { useGetSearchResultsQuery } from 'store/services/search';
 
 export const SearchInput = () => {
   const [text, setText] = React.useState('');
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const results = useAppSelector((state) => state.search.results);
-  const dispatch = useAppDispatch();
+  const { data, isFetching } = useGetSearchResultsQuery(text, {
+    skip: text.length < 1
+  });
+  const results = data?.coins ?? [];
 
-  const debouncedApiCall = debounce((query: string) => {
-    dispatch(getSearchResults(query));
-  }, 300);
+  const ref = React.useRef(null);
+
+  useOnClickOutside(ref, () => {
+    setIsOpen(false);
+  });
 
   const handleChange = (e: {
     target: { value: React.SetStateAction<string> };
@@ -32,28 +34,13 @@ export const SearchInput = () => {
 
   const handleClick = () => setIsOpen(!isOpen);
 
-  const handleClickOutside = (e: MouseEvent) => {
-    const id = (e.target as Element).id;
-    if (isOpen && id !== 'search-input' && id !== 'search-result') {
-      setIsOpen(false);
-    }
-  };
-
   const handleSelectItem = () => {
     setIsOpen(false);
     setText('');
   };
 
-  React.useEffect(() => {
-    debouncedApiCall(text);
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [text]);
-
   return (
-    <SearchContainer>
+    <SearchContainer ref={ref}>
       <SearchBox>
         <IconContainer>
           <SearchIcon onClick={handleClick} />
@@ -69,11 +56,12 @@ export const SearchInput = () => {
           value={text}
         />
       </SearchBox>
-
-      {text.length > 0 && isOpen && (
+      {text.length > 0 && (
         <SearchResults
           results={results}
-          handleSelectItem={() => handleSelectItem}
+          isFetching={isFetching}
+          handleSelectItem={handleSelectItem}
+          isOpen={isOpen}
         />
       )}
     </SearchContainer>

@@ -1,18 +1,14 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
-import { useAppSelector } from 'store/hooks';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Coins, Portfolio, Summary } from 'pages';
-import { SubNavbar, Navbar, MobileHeader, light, dark } from 'components';
-
+import { SubNavbar, Navbar, MobileHeader } from 'components';
+import { ThemeProvider } from 'theme';
 import { GlobalStyle, NavbarWrapper, Wrapper, Layout } from './App.styles';
 
 export const App = () => {
-  const themeMode = useAppSelector((state) => state.theme);
-  const theme = themeMode === 'dark' ? dark : light;
   return (
     <Wrapper>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <GlobalStyle />
         <NavbarWrapper>
           <Navbar />
@@ -24,6 +20,7 @@ export const App = () => {
             <Route path="/portfolio" element={<Portfolio />}></Route>
             <Route path="/" element={<Coins />} />
             <Route path="/coin/:id" element={<Summary />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </Layout>
       </ThemeProvider>

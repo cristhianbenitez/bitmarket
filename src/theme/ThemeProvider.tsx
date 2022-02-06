@@ -1,3 +1,7 @@
+import React from 'react';
+import { useAppSelector } from 'store/hooks';
+import { ThemeProvider as Provider } from 'styled-components';
+
 export const dark = {
   general: '#FFFFFF',
   background: '#1F2128',
@@ -22,4 +26,14 @@ export const light = {
     middle: 'rgba(37,80,234,0.2)',
     end: 'rgba(37,80,234,0.01)'
   }
+};
+
+export const ThemeProvider = ({
+  children
+}: {
+  children: React.ReactChild[];
+}) => {
+  const themeMode = useAppSelector((state) => state.theme);
+  const theme = themeMode === 'dark' ? dark : light;
+  return <Provider theme={theme}>{children}</Provider>;
 };

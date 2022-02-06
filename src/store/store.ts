@@ -10,6 +10,8 @@ import {
   REGISTER
 } from 'redux-persist';
 import { rootReducer } from './reducers/index';
+import { searchApi } from './services/search';
+
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -27,8 +29,9 @@ const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-      }
-    })
+      },
+      immutableCheck: false
+    }).concat(searchApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

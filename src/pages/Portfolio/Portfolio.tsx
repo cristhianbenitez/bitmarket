@@ -10,6 +10,17 @@ import {
   AssetsList
 } from './Portfolio.styles';
 
+export interface IAsset {
+  historicPriceData?: number;
+  id: string;
+  image: string;
+  name: string;
+  symbol: string;
+  purchasedAmount: number;
+  purchasedDate: string;
+  uniqueId: string;
+}
+
 export const Portfolio = () => {
   const { assets, isLoading } = useAppSelector((state) => state.assetsList);
   const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
@@ -19,15 +30,13 @@ export const Portfolio = () => {
     <Container>
       <PageHead>
         <Button onClick={toggleModal}>Add Asset</Button>
-        {isModalOpen && (
-          <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
-        )}
+        {isModalOpen && <Modal setIsOpen={setIsModalOpen} />}
       </PageHead>
       <Subtitle>Your statistics</Subtitle>
       <AssetsList>
         {!isLoading &&
           assets.length > 0 &&
-          assets.map((asset: any) => {
+          assets.map((asset: IAsset) => {
             return <AssetsListRow key={asset.uniqueId} asset={asset} />;
           })}
       </AssetsList>

@@ -3,13 +3,13 @@ import coinGecko from 'api/coinGecko';
 import { v4 as uuid } from 'uuid';
 
 interface AssetProps {
-  coinID: string;
+  coinId: string;
   purchasedAmount: number;
   date: string;
 }
 
 interface AssetState {
-  assets: {}[];
+  assets: any[];
   marketData: object;
   hasError: boolean;
   isLoading: boolean;
@@ -25,9 +25,9 @@ const initialState: AssetState = {
 export const getAssetData = createAsyncThunk(
   'assets/assetData',
   async (asset: AssetProps) => {
-    const { coinID, purchasedAmount, date } = asset;
+    const { coinId, purchasedAmount, date } = asset;
     const purchasedDate = date.split('-').reverse().join('-');
-    const { data } = await coinGecko.get(`/coins/${coinID}/history`, {
+    const { data } = await coinGecko.get(`/coins/${coinId}/history`, {
       params: { date: purchasedDate }
     });
     const uniqueId = uuid().slice(0, 8);
@@ -46,14 +46,22 @@ export const getAssetData = createAsyncThunk(
     return assetData;
   }
 );
-
+export interface Assets {
+  id: string;
+  name: string;
+  symbol: string;
+  image: string;
+  purchasedAmount: number;
+  purchasedDate: string;
+  uniqueId: string;
+}
 const assetsListSlice = createSlice({
   name: 'assets',
   initialState,
   reducers: {
     handleRemove: (state, { payload }) => {
       const filteredAssets = Object.assign(state.assets).filter(
-        (asset: any) => asset.uniqueId !== payload
+        (asset: Assets) => asset.uniqueId !== payload
       );
       state.assets = filteredAssets;
     }

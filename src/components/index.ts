@@ -1,4 +1,3 @@
-export * from './Theme/Theme';
 export { CoinPricesData } from './CoinPricesData/CoinPricesData';
 export { MobileHeader } from './MobileHeader/MobileHeader';
 export { Charts, SmallChart } from './Charts';

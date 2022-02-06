@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { v4 as uuid } from 'uuid';
 
 import { CoinsTableRow } from 'components';
 import {
@@ -65,7 +66,7 @@ export const CoinsTable = () => {
         <TableBody>
           {listOfCoins.map((coinData, index: number) => (
             <CoinsTableRow
-              key={coinData.id}
+              key={uuid()}
               index={index}
               coinData={coinData}
               value={currency}

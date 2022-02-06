@@ -72,7 +72,7 @@ export const Dropdown = () => {
       {isOpen && supportedCurrencies.length > 0 && (
         <DropDownList>
           {suggestions.map((item, index) => (
-            <ListItem key={index} onClick={() => handleItemSelection(item)}>
+            <ListItem key={item} onClick={() => handleItemSelection(item)}>
               <span>{item}</span>
             </ListItem>
           ))}

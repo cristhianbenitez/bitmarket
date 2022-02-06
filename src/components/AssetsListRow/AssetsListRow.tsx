@@ -28,22 +28,9 @@ import { selectCurrency } from 'store/reducers/currency/currencySlice';
 import { Loading } from 'assets';
 import { useAppDispatch } from 'store/hooks';
 import { handleRemove } from 'store/reducers/assetsList/assetsListSlice';
+import { IAsset } from 'pages/Portfolio/Portfolio';
 
-interface Assets {
-  id: string;
-  name: string;
-  symbol: string;
-  image: string;
-  purchasedAmount: number;
-  purchasedDate: string;
-  uniqueId: string;
-}
-
-interface Props {
-  asset: Assets;
-}
-
-export const AssetsListRow = ({ asset }: { asset: Assets }) => {
+export const AssetsListRow = ({ asset }: { asset: IAsset }) => {
   const currency = useSelector(selectCurrency);
   const [isLoading, setIsLoading] = React.useState(true);
   const [marketData, setMarketData] = React.useState<any>([]);
