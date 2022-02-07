@@ -5,6 +5,11 @@ React Web application that provides an analysis of the crypto market. In additio
 ### Built With
 
 - React JS
+- Redux
+- Redux Toolkit
+- React Router
+- Typescript
+- ChartJS
 - Styled Components
 
 ### API
