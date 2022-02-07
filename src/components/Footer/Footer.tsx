@@ -8,12 +8,20 @@ export const Footer = () => {
   return (
     <Container>
       <IconContainer>
-        <Link href="https://github.com/cristhianbenitez" target="_blank">
+        <Link
+          rel="noreferrer"
+          href="https://github.com/cristhianbenitez"
+          target="_blank"
+        >
           <GithubIcon />
         </Link>
       </IconContainer>
       <IconContainer>
-        <Link href="https://twitter.com/PipeBenitez25" target="_blank">
+        <Link
+          href="https://twitter.com/PipeBenitez25"
+          target="_blank"
+          rel="noreferrer"
+        >
           <TwitterIcon />
         </Link>
       </IconContainer>
@@ -21,6 +29,7 @@ export const Footer = () => {
         <Link
           href="https://www.linkedin.com/in/cristhianbenitez/"
           target="_blank"
+          rel="noreferrer"
         >
           <LinkedInIcon />
         </Link>

@@ -52,7 +52,7 @@ export const SubNavbar = () => {
   );
 
   return (
-    <Subnav role="sub-navbar">
+    <Subnav>
       <Wrapper>
         <SubnavItem>
           <Text>Coins</Text> {active_cryptocurrencies}
