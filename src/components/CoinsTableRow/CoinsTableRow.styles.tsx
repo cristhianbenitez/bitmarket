@@ -106,9 +106,8 @@ export const ArrowIcon = styled(PriceArrow)`
 `;
 
 export const CoinIcon = styled.img`
-  max-width: 100%;
-  max-height: 100%;
   height: 30px;
+  width:30px
   object-fit: cover;
   margin-right: 1em;
   border-radius: 100%;
