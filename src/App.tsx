@@ -4,8 +4,16 @@ import { Coins, Portfolio, Summary } from 'pages';
 import { SubNavbar, Navbar, MobileHeader } from 'components';
 import { ThemeProvider } from 'theme';
 import { GlobalStyle, NavbarWrapper, Wrapper, Layout } from './App.styles';
+import ReactGA from 'react-ga';
 
 export const App = () => {
+  React.useEffect(() => {
+    ReactGA.initialize('G-RTXSXFM4BG', {
+      debug: true,
+      gaOptions: { siteSpeedSampleRate: 100 }
+    });
+    ReactGA.pageview('Init page view');
+  }, []);
   return (
     <Wrapper>
       <ThemeProvider>
