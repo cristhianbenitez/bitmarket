@@ -1,6 +1,6 @@
-# Crypto-Coins
+# Crypto-App
 
-Crypto-Coins is React Web application that provides an analysis of the crypto market. In addition to tracking price, volume, and market capitalization, and also display the information on charts.
+Crypto-App is React Web application that provides an analysis of the crypto market. In addition to tracking price, volume, and market capitalization, and also display the information on charts.
 
 ### Built With
 
