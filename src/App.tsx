@@ -8,8 +8,7 @@ import ReactGA from 'react-ga';
 
 export const App = () => {
   React.useEffect(() => {
-    ReactGA.initialize('G-RTXSXFM4BG', {
-      debug: true,
+    ReactGA.initialize('G-9DN1VJ1B41', {
       gaOptions: { siteSpeedSampleRate: 100 }
     });
     ReactGA.pageview('Init page view');
