@@ -42,7 +42,7 @@ export const TableRowHead = styled.tr`
 `;
 
 export const TableHead = styled.thead`
-  color: #fff;
+  color: ${({ theme }) => theme.general};
   position: sticky;
   background: #171821;
   top: -15px;
