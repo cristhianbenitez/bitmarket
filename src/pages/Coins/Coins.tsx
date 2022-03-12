@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { CenterDiv, Loading } from 'assets';
 import { getChartsData } from 'store/reducers/chartsData/chartsDataSlice';
 
-import { Charts, CoinsTable, Footer } from 'components';
+import { Charts, CoinsTable } from 'components';
 import {
   ChartContainer,
   ChartWrapper,
@@ -67,7 +67,6 @@ export const Coins = () => {
       <CoinListContainer>
         <CoinsTable />
       </CoinListContainer>
-      <Footer />
     </Container>
   );
 };
