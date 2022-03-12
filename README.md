@@ -53,7 +53,7 @@
 
 ![Product Name Screen Shot][product-screenshot]
 
-Bit Market is Single Page Application that provides an analysis of the crypto currencies market. Offering information about all the crypto currencies, their prices, display information thought graphs and information about any specific coin. It also have a portfolio page where you can track the amount of any crypto coin that you own and see insights as the current price, price changes, circulation supply and maximum supply for each coin.
+Bit Market is a Single Page Application that provides an analysis of the cryptocurrencies market. Offering information about all the cryptocurrencies, their prices, display information through graphs, and information about any specific coin. It also has a portfolio page where you can track the amount of any crypto coin that you own and see insights into the current price, price changes, circulation supply, and maximum supply for each coin.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
