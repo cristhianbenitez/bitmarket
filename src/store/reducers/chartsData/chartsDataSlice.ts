@@ -29,7 +29,7 @@ export const getChartsData = createAsyncThunk(
         params: { vs_currency: props.currency, days: '30', interval: 'daily' }
       }),
       coinGecko.get('/coins/bitcoin/market_chart', {
-        params: { vs_currency: props.currency, days: '1', interval: 'hourly' }
+        params: { vs_currency: props.currency, days: '30', interval: 'daily' }
       })
     ]);
 
