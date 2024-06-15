@@ -38,9 +38,14 @@ export const Charts = (props: ChartsProps) => {
   const chartDataTimes = (time: string) =>
     props.chartData.map((coin) => {
       const date = new Date(coin.x);
-      if (time === 'day') return date.getDate();
-      if (time === 'hour') return addZero(date.getHours());
-      return null;
+      switch (time) {
+        case 'day':
+          return date.getDate();
+        case 'hour':
+          return addZero(date.getHours());
+        default:
+          return null;
+      }
     });
 
   const pluginsConfig = [

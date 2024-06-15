@@ -5,7 +5,6 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
     "@types/jest": "^27.4.0",
-    "@types/node": "^17.0.14",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "axios": "^0.25.0",
@@ -51,6 +50,7 @@
   "devDependencies": {
     "@types/chart.js": "^2.9.35",
     "@types/lodash.debounce": "^4.0.6",
+    "@types/node": "^20.14.2",
     "@types/numeral": "^2.0.2",
     "@types/react-chartjs-2": "^2.5.7",
     "@types/react-ga": "^2.3.0",

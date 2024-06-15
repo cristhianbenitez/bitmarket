@@ -39,7 +39,6 @@ export const Coins = () => {
         <Loading type="spin" />
       </CenterDiv>
     );
-
   return (
     <Container>
       <Subtitle>Your overview</Subtitle>
