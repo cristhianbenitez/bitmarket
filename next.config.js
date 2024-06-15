@@ -2,13 +2,11 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/api/:path*', // Match all API routes
+        // matching all API routes
+        source: '/api/:path*',
         headers: [
           { key: 'Access-Control-Allow-Credentials', value: 'true' },
-          {
-            key: 'Access-Control-Allow-Origin',
-            value: 'https://bitmarket.vercel.app'
-          }, // Replace with your app's origin
+          { key: 'Access-Control-Allow-Origin', value: '*' },
           {
             key: 'Access-Control-Allow-Methods',
             value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT'
